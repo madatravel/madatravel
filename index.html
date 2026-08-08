@@ -1484,6 +1484,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--img-pos, center);
   transform: scale(1.06);
   opacity: 0;
   transition:
@@ -1779,6 +1780,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--img-pos, center);
   transition: transform 600ms var(--ease-smooth);
 }
 .about__visual:hover .about__media img { transform: scale(1.02); }
@@ -2279,10 +2281,17 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   aspect-ratio: 4 / 3;
   background-color: var(--surface-section);
 }
-.showcase__media img { width: 100%; height: 100%; object-fit: cover; }
+.showcase__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--img-pos, center);
+  transition: transform 600ms var(--ease-smooth);
+}
+.showcase__media:hover img { transform: scale(1.03); }
 
 /* --- Enter animations (replay on activation) --- */
-.showcase-panel.is-active .showcase__media img { animation: sc-img var(--duration-normal) var(--ease-smooth) both; }
+.showcase-panel.is-active .showcase__media img { animation: sc-img var(--duration-normal) var(--ease-smooth); }
 .showcase-panel.is-active .showcase__title     { animation: sc-up 420ms var(--ease-entrance) both; }
 .showcase-panel.is-active .showcase__desc      { animation: sc-fade 460ms var(--ease-entrance) 60ms both; }
 .showcase-panel.is-active .showcase__features li { animation: sc-up 460ms var(--ease-entrance) both; }
@@ -2423,6 +2432,8 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   .showcase-panel.is-active .showcase__features li,
   .showcase-panel.is-active .showcase__benefits,
   .showcase-panel.is-active .showcase__actions { animation: none; }
+  .showcase__media img { transition: none; }
+  .showcase__media:hover img { transform: none; }
   .services__decor .services__path { animation: none; }
 }
 
@@ -2676,6 +2687,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--img-pos, center);
   transition:
       opacity var(--duration-normal) var(--ease-standard),
       transform var(--duration-slower) var(--ease-smooth);
@@ -4131,11 +4143,11 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
           <!-- Visual: dominant editorial image + floating trust chip -->
           <div class="hero__visual" data-reveal>
             <figure class="hero__media">
-              <!-- Placeholder editorial image — replace with Al Mada's licensed shot -->
               <img
-                src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80"
-                alt="أجواء سفر عالمية — طائرة تحلق فوق الغيوم في ضوء طبيعي"
+                src="https://i.ibb.co/q3NrcZDS/hero.webp"
+                alt="وكالة المدى للسفر والسياحة"
                 width="1200" height="1500"
+                style="--img-pos:center"
                 loading="eager" fetchpriority="high" decoding="async">
             </figure>
             <div class="hero__chip" aria-hidden="true">
@@ -4204,11 +4216,12 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
             </svg>
 
             <figure class="about__media">
-              <!-- Placeholder editorial image — replace with Al Mada's licensed shot -->
               <img
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1100&q=80"
-                alt="استشارة سفر احترافية بين موظف وعميل في بيئة عمل راقية بإضاءة طبيعية"
-                width="1100" height="1375" loading="lazy" decoding="async">
+                src="https://i.ibb.co/V0XkRd5y/about.webp"
+                alt="وكالة المدى للسفر والسياحة"
+                width="1100" height="1375"
+                style="--img-pos:center top"
+                loading="lazy" decoding="async">
             </figure>
 
             <div class="about__badge">
@@ -4389,7 +4402,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               </div>
               <div class="showcase__visual">
                 <figure class="showcase__media">
-                  <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80" alt="طائرة تحلق في أجواء صافية بإضاءة طبيعية" width="1200" height="900" loading="lazy" decoding="async">
+                  <img src="https://i.ibb.co/spnb6VzC/serv1.webp" alt="خدمة حجوزات الطيران من وكالة المدى" width="1200" height="900" style="--img-pos:center" loading="lazy" decoding="async">
                 </figure>
               </div>
             </div>
@@ -4409,7 +4422,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               </div>
               <div class="showcase__visual">
                 <figure class="showcase__media">
-                  <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80" alt="أجواء رحلة بحرية على امتداد الساحل" width="1200" height="900" loading="lazy" decoding="async">
+                  <img src="https://i.ibb.co/NnnWFMBv/serv2.webp" alt="خدمة حجوزات البواخر والرحلات البحرية" width="1200" height="900" style="--img-pos:center" loading="lazy" decoding="async">
                 </figure>
               </div>
             </div>
@@ -4429,7 +4442,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               </div>
               <div class="showcase__visual">
                 <figure class="showcase__media">
-                  <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80" alt="بيئة عمل مكتبية احترافية لإنجاز الإجراءات" width="1200" height="900" loading="lazy" decoding="async">
+                  <img src="https://i.ibb.co/bgBgXfHn/serv3.webp" alt="خدمة إنجاز الموافقات الأمنية للسفر" width="1200" height="900" style="--img-pos:center" loading="lazy" decoding="async">
                 </figure>
               </div>
             </div>
@@ -4449,7 +4462,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               </div>
               <div class="showcase__visual">
                 <figure class="showcase__media">
-                  <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80" alt="استشارة مهنية لإجراءات تأشيرات العمل" width="1200" height="900" loading="lazy" decoding="async">
+                  <img src="https://i.ibb.co/fzn7K4VK/serv4.webp" alt="خدمة إجراءات تأشيرات العمل" width="1200" height="900" style="--img-pos:center top" loading="lazy" decoding="async">
                 </figure>
               </div>
             </div>
@@ -4469,7 +4482,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               </div>
               <div class="showcase__visual">
                 <figure class="showcase__media">
-                  <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80" alt="أجواء سفر وتخطيط لرحلة زيارة" width="1200" height="900" loading="lazy" decoding="async">
+                  <img src="https://i.ibb.co/Mk7XL2c9/serv5.webp" alt="خدمة تأشيرات الزيارة للأفراد والعائلات" width="1200" height="900" style="--img-pos:center" loading="lazy" decoding="async">
                 </figure>
               </div>
             </div>
@@ -4489,7 +4502,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               </div>
               <div class="showcase__visual">
                 <figure class="showcase__media">
-                  <img src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=1200&q=80" alt="أجواء روحية هادئة لرحلة العمرة والحج" width="1200" height="900" loading="lazy" decoding="async">
+                  <img src="https://i.ibb.co/MywFDcry/serv6.webp" alt="خدمة برامج العمرة والحج المتكاملة" width="1200" height="900" style="--img-pos:center" loading="lazy" decoding="async">
                 </figure>
               </div>
             </div>
@@ -4509,7 +4522,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               </div>
               <div class="showcase__visual">
                 <figure class="showcase__media">
-                  <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1200&q=80" alt="مسافر يطمئن أثناء رحلته من نافذة الطائرة" width="1200" height="900" loading="lazy" decoding="async">
+                  <img src="https://i.ibb.co/whZ2chKy/serv7.webp" alt="خدمة التأمين على السفر" width="1200" height="900" style="--img-pos:center" loading="lazy" decoding="async">
                 </figure>
               </div>
             </div>
@@ -4529,7 +4542,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               </div>
               <div class="showcase__visual">
                 <figure class="showcase__media">
-                  <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="اجتماع عمل احترافي في بيئة مؤسسية راقية" width="1200" height="900" loading="lazy" decoding="async">
+                  <img src="https://i.ibb.co/21YPc1qk/serv8.webp" alt="خدمات الأعمال والشركات من وكالة المدى" width="1200" height="900" style="--img-pos:center top" loading="lazy" decoding="async">
                 </figure>
               </div>
             </div>
@@ -5433,8 +5446,8 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
       id: "consult", num: "01", title: "استشارة", icon: "ic-consult",
       desc: "نبدأ رحلتك بجلسة استشارية نستمع فيها إلى احتياجاتك وأهدافك من السفر. يقدّم فريقنا إرشادًا واضحًا حول الخيارات المتاحة والمتطلبات الرسمية، ويجيب عن جميع استفساراتك بشفافية. هدفنا في هذه المرحلة أن نفهم تمامًا ما تحتاجه، لنبني عليه خطة خدمة دقيقة تناسب وضعك وميزانيتك، وتنطلق بك نحو تجربة سفر واضحة منذ الخطوة الأولى.",
       points: ["فهم احتياجاتك", "إرشاد واضح", "خيارات مناسبة"],
-      img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
-      alt: "عميل في جلسة استشارة مع مستشار سفر"
+      img: "https://i.ibb.co/qY9S31CN/hww1.webp",
+      alt: "جلسة استشارة سفر مع فريق وكالة المدى"
     },
     {
       id: "choose", num: "02", title: "اختيار الخدمة", icon: "ic-choose",
