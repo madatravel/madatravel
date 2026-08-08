@@ -1565,15 +1565,15 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 /* ===== about.css ===== */
 /* ==========================================================================
-   AL MADA TRAVEL & TOURISM — ABOUT SECTION (Brand Story)
-   Stage 06 · Two-column editorial trust builder. Introduces the reusable
-   .card component (tokens only). Comes immediately after the Hero.
-   Requires: tokens.css + global.css + shell.css + nav.css + hero.css.
-   No tokens redefined; reuses the shared [data-reveal] motion hook.
+   AL MADA TRAVEL & TOURISM — ABOUT SECTION (v2 · interactive brand story)
+   Stage 06.2 · Asymmetric editorial: content (right) + dominant interactive
+   visual (left). Reuses tokens, buttons, icons, and [data-reveal].
+   NOTE: .card and .about__check are SHARED components used by other sections
+   (services/how/values/contact) — keep them intact.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   0 · CARD COMPONENT  (shared — first defined here, reused site-wide)
+   SHARED — Card component (first defined here, reused site-wide)
    -------------------------------------------------------------------------- */
 .card {
   background-color: var(--surface-primary);
@@ -1583,25 +1583,43 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   padding: var(--space-24);
 }
 
+/* SHARED — check badge (reused in services/how) */
+.about__check {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  inline-size: var(--space-32);
+  block-size: var(--space-32);
+  color: var(--color-primary);
+  background-color: var(--color-primary-subtle);
+  border-radius: var(--radius-round);
+}
+.about__check svg { inline-size: 18px; block-size: 18px; }
+
 
 /* --------------------------------------------------------------------------
-   1 · LAYOUT  (RTL: content leads on the right · visual trails on the left)
+   1 · LAYOUT  (asymmetric · content right, dominant visual left · RTL)
    -------------------------------------------------------------------------- */
-/* Clip decorative bleed so negative-inset graphics never cause page scroll */
-.about { overflow: clip; }
-
+.about { position: relative; overflow: clip; }
 .about__inner {
+  position: relative;
+  z-index: var(--z-raised);
   display: grid;
-  grid-template-columns: 1.02fr 1fr;
-  align-items: center;
-  gap: clamp(var(--space-48), 6vw, var(--space-120));
+  grid-template-columns: 0.85fr 1.15fr;   /* content | visual (visual dominant) */
+  grid-template-areas:
+    "content    visual"
+    "highlights visual"
+    "cta        visual";
+  align-items: start;
+  column-gap: clamp(var(--space-48), 6vw, var(--space-120));
+  row-gap: var(--space-32);
 }
 
 
 /* --------------------------------------------------------------------------
-   2 · CONTENT  (label · heading · story · highlights) — staggered reveal
+   2 · CONTENT  (label · heading · story) — fade-up
    -------------------------------------------------------------------------- */
-.about__content { max-width: 42rem; }
+.about__content { grid-area: content; max-width: 34rem; }
 .about__content[data-reveal] { opacity: 1; transform: none; transition: none; }
 .about__content > * {
   opacity: 0;
@@ -1612,9 +1630,8 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 }
 .about__content.is-inview > * { opacity: 1; transform: none; }
 .about__content.is-inview > *:nth-child(1) { transition-delay: 0.05s; }
-.about__content.is-inview > *:nth-child(2) { transition-delay: 0.15s; }
-.about__content.is-inview > *:nth-child(3) { transition-delay: 0.25s; }
-.about__content.is-inview > *:nth-child(4) { transition-delay: 0.35s; }
+.about__content.is-inview > *:nth-child(2) { transition-delay: 0.14s; }
+.about__content.is-inview > *:nth-child(3) { transition-delay: 0.23s; }
 
 .about__eyebrow {
   display: inline-flex;
@@ -1632,38 +1649,179 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   border-radius: var(--radius-pill);
   background-color: var(--color-accent);
 }
-
 .about__title {
   font-size: var(--font-size-h2);
   color: var(--text-primary);
   margin-block-end: var(--space-24);
 }
-
 .about__story {
-  max-width: var(--measure);
+  max-width: 34rem;
   font-size: var(--font-size-body-lg);
   color: var(--text-secondary);
-  margin-block-end: var(--space-32);
 }
 
-/* Key highlights list */
+
+/* --------------------------------------------------------------------------
+   3 · KEY HIGHLIGHTS  (refined vertical list — not cards) · sequential reveal
+   -------------------------------------------------------------------------- */
 .about__highlights {
+  grid-area: highlights;
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  gap: var(--space-16);
+  gap: var(--space-4);
+  max-width: 34rem;
 }
-.about__highlights li {
+.about__highlights[data-reveal] { opacity: 1; transform: none; transition: none; }
+
+.about__hl {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: var(--space-12);
+  gap: var(--space-16);
   margin: 0;
-  color: var(--text-primary);
+  padding: var(--space-12) var(--space-8);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
   font-weight: var(--font-weight-medium);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+      opacity var(--duration-slow) var(--ease-entrance),
+      transform var(--duration-slow) var(--ease-entrance),
+      color var(--duration-normal) var(--ease-smooth),
+      background-color var(--duration-normal) var(--ease-smooth);
 }
-.about__check {
-  flex: 0 0 auto;
+.about__highlights.is-inview .about__hl { opacity: 1; transform: none; }
+.about__highlights.is-inview .about__hl:nth-child(1) { transition-delay: 0.10s; }
+.about__highlights.is-inview .about__hl:nth-child(2) { transition-delay: 0.18s; }
+.about__highlights.is-inview .about__hl:nth-child(3) { transition-delay: 0.26s; }
+.about__highlights.is-inview .about__hl:nth-child(4) { transition-delay: 0.34s; }
+
+/* Thin horizontal indicator (grows on hover/focus) */
+.about__hl::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: var(--space-8);
+  inline-size: 0;
+  block-size: var(--border-width-thick);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
+  transition: inline-size var(--duration-normal) var(--ease-smooth);
+}
+.about__hl:hover,
+.about__hl:focus-within { color: var(--text-primary); background-color: var(--surface-primary); }
+.about__hl:hover::after,
+.about__hl:focus-within::after { inline-size: calc(var(--space-40) + var(--space-4)); }
+
+/* Icon gets a stronger brand-blue accent on hover */
+.about__hl .about__check {
+  transition:
+      background-color var(--duration-normal) var(--ease-smooth),
+      color var(--duration-normal) var(--ease-smooth);
+}
+.about__hl:hover .about__check,
+.about__hl:focus-within .about__check {
+  background-color: var(--color-primary);
+  color: var(--text-on-primary);
+}
+
+
+/* --------------------------------------------------------------------------
+   4 · PROFILE DOWNLOAD CTA
+   -------------------------------------------------------------------------- */
+.about__cta { grid-area: cta; }
+.about__cta[data-reveal] { transition-delay: 0.12s; }
+.about__profile-icon {
+  inline-size: 18px;
+  block-size: 18px;
+  transition: transform var(--duration-normal) var(--ease-smooth);
+}
+.about__profile:hover .about__profile-icon,
+.about__profile:focus-visible .about__profile-icon { transform: translateY(3px); }
+
+
+/* --------------------------------------------------------------------------
+   5 · INTERACTIVE VISUAL  (dominant image + geometry + floating badge)
+   Pointer parallax vars (--mx/--my) and highlight nudge (--hl) are set by
+   scripts/about.js; all decorative layers stay secondary to the photo.
+   -------------------------------------------------------------------------- */
+.about__visual {
+  grid-area: visual;
+  position: relative;
+  align-self: center;
+  --mx: 0; --my: 0; --hl: 0px;
+}
+.about__visual[data-reveal] {
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+      opacity var(--duration-slower) var(--ease-entrance),
+      transform var(--duration-slower) var(--ease-entrance);
+}
+.about__visual[data-reveal].is-inview { opacity: 1; transform: none; }
+
+.about__media {
+  position: relative;
+  z-index: var(--z-raised);
+  margin: 0;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 4 / 5;
+  background-color: var(--surface-section);
+  transform: translate3d(calc(var(--mx) * 8px + var(--hl)), calc(var(--my) * 8px), 0);
+  transition: transform 450ms var(--ease-smooth);
+}
+.about__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms var(--ease-smooth);
+}
+.about__visual:hover .about__media img { transform: scale(1.02); }
+
+/* Decorative geometry — parallax at a different (larger) speed */
+.about__decor {
+  position: absolute;
+  z-index: var(--z-base);
+  inset-block-start: -6%;
+  inset-inline-end: -8%;
+  inline-size: min(42vw, 460px);
+  color: var(--color-accent-soft);
+  pointer-events: none;
+  transform: translate3d(calc(var(--mx) * 15px), calc(var(--my) * 15px), 0);
+  transition: transform 550ms var(--ease-smooth);
+}
+.about__decor .about__path { stroke-dasharray: 4 8; animation: about-dash 22s linear infinite; }
+@keyframes about-dash { to { stroke-dashoffset: -240; } }
+
+/* Floating editorial badge (light glass — kept secondary) */
+.about__badge {
+  position: absolute;
+  z-index: var(--z-overlay);
+  inset-block-start: var(--space-24);
+  inset-inline-start: calc(var(--space-20) * -1);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-20);
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-floating);
+  opacity: 0;
+  transform: translate3d(calc(var(--mx) * -10px), calc(var(--my) * -10px), 0);
+  transition:
+      opacity var(--duration-slow) var(--ease-entrance) 0.35s,
+      transform 550ms var(--ease-smooth);
+}
+.about__visual.is-inview .about__badge { opacity: 1; }
+.about__badge-icon {
   display: inline-grid;
   place-items: center;
   inline-size: var(--space-32);
@@ -1672,129 +1830,45 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   background-color: var(--color-primary-subtle);
   border-radius: var(--radius-round);
 }
-.about__check svg { inline-size: 18px; block-size: 18px; }
+.about__badge-icon svg { inline-size: 18px; block-size: 18px; }
+.about__badge-text { font-size: var(--font-size-small); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
 
 
 /* --------------------------------------------------------------------------
-   3 · VISUAL  (editorial image + floating stat cards + brand graphics)
+   6 · RESPONSIVE
+   Mobile order: من نحن · headline · story · download CTA · visual · highlights
    -------------------------------------------------------------------------- */
-.about__visual { position: relative; }
-
-.about__media {
-  position: relative;
-  z-index: var(--z-raised);
-  margin: 0;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  aspect-ratio: 5 / 4;
-  background-color: var(--surface-section);
+@media (max-width: 900px) {
+  .about__inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "cta"
+      "visual"
+      "highlights";
+    row-gap: var(--space-40);
+  }
+  .about__media { aspect-ratio: 16 / 11; }
+  .about__decor { inline-size: min(52vw, 320px); }
 }
-.about__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.06);
-  transition: transform var(--duration-slower) var(--ease-smooth);
-}
-.about__media.is-inview img { transform: scale(1); }
-
-/* Floating statistics cluster (2×2) — overlaps the image bottom */
-.about__stats {
-  position: relative;
-  z-index: var(--z-overlay);
-  margin-block-start: calc(var(--space-40) * -1);
-  margin-inline: var(--space-24);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-16);
-}
-.about__stats[data-reveal] { opacity: 1; transform: none; transition: none; }
-.about__stat {
-  display: flex;
-  align-items: center;
-  gap: var(--space-12);
-  padding: var(--space-16) var(--space-20);
-  box-shadow: var(--shadow-floating);
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-      opacity var(--duration-slow) var(--ease-entrance),
-      transform var(--duration-slow) var(--ease-entrance);
-}
-.about__stats.is-inview .about__stat { opacity: 1; transform: none; }
-.about__stats.is-inview .about__stat:nth-child(1) { transition-delay: 0.10s; }
-.about__stats.is-inview .about__stat:nth-child(2) { transition-delay: 0.20s; }
-.about__stats.is-inview .about__stat:nth-child(3) { transition-delay: 0.30s; }
-.about__stats.is-inview .about__stat:nth-child(4) { transition-delay: 0.40s; }
-
-.about__stat-icon {
-  flex: 0 0 auto;
-  display: inline-grid;
-  place-items: center;
-  inline-size: var(--space-40);
-  block-size: var(--space-40);
-  color: var(--color-primary);
-  background-color: var(--color-primary-subtle);
-  border-radius: var(--radius-md);
-}
-.about__stat-icon svg { inline-size: 20px; block-size: 20px; }
-.about__stat-label {
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
-  line-height: var(--leading-snug);
-}
-
-/* Brand graphic accents (thin flight path + soft ring) */
-.about__decor {
-  position: absolute;
-  z-index: var(--z-base);
-  inset-block-start: -8%;
-  inset-inline-start: -10%;
-  inline-size: min(34vw, 420px);
-  color: var(--color-accent-soft);
-  opacity: 0.85;
-  pointer-events: none;
-}
-.about__decor .about__ring { transform-origin: center; animation: about-float 11s var(--ease-in-out) infinite; }
-.about__decor .about__path { stroke-dasharray: 4 8; animation: about-dash 20s linear infinite; }
-
-@keyframes about-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-@keyframes about-dash  { to { stroke-dashoffset: -220; } }
-
-
-/* --------------------------------------------------------------------------
-   4 · RESPONSIVE  (Desktop-first → 1200 · 768 · 480)
-   -------------------------------------------------------------------------- */
-@media (max-width: 1200px) {
-  .about__inner { gap: var(--space-64); }
-}
-
-/* Tablet & below — stack; text first, image follows */
-@media (max-width: 768px) {
-  .about__inner { grid-template-columns: 1fr; gap: var(--space-64); }
-  .about__content { max-width: 46rem; }
-  .about__media { aspect-ratio: 16 / 10; }
-  .about__stats { margin-inline: var(--space-16); }
-  .about__decor { inline-size: min(48vw, 300px); }
-}
-
-/* Mobile — statistics remain a clean 2×2 grid */
 @media (max-width: 480px) {
-  .about__stats { margin-block-start: calc(var(--space-24) * -1); gap: var(--space-12); }
-  .about__stat { padding: var(--space-16); }
+  .about__profile { width: 100%; }
+  .about__media { aspect-ratio: 4 / 3; }
 }
 
 
 /* --------------------------------------------------------------------------
-   5 · REDUCED MOTION
+   7 · REDUCED MOTION — opacity only; no parallax / scale
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   .about__content > *,
-  .about__stats .about__stat { opacity: 1; transform: none; transition: none; }
+  .about__highlights .about__hl { opacity: 1; transform: none; transition: none; }
+  .about__visual[data-reveal] { opacity: 1; transform: none; transition: none; }
+  .about__media,
+  .about__decor,
+  .about__badge { transform: none !important; transition: none; }
   .about__media img { transform: none; }
-  .about__decor .about__ring,
+  .about__visual:hover .about__media img { transform: none; }
   .about__decor .about__path { animation: none; }
 }
 
@@ -4084,6 +4158,9 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
             <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round" stroke-linejoin="round"/>
           </symbol>
+          <symbol id="ic-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/>
+          </symbol>
         </svg>
 
         <div class="about__inner container container--wide">
@@ -4097,50 +4174,47 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               نقدم حلول سفر متكاملة تشمل الحجوزات، التأشيرات، والموافقات الأمنية، مع التزام كامل
               بالجودة والدقة ورضا العملاء.
             </p>
-            <ul class="about__highlights">
-              <li><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span>خدمات سفر متكاملة</li>
-              <li><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span>إجراءات موثوقة وسريعة</li>
-              <li><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span>فريق متخصص لخدمة العملاء</li>
-              <li><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span>تجربة احترافية من البداية حتى الوصول</li>
-            </ul>
           </div>
 
-          <!-- Visual: image + floating stat cards + brand graphics -->
-          <div class="about__visual">
+          <!-- Key highlights — refined vertical list -->
+          <ul class="about__highlights" data-reveal>
+            <li class="about__hl" data-about-hl><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="about__hl-text">خدمات سفر متكاملة</span></li>
+            <li class="about__hl" data-about-hl><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="about__hl-text">إجراءات موثوقة وسريعة</span></li>
+            <li class="about__hl" data-about-hl><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="about__hl-text">فريق متخصص لخدمة العملاء</span></li>
+            <li class="about__hl" data-about-hl><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="about__hl-text">تجربة احترافية من البداية حتى الوصول</span></li>
+          </ul>
 
-            <svg class="about__decor" viewBox="0 0 420 420" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-              <circle class="about__ring" cx="130" cy="150" r="118" stroke="currentColor" stroke-width="1.5" opacity="0.40"/>
-              <circle cx="130" cy="150" r="74" stroke="currentColor" stroke-width="1" opacity="0.28"/>
-              <path class="about__path" d="M20 360 C 140 260, 260 260, 400 90" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" opacity="0.50"/>
+          <!-- Profile download CTA -->
+          <div class="about__cta" data-reveal>
+            <a class="btn btn--outline about__profile"
+               href="https://drive.google.com/file/d/1i4ZiHLkQjR9B3DItCy_bMwcnuv4k0G6j/view?usp=drive_link"
+               target="_blank" rel="noopener noreferrer">
+              تحميل بروفايل الوكالة
+              <svg class="about__profile-icon" aria-hidden="true"><use href="#ic-download"/></svg>
+            </a>
+          </div>
+
+          <!-- Interactive visual (dominant) -->
+          <div class="about__visual" data-reveal data-about-visual>
+            <svg class="about__decor" viewBox="0 0 460 520" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="120" cy="140" r="118" stroke="currentColor" stroke-width="1.5" opacity="0.40"/>
+              <circle cx="120" cy="140" r="74" stroke="currentColor" stroke-width="1" opacity="0.28"/>
+              <path class="about__path" d="M20 470 C 150 360, 300 360, 440 150" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+              <circle cx="440" cy="150" r="4" fill="var(--color-accent)"/>
             </svg>
 
-            <figure class="about__media" data-reveal>
+            <figure class="about__media">
               <!-- Placeholder editorial image — replace with Al Mada's licensed shot -->
               <img
                 src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1100&q=80"
-                alt="استشارة سفر احترافية في بيئة عمل راقية بإضاءة طبيعية"
-                width="1100" height="880" loading="lazy" decoding="async">
+                alt="استشارة سفر احترافية بين موظف وعميل في بيئة عمل راقية بإضاءة طبيعية"
+                width="1100" height="1375" loading="lazy" decoding="async">
             </figure>
 
-            <div class="about__stats" data-reveal>
-              <div class="card about__stat">
-                <span class="about__stat-icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span>
-                <span class="about__stat-label">خدمات متكاملة</span>
-              </div>
-              <div class="card about__stat">
-                <span class="about__stat-icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span>
-                <span class="about__stat-label">حلول سفر موثوقة</span>
-              </div>
-              <div class="card about__stat">
-                <span class="about__stat-icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span>
-                <span class="about__stat-label">دعم مستمر</span>
-              </div>
-              <div class="card about__stat">
-                <span class="about__stat-icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span>
-                <span class="about__stat-label">خدمة احترافية</span>
-              </div>
+            <div class="about__badge">
+              <span class="about__badge-icon"><svg aria-hidden="true"><use href="#ic-partner"/></svg></span>
+              <span class="about__badge-text">خبرة تبدأ من احتياجك</span>
             </div>
-
           </div>
 
         </div>
@@ -5483,6 +5557,58 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
     });
 
     activate(0, false);
+  }
+
+  if (doc.readyState === "loading") doc.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+
+
+/* ===== about.js ===== */
+/* ==========================================================================
+   AL MADA TRAVEL & TOURISM — ABOUT interactive visual (v2)
+   Stage 06.2 · Very restrained pointer parallax + subtle image nudge on
+   highlight hover. Sets CSS vars (--mx/--my/--hl); CSS does the transforms.
+   Respects prefers-reduced-motion. Vanilla JS, load with `defer`.
+   ========================================================================== */
+(function () {
+  "use strict";
+  var doc = document;
+
+  function init() {
+    var visual = doc.querySelector("[data-about-visual]");
+    if (!visual) return;
+
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* Pointer parallax — max ±1 (CSS scales to a few px) */
+    if (!reduce && window.matchMedia("(pointer:fine)").matches) {
+      var mx = 0, my = 0, raf = null;
+      var apply = function () {
+        visual.style.setProperty("--mx", mx.toFixed(3));
+        visual.style.setProperty("--my", my.toFixed(3));
+        raf = null;
+      };
+      visual.addEventListener("pointermove", function (e) {
+        var r = visual.getBoundingClientRect();
+        mx = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1 … 1
+        my = ((e.clientY - r.top) / r.height - 0.5) * 2;
+        if (!raf) raf = window.requestAnimationFrame(apply);
+      });
+      visual.addEventListener("pointerleave", function () {
+        mx = 0; my = 0;
+        if (!raf) raf = window.requestAnimationFrame(apply);
+      });
+    }
+
+    /* Subtle image nudge when a highlight is hovered/focused */
+    var setNudge = function (v) { if (!reduce) visual.style.setProperty("--hl", v); };
+    doc.querySelectorAll("[data-about-hl]").forEach(function (hl) {
+      hl.addEventListener("mouseenter", function () { setNudge("6px"); });
+      hl.addEventListener("mouseleave", function () { setNudge("0px"); });
+      hl.addEventListener("focusin", function () { setNudge("6px"); });
+      hl.addEventListener("focusout", function () { setNudge("0px"); });
+    });
   }
 
   if (doc.readyState === "loading") doc.addEventListener("DOMContentLoaded", init);
