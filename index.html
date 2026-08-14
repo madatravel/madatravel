@@ -5,10 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#FFFFFF">
 
-  <title>وكالة المدى للسياحة والسفر — Al Mada Travel &amp; Tourism</title>
-  <meta name="description" content="وكالة المدى للسياحة والسفر — حلول سفر متكاملة تشمل حجوزات الطيران والتأشيرات والعمرة والحج والخدمات المساندة، بخدمة احترافية وإجراءات واضحة في الرياض.">
+  <!-- Resource hints: image host + hero LCP preload (start the fetch during head parse) -->
+  <link rel="preconnect" href="https://i.ibb.co">
+  <link rel="preload" as="image" href="https://i.ibb.co/jvTw7vk0/hero.webp" fetchpriority="high">
+
+  <title>وكالة المـدى للسفر والسياحة — Al Mada Travel &amp; Tourism</title>
+  <meta name="description" content="وكالة المـدى للسفر والسياحة — حلول سفر متكاملة تشمل حجوزات الطيران والتأشيرات والعمرة والحج والخدمات المساندة، بخدمة احترافية وإجراءات واضحة في الرياض.">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="author" content="وكالة المدى للسياحة والسفر">
+  <meta name="author" content="وكالة المـدى للسفر والسياحة">
 
   <!-- Canonical (replace with the deployed domain) -->
   <link rel="canonical" href="https://almadatravel.com/">
@@ -20,24 +24,30 @@
 
   <!-- Open Graph (replace og:url with the deployed domain) -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="وكالة المدى للسياحة والسفر">
-  <meta property="og:title" content="وكالة المدى للسياحة والسفر — رحلتك تبدأ بثقة">
+  <meta property="og:site_name" content="وكالة المـدى للسفر والسياحة">
+  <meta property="og:title" content="وكالة المـدى للسفر والسياحة — رحلتك تبدأ بثقة">
   <meta property="og:description" content="حلول سفر متكاملة: حجوزات الطيران، التأشيرات، العمرة والحج، والخدمات المساندة — بخدمة احترافية وإجراءات واضحة.">
-  <meta property="og:locale" content="ar_AR">
+  <meta property="og:locale" content="ar_SA">
   <meta property="og:url" content="https://almadatravel.com/">
   <meta property="og:image" content="https://i.ibb.co/WNpF4ZFd/logo-icon-01.png">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="وكالة المدى للسياحة والسفر — رحلتك تبدأ بثقة">
+  <meta name="twitter:title" content="وكالة المـدى للسفر والسياحة — رحلتك تبدأ بثقة">
   <meta name="twitter:description" content="حلول سفر متكاملة بخدمة احترافية وإجراءات واضحة.">
   <meta name="twitter:image" content="https://i.ibb.co/WNpF4ZFd/logo-icon-01.png">
 
   <!-- ================= FONTS · Cairo (Google Fonts) ================= -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap">
+  <!-- Load the font stylesheet without blocking render; display=swap paints text immediately -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap">
+  </noscript>
 
   <!-- ================= STYLES (order matters) ================= -->
 
@@ -46,10 +56,14 @@
     <style>
       [data-reveal],
       .hero__content > *, .about__content > *, .why__header > *, .services__header > *,
-      .why__grid .feature-card, .about__stats .about__stat, .services__trust .trust-card {
+      .why__values .why__card,
+      .about__stats .about__stat, .services__trust .trust-card,
+      .about__features .about__feature,
+      .hero__chip, .hero__scroll {
         opacity: 1 !important;
         transform: none !important;
       }
+      .hero__scroll { transform: translateX(-50%) !important; }
     </style>
   </noscript>
 
@@ -58,7 +72,7 @@
   {
     "@context": "https://schema.org",
     "@type": "TravelAgency",
-    "name": "وكالة المدى للسياحة والسفر",
+    "name": "وكالة المـدى للسفر والسياحة",
     "image": "https://i.ibb.co/WNpF4ZFd/logo-icon-01.png",
     "url": "https://almadatravel.com/",
     "telephone": "+966580790186",
@@ -796,16 +810,27 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   background-color: transparent;
   border-block-end: var(--border-width-hairline) solid transparent;
   transition:
-      background-color var(--duration-normal) var(--ease-standard),
-      border-color var(--duration-normal) var(--ease-standard),
-      box-shadow var(--duration-normal) var(--ease-standard);
+      background-color var(--duration-normal) var(--ease-smooth),
+      backdrop-filter var(--duration-normal) var(--ease-smooth),
+      border-color var(--duration-normal) var(--ease-smooth),
+      box-shadow var(--duration-normal) var(--ease-smooth),
+      min-height var(--duration-normal) var(--ease-smooth);
 }
 
-/* Solid state — toggled by shell.js once the page is scrolled */
+/* Settled state — refined translucent floating bar (toggled by shell.js).
+   Tasteful backdrop blur, hairline border, extremely soft shadow, and a
+   slightly reduced height so the bar "settles into place" almost invisibly. */
 .site-header.is-scrolled {
-  background-color: var(--surface-primary);
+  background-color: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: saturate(150%) blur(16px);
+  backdrop-filter: saturate(150%) blur(16px);
   border-block-end-color: var(--color-border);
   box-shadow: var(--shadow-sm);
+  min-height: calc(var(--header-height) - clamp(4px, 1.2vw, 12px));
+}
+/* Graceful fallback where backdrop-filter is unsupported */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .site-header.is-scrolled { background-color: rgba(255, 255, 255, 0.96); }
 }
 
 .site-header__inner {
@@ -815,6 +840,10 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   gap: var(--space-24);
   width: 100%;
   min-height: var(--header-height);
+  transition: min-height var(--duration-normal) var(--ease-smooth);
+}
+.site-header.is-scrolled .site-header__inner {
+  min-height: calc(var(--header-height) - clamp(4px, 1.2vw, 12px));
 }
 
 /* Logo slot (left) — image/mark added in a later stage */
@@ -1241,8 +1270,9 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
    -------------------------------------------------------------------------- */
 .mobile-nav {
   gap: var(--space-8);
+  padding-block-start: clamp(var(--space-24), 6vw, var(--space-48));
   opacity: 0;
-  transform: translateY(calc(var(--space-8) * -1));
+  transform: translateY(calc(var(--space-12) * -1));
   transition: opacity var(--duration-normal) var(--ease-smooth),
               transform var(--duration-normal) var(--ease-smooth);
 }
@@ -1259,42 +1289,117 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   padding: 0;
 }
 .mobile-nav__link {
-  display: block;
-  padding: var(--space-16) var(--space-4);
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-target-min);
+  padding: clamp(var(--space-16), 2.4vw, var(--space-24)) var(--space-8);
   font-size: var(--font-size-h4);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
   border-block-end: var(--border-divider);
-  transition: color var(--duration-fast) var(--ease-standard);
+  transition: color var(--duration-fast) var(--ease-standard),
+              padding-inline-start var(--duration-normal) var(--ease-smooth);
+}
+/* Leading brand-accent tick that grows in on hover / active — the same
+   minimal indicator language as the desktop nav. */
+.mobile-nav__link::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block: 50%;
+  inline-size: var(--border-width-thick);
+  block-size: 0;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-primary);
+  transform: translateY(-50%);
+  transition: block-size var(--duration-normal) var(--ease-smooth);
 }
 .mobile-nav__link:hover,
-.mobile-nav__link.is-active { color: var(--color-primary); }
+.mobile-nav__link.is-active { color: var(--color-primary); padding-inline-start: var(--space-16); }
+.mobile-nav__link:hover::before,
+.mobile-nav__link.is-active::before { block-size: 60%; }
+
+/* Staggered entrance for drawer items (mirrors the hero reveal cadence) */
+.mobile-nav__list > li {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--duration-normal) var(--ease-entrance),
+              transform var(--duration-normal) var(--ease-entrance);
+}
+.mobile-nav.is-open .mobile-nav__list > li { opacity: 1; transform: none; }
+.mobile-nav.is-open .mobile-nav__list > li:nth-child(1) { transition-delay: 0.05s; }
+.mobile-nav.is-open .mobile-nav__list > li:nth-child(2) { transition-delay: 0.10s; }
+.mobile-nav.is-open .mobile-nav__list > li:nth-child(3) { transition-delay: 0.15s; }
+.mobile-nav.is-open .mobile-nav__list > li:nth-child(4) { transition-delay: 0.20s; }
+.mobile-nav.is-open .mobile-nav__list > li:nth-child(5) { transition-delay: 0.25s; }
+.mobile-nav.is-open .mobile-nav__list > li:nth-child(6) { transition-delay: 0.30s; }
 
 .mobile-nav__cta {
-  margin-block-start: var(--space-32);
+  margin-block-start: clamp(var(--space-32), 5vw, var(--space-48));
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--duration-normal) var(--ease-entrance) 0.34s,
+              transform var(--duration-normal) var(--ease-entrance) 0.34s;
 }
+.mobile-nav.is-open .mobile-nav__cta { opacity: 1; transform: none; }
 
 
 /* --------------------------------------------------------------------------
-   6 · OPTIONAL: light header over a dark hero (hook for later stages)
+   6 · LIGHT HEADER over the immersive hero (active while transparent)
+   Nav, CTA and trigger switch to light ink; a soft glow keeps them legible
+   over photography without recolouring the approved logo.
    -------------------------------------------------------------------------- */
-.site-header--on-dark:not(.is-scrolled) .site-nav__link { color: var(--text-on-inverse); }
+.site-header--on-dark:not(.is-scrolled) .site-nav__link {
+  color: var(--text-on-inverse);
+  text-shadow: 0 1px 12px rgba(6, 21, 43, 0.45); /* legible over bright imagery */
+}
 .site-header--on-dark:not(.is-scrolled) .site-nav__link:hover,
 .site-header--on-dark:not(.is-scrolled) .site-nav__link.is-active { color: var(--white); }
-.site-header--on-dark:not(.is-scrolled) .site-header__menu-trigger { color: var(--white); }
+/* Indicator line reads white over the photo (brand blue is reserved for the
+   settled state on white). */
+.site-header--on-dark:not(.is-scrolled) .site-nav__link.is-active::after { background-color: var(--white); }
+.site-header--on-dark:not(.is-scrolled) .site-header__menu-trigger {
+  color: var(--white);
+  filter: drop-shadow(0 1px 6px rgba(6, 21, 43, 0.5));
+}
+.site-header--on-dark:not(.is-scrolled) .site-header__menu-trigger:hover { background-color: rgba(255, 255, 255, 0.16); }
+/* A gentle drop-shadow lifts the logo off the imagery whatever its colour —
+   no recolour, no distortion, proportions untouched. */
+.site-header--on-dark:not(.is-scrolled) .site-logo {
+  filter: drop-shadow(0 1px 8px rgba(6, 21, 43, 0.45));
+}
+/* Header CTA gains a translucent glass treatment over the photo so it stays
+   premium and legible; reverts to the standard solid button once settled. */
+.site-header--on-dark:not(.is-scrolled) .site-header__cta {
+  background-color: rgba(255, 255, 255, 0.14);
+  color: var(--white);
+  box-shadow: inset 0 0 0 var(--border-width-thin) rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.site-header--on-dark:not(.is-scrolled) .site-header__cta:hover {
+  background-color: rgba(255, 255, 255, 0.24);
+  box-shadow: inset 0 0 0 var(--border-width-thin) var(--white);
+  transform: translateY(-1px);
+}
 
 
 /* --------------------------------------------------------------------------
    7 · RESPONSIVE  (inherits shell breakpoints: 1200 · 768 · 480)
    Desktop: full nav · Tablet: tighter nav · Mobile: drawer
    -------------------------------------------------------------------------- */
+/* Laptop — tighten the eight-item index so it stays on one row */
 @media (max-width: 1200px) {
-  .site-nav__link { padding-inline: var(--space-12); }
+  .site-nav__list { gap: 0; }
+  .site-nav__link { padding-inline: var(--space-8); }
+  .site-header__inner { gap: var(--space-16); }
 }
 
-/* Tablet & below — hide the desktop nav + CTA, show the mobile trigger.
-   (Declared here so it reliably overrides the .btn display on the CTA.) */
-@media (max-width: 768px) {
+/* Below ~1024 the full eight-item index no longer fits — collapse to the drawer
+   (same order + labels), so header and menu stay one navigation system.
+   Declared here so it reliably overrides the .btn display on the CTA. */
+@media (max-width: 1024px) {
   .site-nav { display: none; }
   .site-header__cta { display: none; }
   .site-header__menu-trigger { display: inline-flex; }
@@ -1312,6 +1417,8 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 @media (prefers-reduced-motion: reduce) {
   .mobile-nav { transition: opacity var(--duration-fast) var(--ease-standard); transform: none; }
   .mobile-nav.is-open { transform: none; }
+  .mobile-nav__list > li,
+  .mobile-nav__cta { opacity: 1 !important; transform: none !important; transition: none; }
   .btn--primary:hover { transform: none; }
 }
 
@@ -1342,90 +1449,145 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 
 /* --------------------------------------------------------------------------
-   1 · HERO SHELL  (full-width · tall · clears the fixed header)
+   1 · HERO SHELL  (immersive full-bleed · cinematic · clears fixed header)
+   The existing photograph becomes the dominant, edge-to-edge canvas; content
+   is composed over it. Height hints that more lies below (≈92vh, capped).
    -------------------------------------------------------------------------- */
 .hero {
   position: relative;
+  isolation: isolate;                 /* own stacking context for the scrim  */
   overflow: clip;
-  background-color: var(--surface-primary);
+  display: flex;
+  align-items: stretch;
+  min-block-size: clamp(560px, 92vh, 1000px);
+  background-color: var(--brand-navy); /* graceful base behind the photo      */
 }
-/* Soft brand glow pooled behind the visual (replaces the old crossing lines) */
-.hero::before {
-  content: "";
+
+/* Full-bleed backdrop layer (photo + fixed scrim). Only the photo parallaxes. */
+.hero__backdrop {
   position: absolute;
-  z-index: var(--z-base);
-  inset-block-start: -14%;
-  inset-inline-end: -8%;
-  inline-size: min(48vw, 640px);
-  block-size: min(48vw, 640px);
-  border-radius: var(--radius-round);
-  background: radial-gradient(circle at 50% 50%, var(--color-primary-subtle), transparent 62%);
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero__media {
+  position: absolute;
+  inset-block: -10%;                  /* oversized so parallax never gaps     */
+  inset-inline: 0;
+  margin: 0;
+  transform: translate3d(0, var(--hero-bg, 0px), 0);
+  will-change: transform;
+}
+.hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--img-pos, 50% 32%);
+  background-color: var(--surface-section);
+}
+/* Cinematic, restrained load-in of the photograph (JS adds .is-ready) */
+.hero.is-ready .hero__img { animation: hero-img-in var(--duration-slower) var(--ease-smooth) both; }
+@keyframes hero-img-in {
+  from { opacity: 0; transform: scale(1.12); }
+  to   { opacity: 1; transform: scale(1.02); }
+}
+
+/* Restrained, brand-tinted gradient scrim — never a flat black wash.
+   Directional (content side) + soft top band (header) + soft base (chips). */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
+  background:
+    linear-gradient(to left,
+        rgba(6, 21, 43, 0.78) 0%,
+        rgba(6, 21, 43, 0.50) 34%,
+        rgba(6, 21, 43, 0.14) 66%,
+        rgba(6, 21, 43, 0) 100%),
+    linear-gradient(to bottom,
+        rgba(6, 21, 43, 0.42) 0%,
+        rgba(6, 21, 43, 0) 24%,
+        rgba(6, 21, 43, 0) 60%,
+        rgba(6, 21, 43, 0.34) 100%);
 }
 
 .hero__inner {
   position: relative;
-  z-index: var(--z-raised);
-  min-block-size: min(92vh, 920px);
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  z-index: 2;
+  width: 100%;
+  display: flex;
   align-items: center;
-  gap: clamp(var(--space-40), 5vw, var(--space-96));
   padding-block:
-      calc(var(--header-height) + clamp(var(--space-32), 5vw, var(--space-64)))
-      clamp(var(--space-48), 6vw, var(--space-96));
+      calc(var(--header-height) + clamp(var(--space-40), 7vw, var(--space-96)))
+      clamp(var(--space-64), 9vw, var(--space-120));
 }
 
 
 /* --------------------------------------------------------------------------
    2 · CONTENT  (label · headline · lead · CTAs · trust) — staggered reveal
+   Controlled editorial width; light ink for contrast over the photograph.
    -------------------------------------------------------------------------- */
-.hero__content { max-width: 40rem; }
-.hero__content[data-reveal] { opacity: 1; transform: none; transition: none; }
+.hero__content {
+  max-width: min(560px, 100%);
+  color: var(--text-on-primary);
+  transform: translate3d(0, var(--hero-fg, 0px), 0);  /* subtle scroll drift  */
+}
+/* Neutralise the site-wide [data-reveal] hide on the wrapper; children stagger
+   individually. Opacity is driven by --hero-fade (defaults visible → JS-safe). */
+.hero__content[data-reveal] {
+  opacity: var(--hero-fade, 1);
+  transform: translate3d(0, var(--hero-fg, 0px), 0);
+  transition: none;
+}
 .hero__content > * {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(20px);
   transition:
       opacity var(--duration-slow) var(--ease-entrance),
       transform var(--duration-slow) var(--ease-entrance);
 }
 .hero__content.is-inview > * { opacity: 1; transform: none; }
-.hero__content.is-inview > *:nth-child(1) { transition-delay: 0.05s; }
-.hero__content.is-inview > *:nth-child(2) { transition-delay: 0.14s; }
-.hero__content.is-inview > *:nth-child(3) { transition-delay: 0.23s; }
-.hero__content.is-inview > *:nth-child(4) { transition-delay: 0.32s; }
-.hero__content.is-inview > *:nth-child(5) { transition-delay: 0.41s; }
+.hero__content.is-inview > *:nth-child(1) { transition-delay: 0.10s; }
+.hero__content.is-inview > *:nth-child(2) { transition-delay: 0.22s; }
+.hero__content.is-inview > *:nth-child(3) { transition-delay: 0.34s; }
+.hero__content.is-inview > *:nth-child(4) { transition-delay: 0.46s; }
+.hero__content.is-inview > *:nth-child(5) { transition-delay: 0.58s; }
 
 .hero__eyebrow {
   display: inline-flex;
   align-items: center;
   gap: var(--space-12);
   margin-block-end: var(--space-20);
-  color: var(--color-primary);
+  color: var(--brand-blue-sky);        /* light brand accent, on-palette      */
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
+  text-shadow: 0 1px 16px rgba(6, 21, 43, 0.45);
 }
 .hero__eyebrow::before {
   content: "";
   inline-size: var(--space-24);
   block-size: var(--border-width-thick);
   border-radius: var(--radius-pill);
-  background-color: var(--color-accent);
+  background-color: var(--brand-blue-sky);
 }
 
 .hero__title {
   font-size: var(--font-size-display);
   line-height: var(--leading-tight);
-  color: var(--text-primary);
+  color: var(--white);
+  text-wrap: balance;                  /* avoid awkward Arabic line breaks     */
   margin-block-end: var(--space-24);
+  text-shadow: 0 2px 30px rgba(6, 21, 43, 0.35);
 }
-.hero__title-accent { color: var(--color-primary); }
+.hero__title-accent { color: var(--brand-blue-sky); }
 
 .hero__lead {
-  max-width: var(--measure);
+  max-width: 34rem;
   font-size: var(--font-size-body-lg);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.90);
   margin-block-end: var(--space-40);
+  text-shadow: 0 1px 20px rgba(6, 21, 43, 0.35);
 }
 
 .hero__actions {
@@ -1433,6 +1595,19 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-16);
+}
+/* Secondary action stays quieter — legible "glass" outline over the photo. */
+.hero .btn--outline {
+  color: var(--white);
+  background-color: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 var(--border-width-thick) rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.hero .btn--outline:hover {
+  color: var(--white);
+  background-color: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 var(--border-width-thick) var(--white);
 }
 
 /* Trust-signal row */
@@ -1449,7 +1624,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   align-items: center;
   gap: var(--space-8);
   margin: 0;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.92);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-medium);
 }
@@ -1458,109 +1633,173 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   place-items: center;
   inline-size: var(--space-24);
   block-size: var(--space-24);
-  color: var(--color-primary);
-  background-color: var(--color-primary-subtle);
+  color: var(--white);
+  background-color: rgba(255, 255, 255, 0.16);
+  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.28);
   border-radius: var(--radius-round);
 }
 .hero__tick svg { inline-size: 14px; block-size: 14px; }
 
 
 /* --------------------------------------------------------------------------
-   3 · VISUAL  (dominant editorial image + floating trust chip)
+   3 · FLOATING TRUST CHIP  (glass · overlaps the base, opposite the content)
    -------------------------------------------------------------------------- */
-.hero__visual { position: relative; }
-
-.hero__media {
-  position: relative;
-  z-index: var(--z-raised);
-  margin: 0;
-  border-radius: var(--radius-2xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  aspect-ratio: 4 / 5;
-  background-color: var(--surface-section);
-}
-.hero__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: var(--img-pos, center);
-  transform: scale(1.06);
-  opacity: 0;
-  transition:
-      transform var(--duration-slower) var(--ease-smooth),
-      opacity var(--duration-slow) var(--ease-standard);
-}
-.hero__visual.is-inview .hero__media img { transform: scale(1); opacity: 1; }
-
-/* Floating glass trust chip (overlaps toward the content side) */
 .hero__chip {
   position: absolute;
-  z-index: var(--z-overlay);
-  inset-block-end: var(--space-24);
-  inset-inline-start: calc(var(--space-16) * -1);
+  z-index: 2;
+  inset-block-end: clamp(var(--space-24), 4vw, var(--space-48));
+  inset-inline-end: var(--container-padding);
   display: inline-flex;
   align-items: center;
   gap: var(--space-12);
   padding: var(--space-12) var(--space-20);
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.14);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.8);
+  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.28);
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-floating);
   opacity: 0;
   transform: translateY(10px);
   transition:
-      opacity var(--duration-slow) var(--ease-entrance) 0.35s,
-      transform var(--duration-slow) var(--ease-entrance) 0.35s;
+      opacity var(--duration-slow) var(--ease-entrance) 0.5s,
+      transform var(--duration-slow) var(--ease-entrance) 0.5s;
 }
-.hero__visual.is-inview .hero__chip { opacity: 1; transform: none; }
+.hero.is-ready .hero__chip { opacity: 1; transform: none; }
 .hero__chip-icon {
   display: inline-grid;
   place-items: center;
   inline-size: var(--space-32);
   block-size: var(--space-32);
-  color: var(--color-primary);
-  background-color: var(--color-primary-subtle);
+  color: var(--white);
+  background-color: rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-round);
 }
 .hero__chip-icon svg { inline-size: 18px; block-size: 18px; }
-.hero__chip-text { font-size: var(--font-size-small); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+.hero__chip-text { font-size: var(--font-size-small); font-weight: var(--font-weight-semibold); color: var(--white); }
 
 
 /* --------------------------------------------------------------------------
-   4 · RESPONSIVE  (Desktop-first)
+   4 · SCROLL / DISCOVERY INDICATOR  (minimal — text + animated hairline)
    -------------------------------------------------------------------------- */
-/* Tablet & below — stack; image appears AFTER content */
-@media (max-width: 900px) {
-  .hero__inner {
-    grid-template-columns: 1fr;
-    gap: var(--space-48);
-    min-block-size: 0;
-    padding-block: calc(var(--header-height) + var(--space-40)) var(--space-64);
-  }
-  .hero__content { max-width: 44rem; }
-  .hero__visual { order: 2; }
-  .hero__media { aspect-ratio: 16 / 10; }
+.hero__scroll {
+  position: absolute;
+  z-index: 2;
+  inset-block-end: clamp(var(--space-16), 2.5vw, var(--space-32));
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-entrance) 0.65s,
+              color var(--duration-fast) var(--ease-standard);
+}
+.hero.is-ready .hero__scroll { opacity: 1; }
+.hero__scroll:hover { color: var(--white); }
+.hero__scroll-line {
+  position: relative;
+  inline-size: 2px;
+  block-size: 46px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.28);
+  overflow: hidden;
+}
+.hero__scroll-line::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: -40%;
+  block-size: 40%;
+  background: var(--white);
+  border-radius: inherit;
+  animation: hero-scroll 1.9s var(--ease-in-out) infinite;
+}
+@keyframes hero-scroll {
+  0%   { transform: translateY(-40%); opacity: 0; }
+  25%  { opacity: 1; }
+  100% { transform: translateY(300%); opacity: 0; }
 }
 
-/* Mobile — full-width buttons, keep headline highly readable */
+
+/* --------------------------------------------------------------------------
+   5 · RESPONSIVE ART DIRECTION  (Desktop-first)
+   Not a scaled-down desktop: the crop, scrim and anchoring are re-composed.
+   -------------------------------------------------------------------------- */
+/* Laptop / small desktop */
+@media (max-width: 1200px) {
+  .hero__content { max-width: min(520px, 100%); }
+}
+
+/* Tablet — widen the readable column, ease the directional scrim */
+@media (max-width: 900px) {
+  .hero { min-block-size: clamp(540px, 88vh, 860px); }
+  .hero__content { max-width: min(600px, 100%); }
+  .hero__img { object-position: 52% 30%; }
+  .hero__scrim {
+    background:
+      linear-gradient(to left,
+          rgba(6, 21, 43, 0.74) 0%,
+          rgba(6, 21, 43, 0.46) 42%,
+          rgba(6, 21, 43, 0.12) 74%,
+          rgba(6, 21, 43, 0) 100%),
+      linear-gradient(to bottom,
+          rgba(6, 21, 43, 0.40) 0%,
+          rgba(6, 21, 43, 0) 26%,
+          rgba(6, 21, 43, 0) 58%,
+          rgba(6, 21, 43, 0.38) 100%);
+  }
+}
+
+/* Mobile — an intentional vertical poster: content anchored low, tall crop,
+   a stronger bottom scrim carries the type; the chip steps aside. */
+@media (max-width: 600px) {
+  .hero { min-block-size: min(94vh, 780px); }
+  .hero__inner {
+    align-items: flex-end;
+    padding-block:
+        calc(var(--header-height) + var(--space-48))
+        clamp(var(--space-96), 26vw, var(--space-140));
+  }
+  .hero__content { max-width: 100%; }
+  .hero__img { object-position: 50% 26%; }
+  .hero__scrim {
+    background:
+      linear-gradient(to top,
+          rgba(6, 21, 43, 0.88) 0%,
+          rgba(6, 21, 43, 0.58) 30%,
+          rgba(6, 21, 43, 0.14) 58%,
+          rgba(6, 21, 43, 0) 80%),
+      linear-gradient(to bottom,
+          rgba(6, 21, 43, 0.46) 0%,
+          rgba(6, 21, 43, 0) 22%);
+  }
+  .hero__chip { display: none; }   /* text preserved in the DOM, hidden here  */
+}
+
+/* Small mobile — full-width stacked CTAs for comfortable tapping */
 @media (max-width: 480px) {
   .hero__actions { flex-direction: column; align-items: stretch; }
   .hero__actions .btn { width: 100%; }
-  .hero__media { aspect-ratio: 4 / 3; }
-  .hero__chip { inset-inline-start: var(--space-16); }
 }
 
 
 /* --------------------------------------------------------------------------
-   5 · REDUCED MOTION
+   6 · REDUCED MOTION — hold everything still, keep it fully legible
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   .hero__content > *,
-  .hero__chip { opacity: 1; transform: none; transition: none; }
-  .hero__media img { opacity: 1; transform: none; }
+  .hero__chip,
+  .hero__scroll { opacity: 1 !important; transform: none !important; transition: none; }
+  .hero__content { transform: none !important; }
+  .hero__media { transform: none !important; }
+  .hero.is-ready .hero__img { animation: none; }
+  .hero__scroll-line::after { animation: none; opacity: 1; inset-block-start: auto; block-size: 100%; }
 }
 
 
@@ -1599,26 +1838,43 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 
 /* --------------------------------------------------------------------------
-   1 · LAYOUT  (asymmetric · content right, dominant visual left · RTL)
+   0 · SCOPED THEME  (navy + gold — intentionally scoped to About only)
+   The site-wide accent stays blue; these tokens repaint the accent to gold
+   for this section alone. Nothing here leaks outside `.about`.
    -------------------------------------------------------------------------- */
-.about { position: relative; overflow: clip; }
-.about__inner {
+.about {
   position: relative;
-  z-index: var(--z-raised);
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;   /* content | visual (visual dominant) */
-  grid-template-areas:
-    "content    visual"
-    "highlights visual"
-    "cta        visual";
-  align-items: start;
-  column-gap: clamp(var(--space-48), 6vw, var(--space-120));
-  row-gap: var(--space-32);
+  overflow: clip;
+  --about-gold:      #C69A3C;                    /* decorative gold: icons, lines, flight path */
+  --about-gold-ink:  #8A6A16;                    /* AA-contrast gold for small label text       */
+  --about-gold-soft: rgba(198, 154, 60, 0.14);   /* soft gold wash                              */
+  --about-gold-line: rgba(198, 154, 60, 0.42);   /* hairline dividers / arcs                    */
+  --about-navy:      var(--brand-navy);           /* headline / feature titles                   */
 }
 
 
 /* --------------------------------------------------------------------------
-   2 · CONTENT  (label · heading · story) — fade-up
+   1 · LAYOUT  (editorial navy+gold · content right, framed image left · RTL)
+   Balanced asymmetry (~1 : 1.06) so the photograph reads as a major object
+   while the text column keeps room for a headline + feature row + CTA.
+   -------------------------------------------------------------------------- */
+.about__inner {
+  position: relative;
+  z-index: var(--z-raised);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr);  /* content | image */
+  grid-template-areas:
+    "content  visual"
+    "features visual"
+    "cta      visual";
+  align-items: start;
+  column-gap: clamp(var(--space-48), 6vw, var(--space-96));
+  row-gap: clamp(var(--space-32), 3.5vw, var(--space-48));
+}
+
+
+/* --------------------------------------------------------------------------
+   2 · CONTENT  (gold eyebrow · navy headline · story) — quiet fade-up
    -------------------------------------------------------------------------- */
 .about__content { grid-area: content; max-width: 34rem; }
 .about__content[data-reveal] { opacity: 1; transform: none; transition: none; }
@@ -1631,113 +1887,122 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 }
 .about__content.is-inview > * { opacity: 1; transform: none; }
 .about__content.is-inview > *:nth-child(1) { transition-delay: 0.05s; }
-.about__content.is-inview > *:nth-child(2) { transition-delay: 0.14s; }
-.about__content.is-inview > *:nth-child(3) { transition-delay: 0.23s; }
+.about__content.is-inview > *:nth-child(2) { transition-delay: 0.16s; }
+.about__content.is-inview > *:nth-child(3) { transition-delay: 0.27s; }
 
+/* Editorial gold eyebrow — text leads (right), a fine gold rule trails (left). */
 .about__eyebrow {
   display: inline-flex;
   align-items: center;
   gap: var(--space-12);
-  margin-block-end: var(--space-16);
-  color: var(--color-primary);
+  margin-block-end: var(--space-20);
+  color: var(--about-gold-ink);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
 }
-.about__eyebrow::before {
+.about__eyebrow::after {
   content: "";
-  inline-size: var(--space-24);
+  inline-size: var(--space-40);
   block-size: var(--border-width-thick);
   border-radius: var(--radius-pill);
-  background-color: var(--color-accent);
+  background-color: var(--about-gold);
 }
+/* Headline — the section's strongest type, navy, width-controlled for Arabic. */
 .about__title {
-  font-size: var(--font-size-h2);
-  color: var(--text-primary);
+  font-size: var(--font-size-h1);
+  line-height: var(--leading-tight);
+  color: var(--about-navy);
+  max-width: 28rem;
+  text-wrap: balance;
   margin-block-end: var(--space-24);
 }
 .about__story {
-  max-width: 34rem;
+  max-width: 32rem;
   font-size: var(--font-size-body-lg);
   color: var(--text-secondary);
+  text-wrap: pretty;
 }
 
 
 /* --------------------------------------------------------------------------
-   3 · KEY HIGHLIGHTS  (refined vertical list — not cards) · sequential reveal
+   3 · FEATURE STRIP  (icon columns + gold dividers) · sequential reveal
+   The existing highlight labels, recomposed as an editorial feature row.
    -------------------------------------------------------------------------- */
-.about__highlights {
-  grid-area: highlights;
+.about__features {
+  grid-area: features;
   list-style: none;
   margin: 0;
   padding: 0;
+  padding-block-start: clamp(var(--space-24), 3vw, var(--space-40));
+  border-block-start: var(--border-width-thin) solid var(--about-gold-line);
   display: grid;
-  gap: var(--space-4);
-  max-width: 34rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-8);
+  max-width: 44rem;
 }
-.about__highlights[data-reveal] { opacity: 1; transform: none; transition: none; }
+.about__features[data-reveal] { opacity: 1; transform: none; transition: none; }
 
-.about__hl {
-  position: relative;
+.about__feature {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--space-16);
-  margin: 0;
-  padding: var(--space-12) var(--space-8);
-  border-radius: var(--radius-sm);
-  color: var(--text-secondary);
-  font-weight: var(--font-weight-medium);
+  text-align: center;
+  gap: var(--space-12);
+  padding-inline: var(--space-12);
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(14px);
   transition:
       opacity var(--duration-slow) var(--ease-entrance),
-      transform var(--duration-slow) var(--ease-entrance),
-      color var(--duration-normal) var(--ease-smooth),
-      background-color var(--duration-normal) var(--ease-smooth);
+      transform var(--duration-slow) var(--ease-entrance);
 }
-.about__highlights.is-inview .about__hl { opacity: 1; transform: none; }
-.about__highlights.is-inview .about__hl:nth-child(1) { transition-delay: 0.10s; }
-.about__highlights.is-inview .about__hl:nth-child(2) { transition-delay: 0.18s; }
-.about__highlights.is-inview .about__hl:nth-child(3) { transition-delay: 0.26s; }
-.about__highlights.is-inview .about__hl:nth-child(4) { transition-delay: 0.34s; }
-
-/* Thin horizontal indicator (grows on hover/focus) */
-.about__hl::after {
-  content: "";
-  position: absolute;
-  inset-block-end: 0;
-  inset-inline-start: var(--space-8);
-  inline-size: 0;
-  block-size: var(--border-width-thick);
-  border-radius: var(--radius-pill);
-  background-color: var(--color-accent);
-  transition: inline-size var(--duration-normal) var(--ease-smooth);
+.about__features.is-inview .about__feature { opacity: 1; transform: none; }
+.about__features.is-inview .about__feature:nth-child(1) { transition-delay: 0.10s; }
+.about__features.is-inview .about__feature:nth-child(2) { transition-delay: 0.18s; }
+.about__features.is-inview .about__feature:nth-child(3) { transition-delay: 0.26s; }
+.about__features.is-inview .about__feature:nth-child(4) { transition-delay: 0.34s; }
+/* Thin gold divider between columns (start edge faces the previous item). */
+.about__feature:not(:first-child) {
+  border-inline-start: var(--border-width-thin) solid var(--about-gold-line);
 }
-.about__hl:hover,
-.about__hl:focus-within { color: var(--text-primary); background-color: var(--surface-primary); }
-.about__hl:hover::after,
-.about__hl:focus-within::after { inline-size: calc(var(--space-40) + var(--space-4)); }
-
-/* Icon gets a stronger brand-blue accent on hover */
-.about__hl .about__check {
-  transition:
-      background-color var(--duration-normal) var(--ease-smooth),
-      color var(--duration-normal) var(--ease-smooth);
+.about__feature-icon {
+  display: inline-grid;
+  place-items: center;
+  color: var(--about-gold);
+  inline-size: 40px;
+  block-size: 40px;
 }
-.about__hl:hover .about__check,
-.about__hl:focus-within .about__check {
-  background-color: var(--color-primary);
-  color: var(--text-on-primary);
+.about__feature-icon svg { inline-size: 34px; block-size: 34px; }
+.about__feature-text {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-snug);
+  color: var(--about-navy);
+  text-wrap: balance;
 }
 
 
 /* --------------------------------------------------------------------------
-   4 · PROFILE DOWNLOAD CTA
+   4 · PROFILE DOWNLOAD CTA  (gold-accented — navy ink for AA contrast)
    -------------------------------------------------------------------------- */
 .about__cta { grid-area: cta; }
 .about__cta[data-reveal] { transition-delay: 0.12s; }
+.about .btn--outline.about__profile {
+  color: var(--about-navy);
+  box-shadow: inset 0 0 0 var(--border-width-thick) var(--about-gold);
+}
+.about .btn--outline.about__profile:hover {
+  color: var(--about-navy);
+  background-color: var(--about-gold-soft);
+  box-shadow: inset 0 0 0 var(--border-width-thick) var(--about-gold);
+}
+.about .btn--outline.about__profile:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--about-gold-soft), inset 0 0 0 var(--border-width-thick) var(--about-gold);
+}
 .about__profile-icon {
   inline-size: 18px;
   block-size: 18px;
+  color: var(--about-gold);
   transition: transform var(--duration-normal) var(--ease-smooth);
 }
 .about__profile:hover .about__profile-icon,
@@ -1745,9 +2010,9 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 
 /* --------------------------------------------------------------------------
-   5 · INTERACTIVE VISUAL  (dominant image + geometry + floating badge)
-   Pointer parallax vars (--mx/--my) and highlight nudge (--hl) are set by
-   scripts/about.js; all decorative layers stay secondary to the photo.
+   5 · FRAMED VISUAL  (dominant image + gold flight-path + dashed arc + badge)
+   Pointer parallax vars (--mx/--my) are set by scripts/about.js; every
+   decorative layer stays quiet and secondary to the photograph.
    -------------------------------------------------------------------------- */
 .about__visual {
   grid-area: visual;
@@ -1757,10 +2022,10 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 }
 .about__visual[data-reveal] {
   opacity: 0;
-  transform: scale(0.97);
+  transform: scale(0.98);
   transition:
-      opacity var(--duration-slower) var(--ease-entrance),
-      transform var(--duration-slower) var(--ease-entrance);
+      opacity var(--duration-slower) var(--ease-entrance) 0.12s,
+      transform var(--duration-slower) var(--ease-entrance) 0.12s;
 }
 .about__visual[data-reveal].is-inview { opacity: 1; transform: none; }
 
@@ -1770,7 +2035,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   margin: 0;
   border-radius: var(--radius-2xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-floating);
   aspect-ratio: 4 / 5;
   background-color: var(--surface-section);
   transform: translate3d(calc(var(--mx) * 8px + var(--hl)), calc(var(--my) * 8px), 0);
@@ -1781,45 +2046,69 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   height: 100%;
   object-fit: cover;
   object-position: var(--img-pos, center);
-  transition: transform 600ms var(--ease-smooth);
+  transform: scale(1.04);               /* softly settles to 1 as it reveals */
+  transition: transform 900ms var(--ease-smooth);
 }
-.about__visual:hover .about__media img { transform: scale(1.02); }
+.about__visual.is-inview .about__media img { transform: scale(1); }
+.about__visual:hover .about__media img { transform: scale(1.03); }
 
-/* Decorative geometry — parallax at a different (larger) speed */
-.about__decor {
+/* Gold flight path + airplane — top, arcing out toward the content side */
+.about__flight {
   position: absolute;
-  z-index: var(--z-base);
-  inset-block-start: -6%;
-  inset-inline-end: -8%;
-  inline-size: min(42vw, 460px);
-  color: var(--color-accent-soft);
+  z-index: var(--z-overlay);
+  inset-block-start: -9%;
+  inset-inline-start: -7%;              /* inline-start = right in RTL → toward content */
+  inline-size: min(30vw, 250px);
+  color: var(--about-gold);
   pointer-events: none;
-  transform: translate3d(calc(var(--mx) * 15px), calc(var(--my) * 15px), 0);
+  transform: translate3d(calc(var(--mx) * 12px), calc(var(--my) * 12px), 0);
   transition: transform 550ms var(--ease-smooth);
 }
-.about__decor .about__path { stroke-dasharray: 4 8; animation: about-dash 22s linear infinite; }
+/* Force stroke-only (global reset sets svg fill:currentColor, which would
+   otherwise flood these open shapes with gold). */
+.about__flight .about__path { fill: none; }
+.about__flight .about__path {
+  stroke-dasharray: 2 7;
+  animation: about-dash 26s linear infinite;
+}
+.about__plane { fill: currentColor; }
 @keyframes about-dash { to { stroke-dashoffset: -240; } }
 
-/* Floating editorial badge (light glass — kept secondary) */
+/* Gold dashed arc — bottom, wrapping the outer corner behind the photo */
+.about__arc {
+  position: absolute;
+  z-index: var(--z-base);
+  inset-block-end: -12%;
+  inset-inline-end: -12%;               /* inline-end = left in RTL → outer edge */
+  inline-size: min(42vw, 340px);
+  color: var(--about-gold);
+  opacity: 0.75;
+  pointer-events: none;
+  transform: translate3d(calc(var(--mx) * -14px), calc(var(--my) * -14px), 0);
+  transition: transform 600ms var(--ease-smooth);
+}
+.about__arc circle { fill: none; stroke-dasharray: 2 9; }
+
+/* Floating trust badge — subtle gold glass, bottom toward the content side */
 .about__badge {
   position: absolute;
   z-index: var(--z-overlay);
-  inset-block-start: var(--space-24);
+  inset-block-end: var(--space-24);
   inset-inline-start: calc(var(--space-20) * -1);
   display: inline-flex;
   align-items: center;
   gap: var(--space-12);
   padding: var(--space-12) var(--space-20);
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.82);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.8);
+  border: var(--border-width-thin) solid var(--about-gold-line);
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-floating);
   opacity: 0;
   transform: translate3d(calc(var(--mx) * -10px), calc(var(--my) * -10px), 0);
   transition:
-      opacity var(--duration-slow) var(--ease-entrance) 0.35s,
+      opacity var(--duration-slow) var(--ease-entrance) 0.4s,
       transform 550ms var(--ease-smooth);
 }
 .about__visual.is-inview .about__badge { opacity: 1; }
@@ -1828,58 +2117,92 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   place-items: center;
   inline-size: var(--space-32);
   block-size: var(--space-32);
-  color: var(--color-primary);
-  background-color: var(--color-primary-subtle);
+  color: var(--about-gold);
+  background-color: var(--about-gold-soft);
   border-radius: var(--radius-round);
 }
 .about__badge-icon svg { inline-size: 18px; block-size: 18px; }
-.about__badge-text { font-size: var(--font-size-small); font-weight: var(--font-weight-semibold); color: var(--text-primary); }
+.about__badge-text { font-size: var(--font-size-small); font-weight: var(--font-weight-semibold); color: var(--about-navy); }
 
 
 /* --------------------------------------------------------------------------
    6 · RESPONSIVE
-   Mobile order: من نحن · headline · story · download CTA · visual · highlights
    -------------------------------------------------------------------------- */
+/* Large desktop — a gentle editorial bleed toward the outer edge (clipped). */
+@media (min-width: 1440px) {
+  .about__visual { margin-inline-end: clamp(0px, 2vw, var(--space-40)); }
+  .about__media { box-shadow: var(--shadow-hover); }
+}
+
+/* Laptop two-column range — step the headline to h2 for a clean Arabic wrap. */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .about__title { font-size: var(--font-size-h2); max-width: 24rem; }
+}
+
+/* Tablet & below — single column. Reading order:
+   label · headline · story · IMAGE · feature row · download CTA */
 @media (max-width: 900px) {
   .about__inner {
     grid-template-columns: 1fr;
     grid-template-areas:
       "content"
-      "cta"
       "visual"
-      "highlights";
-    row-gap: var(--space-40);
+      "features"
+      "cta";
+    row-gap: clamp(var(--space-40), 6vw, var(--space-64));
+    column-gap: 0;
   }
+  .about__content { max-width: none; }
+  .about__title { max-width: 26rem; }
+  .about__story { max-width: 42rem; }
+  .about__features { max-width: none; }
+  .about__visual { margin-inline: 0; }
   .about__media { aspect-ratio: 16 / 11; }
-  .about__decor { inline-size: min(52vw, 320px); }
+  .about__flight { inline-size: min(26vw, 180px); }
+  .about__arc { inline-size: min(40vw, 260px); }
+}
+
+/* Small tablet — two feature columns; keep dividers only within each pair */
+@media (max-width: 720px) {
+  .about__features { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-32); }
+  .about__feature:not(:first-child) { border-inline-start: 0; }
+  .about__feature:nth-child(2n) { border-inline-start: var(--border-width-thin) solid var(--about-gold-line); }
+  .about__feature:nth-child(n+3) { border-block-start: var(--border-width-thin) solid var(--about-gold-line); padding-block-start: var(--space-32); }
+}
+
+/* Mobile — a deliberate, taller portrait crop; keep the frame subtle */
+@media (max-width: 600px) {
+  .about__media { aspect-ratio: 4 / 5; }
+  .about__arc { inline-size: min(52vw, 220px); inset-inline-end: -14%; }
+  .about__flight { inline-size: min(34vw, 150px); }
 }
 @media (max-width: 480px) {
   .about__profile { width: 100%; }
-  .about__media { aspect-ratio: 4 / 3; }
 }
 
 
 /* --------------------------------------------------------------------------
-   7 · REDUCED MOTION — opacity only; no parallax / scale
+   7 · REDUCED MOTION — opacity only; no parallax / scale / dash
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   .about__content > *,
-  .about__highlights .about__hl { opacity: 1; transform: none; transition: none; }
+  .about__features .about__feature { opacity: 1; transform: none; transition: none; }
   .about__visual[data-reveal] { opacity: 1; transform: none; transition: none; }
   .about__media,
-  .about__decor,
+  .about__flight,
+  .about__arc,
   .about__badge { transform: none !important; transition: none; }
   .about__media img { transform: none; }
   .about__visual:hover .about__media img { transform: none; }
-  .about__decor .about__path { animation: none; }
+  .about__flight .about__path { animation: none; }
 }
 
 
 /* ===== why.css ===== */
 /* ==========================================================================
    AL MADA TRAVEL & TOURISM — WHY AL MADA (Value Proposition)
-   Stage 07 · Editorial value section: centered header + four feature cards.
-   Reuses the .card component (Stage 06) as a feature-card variant.
+   Stage 07 (v2) · Editorial value system: centered header + one dominant
+   primary value beside a quiet supporting list (not four equal cards).
    Requires: tokens.css + global.css + shell.css + nav.css + hero.css + about.css.
    No tokens, components, or global rules redefined.
    ========================================================================== */
@@ -1941,47 +2264,67 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 
 /* --------------------------------------------------------------------------
-   2 · FEATURE CARD GRID  (4 → 2×2 → 1) with staggered reveal
+   2 · EDITORIAL BENTO  (one dominant navy anchor + three supporting cards)
+   Not four equal cards: a deep-navy anchor leads, three light cards support
+   it — numbered 01–04, one cohesive value story. RTL: anchor leads (right).
    -------------------------------------------------------------------------- */
-.why__grid {
+.why__values {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-24);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    "primary v2 v2"
+    "primary v3 v4";
+  gap: clamp(var(--space-16), 1.8vw, var(--space-24));
+  align-items: stretch;
 }
-.why__grid[data-reveal] { opacity: 1; transform: none; transition: none; }
+.why__values[data-reveal] { opacity: 1; transform: none; transition: none; }
+.why__values > :nth-child(1) { grid-area: primary; }
+.why__values > :nth-child(2) { grid-area: v2; }
+.why__values > :nth-child(3) { grid-area: v3; }
+.why__values > :nth-child(4) { grid-area: v4; }
 
 
 /* --------------------------------------------------------------------------
-   3 · FEATURE CARD  (extends .card)
+   3 · CARD  (shared base) + reveal stagger
    -------------------------------------------------------------------------- */
-.feature-card {
+.why__card {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-16);
-  padding: var(--space-32);
-  height: 100%;
+  padding: clamp(var(--space-24), 2.4vw, var(--space-40));
+  border-radius: var(--radius-lg);
+  overflow: clip;
   opacity: 0;
   transform: translateY(20px);
   transition:
       opacity var(--duration-slow) var(--ease-entrance),
       transform var(--duration-normal) var(--ease-smooth),
-      box-shadow var(--duration-normal) var(--ease-smooth);
+      box-shadow var(--duration-normal) var(--ease-smooth),
+      border-color var(--duration-normal) var(--ease-smooth);
 }
-.why__grid.is-inview .feature-card { opacity: 1; transform: none; }
-.why__grid.is-inview .feature-card:nth-child(1) { transition-delay: 0.08s; }
-.why__grid.is-inview .feature-card:nth-child(2) { transition-delay: 0.16s; }
-.why__grid.is-inview .feature-card:nth-child(3) { transition-delay: 0.24s; }
-.why__grid.is-inview .feature-card:nth-child(4) { transition-delay: 0.32s; }
+.why__values.is-inview .why__card { opacity: 1; transform: none; }
+.why__values.is-inview .why__card:nth-child(1) { transition-delay: 0.05s; }
+.why__values.is-inview .why__card:nth-child(2) { transition-delay: 0.14s; }
+.why__values.is-inview .why__card:nth-child(3) { transition-delay: 0.22s; }
+.why__values.is-inview .why__card:nth-child(4) { transition-delay: 0.30s; }
 
-/* Hover / focus-within: subtle lift + shadow */
-.feature-card:hover,
-.feature-card:focus-within {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+/* Card header — icon leads (start/right in RTL), number trails (end/left) */
+.why__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
 }
-
-.feature-card__icon {
+.why__num {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  color: var(--color-accent);
+}
+.why__icon {
+  flex: 0 0 auto;
   display: inline-grid;
   place-items: center;
   inline-size: calc(var(--space-48) + var(--space-8));   /* 56px */
@@ -1990,40 +2333,89 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   background-color: var(--color-primary-subtle);
   border-radius: var(--radius-md);
 }
-.feature-card__icon svg {
-  inline-size: 26px;
-  block-size: 26px;
+.why__icon svg {
+  inline-size: 28px;
+  block-size: 28px;
   transition: transform var(--duration-normal) var(--ease-smooth);
 }
-.feature-card:hover .feature-card__icon svg,
-.feature-card:focus-within .feature-card__icon svg { transform: scale(1.08); }
+.why__card:hover .why__icon svg,
+.why__card:focus-within .why__icon svg { transform: translateY(-3px); }
 
-.feature-card__title {
+/* Title + a short accent line that grows on hover */
+.why__card-title {
   font-size: var(--font-size-h4);
   color: var(--text-primary);
+  text-wrap: balance;
 }
-.feature-card__desc {
+.why__card-title::after {
+  content: "";
+  display: block;
+  inline-size: var(--space-40);
+  block-size: var(--border-width-thick);
+  margin-block-start: var(--space-16);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
+  transition: inline-size var(--duration-normal) var(--ease-smooth);
+}
+.why__card:hover .why__card-title::after,
+.why__card:focus-within .why__card-title::after { inline-size: calc(var(--space-64) + var(--space-8)); }
+.why__card-desc {
   font-size: var(--font-size-small);
   color: var(--text-secondary);
   line-height: var(--leading-relaxed);
 }
 
-/* Optional subtle arrow indicator (leading direction, RTL-aware) */
-.feature-card__arrow {
+
+/* --------------------------------------------------------------------------
+   4 · SUPPORTING CARDS (light) + PRIMARY ANCHOR (deep navy)
+   -------------------------------------------------------------------------- */
+.why__card--support {
+  background-color: var(--surface-primary);
+  border: var(--border-card);
+  box-shadow: var(--shadow-sm);
+}
+.why__card--support:hover,
+.why__card--support:focus-within {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-border-strong);
+}
+
+/* Primary anchor — inverse navy surface, white content (the visual anchor) */
+.why__card--primary {
+  gap: var(--space-20);
+  padding: clamp(var(--space-32), 3vw, var(--space-48));
+  background-color: var(--surface-inverse);
+  color: var(--text-on-inverse);
+  box-shadow: var(--shadow-md);
+}
+.why__card--primary:hover,
+.why__card--primary:focus-within { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.why__card--primary .why__num { color: var(--brand-blue-sky); font-size: var(--font-size-h3); }
+.why__card--primary .why__icon {
+  inline-size: calc(var(--space-48) + var(--space-24));   /* 72px */
+  block-size: calc(var(--space-48) + var(--space-24));
+  color: var(--white);
+  background-color: rgba(255, 255, 255, 0.10);
+}
+.why__card--primary .why__icon svg { inline-size: 36px; block-size: 36px; }
+.why__card--primary .why__card-title { font-size: var(--font-size-h3); color: var(--white); }
+.why__card--primary .why__card-title::after { background-color: var(--brand-blue-sky); }
+.why__card--primary .why__card-desc {
+  font-size: var(--font-size-body);
+  color: var(--text-on-inverse);
+  max-width: 34rem;
+}
+
+/* Barely-there travel motif fills the anchor's taller footprint */
+.why__card-flight {
   margin-block-start: auto;
-  display: inline-flex;
-  color: var(--color-primary);
+  inline-size: min(100%, 320px);
+  color: var(--brand-blue-sky);
   opacity: 0.45;
-  transition:
-      opacity var(--duration-fast) var(--ease-standard),
-      transform var(--duration-normal) var(--ease-smooth);
+  pointer-events: none;
 }
-.feature-card__arrow svg { inline-size: 20px; block-size: 20px; }
-.feature-card:hover .feature-card__arrow,
-.feature-card:focus-within .feature-card__arrow {
-  opacity: 1;
-  transform: translateX(calc(var(--space-4) * -1)); /* toward the trailing edge */
-}
+.why__card-flight .why__path { fill: none; stroke-dasharray: 3 8; animation: why-dash 26s linear infinite; }
 
 
 /* --------------------------------------------------------------------------
@@ -2046,13 +2438,39 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 
 /* --------------------------------------------------------------------------
-   5 · RESPONSIVE  (Desktop 4-col · Tablet 2×2 · Mobile 1-col)
+   5 · RESPONSIVE
+   Desktop: navy anchor (tall) + wide 02 + 03/04 · Tablet: 2×2 (anchor leads) ·
+   Mobile: single-column narrative (anchor → 02 → 03 → 04).
    -------------------------------------------------------------------------- */
-@media (max-width: 768px) {
-  .why__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* Tablet — a balanced 2×2; the navy anchor still leads (top-start) */
+@media (max-width: 1024px) {
+  .why__values {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "primary v2"
+      "v3      v4";
+  }
+  .why__card-flight { display: none; }               /* motif is a desktop grace note */
+  .why__card--primary .why__card-title { font-size: var(--font-size-h4); }
+  .why__card--primary .why__num { font-size: var(--font-size-h4); }
+  .why__card--primary .why__icon {
+    inline-size: calc(var(--space-48) + var(--space-8));
+    block-size: calc(var(--space-48) + var(--space-8));
+  }
+  .why__card--primary .why__icon svg { inline-size: 28px; block-size: 28px; }
 }
-@media (max-width: 480px) {
-  .why__grid { grid-template-columns: 1fr; }
+
+/* Mobile — one vertical narrative: anchor first, then the three supports */
+@media (max-width: 600px) {
+  .why__values {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "primary"
+      "v2"
+      "v3"
+      "v4";
+    gap: var(--space-16);
+  }
 }
 
 
@@ -2061,8 +2479,9 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   .why__header > *,
-  .feature-card { opacity: 1; transform: none; transition: none; }
-  .why__decor .why__path { animation: none; }
+  .why__card { opacity: 1; transform: none; transition: none; }
+  .why__decor .why__path,
+  .why__card-flight .why__path { animation: none; }
 }
 
 
@@ -2082,7 +2501,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
    LAYER 01 · EDITORIAL HEADER (centered, staggered reveal)
    ========================================================================== */
 .services__header {
-  max-width: 62rem;
+  max-width: 60rem;
   margin-inline: auto;
   margin-block-end: clamp(var(--space-40), 5vw, var(--space-64));
   text-align: center;
@@ -2132,12 +2551,14 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 
 /* ==========================================================================
-   LAYER 02 · INTERACTIVE SERVICE NAVIGATION (tablist, 4×2 → 2 → swipe)
+   LAYER 02 · SERVICE INDEX (accessible tablist · one row of cards → swipe)
+   A premium index: subtle number, secondary icon, dominant name, short
+   description. The active service is a dominant navy card, not a button.
    ========================================================================== */
 .services__nav {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-16);
+  grid-template-columns: repeat(8, minmax(0, 1fr));   /* the full index, one row */
+  gap: var(--space-12);
   margin-block-end: clamp(var(--space-40), 5vw, var(--space-64));
 }
 .services__nav[data-reveal] { opacity: 1; transform: none; transition: none; }
@@ -2145,27 +2566,67 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 .service-tab {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   gap: var(--space-16);
-  padding: var(--space-20);
+  padding: var(--space-20) var(--space-16);
   text-align: start;
   background-color: var(--surface-primary);
   border: var(--border-card);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
+  overflow: clip;
   transition:
       transform var(--duration-normal) var(--ease-smooth),
       box-shadow var(--duration-normal) var(--ease-smooth),
-      border-color var(--duration-normal) var(--ease-smooth);
+      border-color var(--duration-normal) var(--ease-smooth),
+      background-color var(--duration-normal) var(--ease-smooth);
 }
-.service-tab:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+/* Leading brand-accent bar (RTL-aware) — previews on hover */
+.service-tab::before {
+  content: "";
+  position: absolute;
+  inset-block: var(--space-16);
+  inset-inline-start: 0;
+  inline-size: 3px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-primary);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--duration-normal) var(--ease-smooth),
+              background-color var(--duration-normal) var(--ease-smooth);
+}
+.service-tab:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.service-tab:hover::before { transform: scaleY(0.5); }
 .service-tab:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
 
-/* Active state — blue border + soft glow */
+/* Subtle index number (top trailing corner) */
+.service-tab__num {
+  position: absolute;
+  inset-block-start: var(--space-16);
+  inset-inline-end: var(--space-16);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  transition: color var(--duration-normal) var(--ease-smooth);
+}
+
+/* Active — a dominant deep-navy card (the selected service reads first) */
 .service-tab[aria-selected="true"] {
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-md), 0 0 0 3px var(--color-primary-subtle);
+  background-color: var(--surface-inverse);
+  border-color: var(--surface-inverse);
+  box-shadow: var(--shadow-md);
+}
+.service-tab[aria-selected="true"]::before { transform: scaleY(1); background-color: var(--brand-blue-sky); }
+.service-tab[aria-selected="true"] .service-tab__name { color: var(--white); }
+.service-tab[aria-selected="true"] .service-tab__desc { color: var(--text-on-inverse); }
+.service-tab[aria-selected="true"] .service-tab__num { color: var(--brand-blue-sky); }
+.service-tab[aria-selected="true"] .service-tab__icon {
+  color: var(--white);
+  background-color: rgba(255, 255, 255, 0.12);
 }
 
 .service-tab__icon {
@@ -2177,17 +2638,23 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   color: var(--color-primary);
   background-color: var(--color-primary-subtle);
   border-radius: var(--radius-md);
-  transition: transform var(--duration-normal) var(--ease-smooth);
+  transition:
+      transform var(--duration-normal) var(--ease-smooth),
+      color var(--duration-normal) var(--ease-smooth),
+      background-color var(--duration-normal) var(--ease-smooth);
 }
 .service-tab__icon svg { inline-size: 24px; block-size: 24px; }
-.service-tab:hover .service-tab__icon { transform: scale(1.06); }
+.service-tab:hover .service-tab__icon { transform: translateY(-2px); }   /* subtle 2px shift */
 
+.service-tab__body { inline-size: 100%; }        /* text wraps at the card width */
 .service-tab__name {
   display: block;
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
   margin-block-end: var(--space-4);
+  text-wrap: balance;
+  transition: color var(--duration-normal) var(--ease-smooth);
 }
 .service-tab__desc {
   display: block;
@@ -2200,22 +2667,41 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 /* ==========================================================================
    LAYER 03 · FEATURED SERVICE SHOWCASE (tabpanels · 45 / 55 split)
    ========================================================================== */
-.services__showcase { position: relative; }
+/* The showcase reads as one editorial feature — a calm white panel */
+.services__showcase {
+  position: relative;
+  background-color: var(--surface-primary);
+  border: var(--border-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  padding: clamp(var(--space-24), 3vw, var(--space-40));
+  overflow: clip;
+}
 
 .showcase-panel { display: none; }
 .showcase-panel.is-active {
   display: grid;
-  grid-template-columns: 45fr 55fr;
+  grid-template-columns: 45fr 55fr;      /* content (start/right) · image (end/left, larger) */
   align-items: center;
-  gap: clamp(var(--space-40), 5vw, var(--space-80));
+  gap: clamp(var(--space-32), 4vw, var(--space-64));
 }
 
-/* --- Left content --- */
+/* --- Content --- */
 .showcase__content { max-width: 40rem; }
 .showcase__title {
   font-size: var(--font-size-h2);
   color: var(--text-primary);
   margin-block-end: var(--space-20);
+  text-wrap: balance;
+}
+.showcase__title::after {
+  content: "";
+  display: block;
+  inline-size: calc(var(--space-48) + var(--space-8));
+  block-size: var(--border-width-thick);
+  margin-block-start: var(--space-16);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
 }
 .showcase__desc {
   font-size: var(--font-size-body-lg);
@@ -2271,13 +2757,13 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 }
 .showcase__link:hover { color: var(--color-primary-hover); }
 
-/* --- Right visual --- */
+/* --- Visual (emotional anchor: large, minimal shadow) --- */
 .showcase__media {
   position: relative;
   margin: 0;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-floating);
+  box-shadow: var(--shadow-lg);
   aspect-ratio: 4 / 3;
   background-color: var(--surface-section);
 }
@@ -2308,26 +2794,34 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 
 /* ==========================================================================
-   LAYER 04 · TRUST STRIP (four minimal cards, single row)
+   LAYER 04 · TRUST BAND (a quiet confidence band — hairline dividers)
+   Supporting evidence, not the hero: no cards, just icon + label, divided.
    ========================================================================== */
 .services__trust {
-  margin-block-start: clamp(var(--space-48), 5vw, var(--space-80));
+  margin-block-start: clamp(var(--space-32), 4vw, var(--space-48));
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-16);
+  gap: 0;
+  background-color: var(--surface-primary);
+  border: var(--border-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding-block: var(--space-24);
 }
 .services__trust[data-reveal] { opacity: 1; transform: none; transition: none; }
 .trust-card {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-12);
-  padding: var(--space-20);
+  padding: var(--space-8) var(--space-24);
   opacity: 0;
   transform: translateY(16px);
   transition:
       opacity var(--duration-slow) var(--ease-entrance),
       transform var(--duration-slow) var(--ease-entrance);
 }
+.trust-card:not(:first-child) { border-inline-start: var(--border-divider); }
 .services__trust.is-inview .trust-card { opacity: 1; transform: none; }
 .services__trust.is-inview .trust-card:nth-child(1) { transition-delay: 0.08s; }
 .services__trust.is-inview .trust-card:nth-child(2) { transition-delay: 0.16s; }
@@ -2337,13 +2831,13 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   flex: 0 0 auto;
   display: inline-grid;
   place-items: center;
-  inline-size: var(--space-40);
-  block-size: var(--space-40);
+  inline-size: var(--space-32);
+  block-size: var(--space-32);
   color: var(--color-primary);
   background-color: var(--color-primary-subtle);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-round);
 }
-.trust-card__icon svg { inline-size: 20px; block-size: 20px; }
+.trust-card__icon svg { inline-size: 18px; block-size: 18px; }
 .trust-card__label {
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-semibold);
@@ -2352,24 +2846,41 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 
 /* ==========================================================================
-   LAYER 05 · FINAL CTA (centered)
+   LAYER 05 · FINAL CTA (an editorial closing moment — navy surface)
    ========================================================================== */
 .services__cta {
+  position: relative;
+  overflow: clip;
   margin-block-start: clamp(var(--space-64), 7vw, var(--space-120));
-  padding: clamp(var(--space-40), 5vw, var(--space-64));
+  padding: clamp(var(--space-48), 6vw, var(--space-96)) clamp(var(--space-32), 5vw, var(--space-80));
   text-align: center;
-  background-color: var(--surface-primary);
-  border: var(--border-card);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
+  background-color: var(--surface-inverse);
+  color: var(--text-on-inverse);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
 }
+/* A barely-there brand glow keeps the navy block from feeling flat */
+.services__cta::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset-block-start: -30%;
+  inset-inline-start: -8%;
+  inline-size: min(42vw, 460px);
+  block-size: min(42vw, 460px);
+  border-radius: var(--radius-round);
+  background: radial-gradient(circle at 50% 50%, rgba(124, 183, 255, 0.16), transparent 62%);
+  pointer-events: none;
+}
+.services__cta > * { position: relative; z-index: 1; }
 .services__cta[data-reveal] { transition-delay: 0.10s; }
-.services__cta-title { font-size: var(--font-size-h3); color: var(--text-primary); margin-block-end: var(--space-12); }
+.services__cta-title { font-size: var(--font-size-h2); color: var(--white); margin-block-end: var(--space-16); text-wrap: balance; }
 .services__cta-text {
   max-width: 44rem;
   margin-inline: auto;
   margin-block-end: var(--space-32);
-  color: var(--text-secondary);
+  font-size: var(--font-size-body-lg);
+  color: var(--text-on-inverse);
 }
 
 
@@ -2393,30 +2904,48 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
-/* Tablet — nav 2 columns · showcase stacks (content, then image) */
-@media (max-width: 768px) {
-  .services__nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .showcase-panel.is-active { grid-template-columns: 1fr; gap: var(--space-40); }
-  .services__trust { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-16); }
-  .showcase__media { aspect-ratio: 16 / 10; }
-}
-
-/* Mobile — horizontally swipeable service nav; single-column showcase */
-@media (max-width: 480px) {
+/* Below the full 8-up row — a swipeable service index (keeps card size,
+   scroll-snap, no arrows needed). Applies to laptop/tablet/mobile. */
+@media (max-width: 1200px) {
   .services__nav {
     grid-template-columns: none;
     grid-auto-flow: column;
-    grid-auto-columns: 78%;
+    grid-auto-columns: clamp(168px, 22vw, 210px);
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     padding-block-end: var(--space-12);
+    scroll-padding-inline: var(--space-4);
     scrollbar-width: none;
   }
   .services__nav::-webkit-scrollbar { display: none; }
   .service-tab { scroll-snap-align: start; }
+}
+
+/* Tablet — showcase becomes a vertical story: IMAGE → content */
+@media (max-width: 900px) {
+  .showcase-panel.is-active {
+    grid-template-columns: 1fr;
+    gap: clamp(var(--space-32), 5vw, var(--space-48));
+  }
+  .showcase__visual { order: -1; }        /* image leads on stacked layouts */
+  .showcase__media { aspect-ratio: 16 / 10; }
+  .services__trust { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* On a 2×2 band, reset the left divider on each row's first item, add a
+     top divider on the second row. */
+  .trust-card:nth-child(odd) { border-inline-start: 0; }
+  .trust-card:nth-child(n + 3) { border-block-start: var(--border-divider); }
+}
+
+/* Mobile — a wider swipeable selector; single-column showcase; full CTAs */
+@media (max-width: 600px) {
+  .services__nav { grid-auto-columns: clamp(210px, 66vw, 250px); }
   .showcase__features { grid-template-columns: 1fr; }
-  .services__trust { grid-template-columns: 1fr; }
+  .showcase__media { aspect-ratio: 4 / 3; }
+  .showcase__actions { flex-direction: column; align-items: stretch; }
+  .showcase__actions .btn { width: 100%; }
+  .showcase__actions .showcase__link { text-align: center; padding-block: var(--space-8); }
+  .services__cta .btn { width: 100%; max-width: 22rem; }
 }
 
 
@@ -2529,11 +3058,14 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   z-index: var(--z-base);
   transform: translateY(-50%);
 }
+.process__track,
+.process__progress { block-size: 3px; }
 .process__track { background-color: var(--color-border); }
 .process__progress {
   inset-inline-end: auto;
   inline-size: var(--progress, 0%);
-  background-color: var(--color-primary);
+  background-image: linear-gradient(to left, var(--brand-blue-bright), var(--brand-blue) 55%, var(--brand-navy));
+  box-shadow: 0 4px 14px -4px rgba(10, 79, 183, 0.55);
   transition: inline-size var(--duration-slow) var(--ease-smooth);
 }
 
@@ -2576,7 +3108,21 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
       color var(--duration-normal) var(--ease-smooth),
       box-shadow var(--duration-normal) var(--ease-smooth);
 }
-.process__node svg { inline-size: 26px; block-size: 26px; }
+.process__node svg { inline-size: 26px; block-size: 26px; position: relative; z-index: 1; }
+/* Halo ring — appears only on the active node */
+.process__node::after {
+  content: "";
+  position: absolute;
+  inset: calc(var(--space-8) * -1);
+  border-radius: inherit;
+  border: var(--border-width-thick) solid var(--color-primary);
+  opacity: 0;
+  transform: scale(0.85);
+  transition:
+      opacity var(--duration-normal) var(--ease-smooth),
+      transform var(--duration-normal) var(--ease-smooth);
+  pointer-events: none;
+}
 .process__num {
   position: absolute;
   inset-block-start: calc(var(--space-8) * -1);
@@ -2600,14 +3146,29 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   transition: color var(--duration-normal) var(--ease-smooth);
 }
 
-/* Active / completed states */
+/* Traveled path — steps already passed read as "reached" */
+.process__step-btn.is-reached .process__node {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-primary-subtle);
+}
+.process__step-btn.is-reached .process__step-name { color: var(--text-primary); }
+
+/* Active step — strongest state, with halo ring */
 .process__step-btn[aria-selected="true"] .process__node {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--text-on-primary);
   box-shadow: var(--shadow-md);
 }
-.process__step-btn[aria-selected="true"] .process__step-name { color: var(--text-primary); }
+.process__step-btn[aria-selected="true"] .process__node::after {
+  opacity: 0.28;
+  transform: scale(1);
+}
+.process__step-btn[aria-selected="true"] .process__step-name {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+}
 
 
 /* ==========================================================================
@@ -2692,6 +3253,45 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
       opacity var(--duration-normal) var(--ease-standard),
       transform var(--duration-slower) var(--ease-smooth);
 }
+/* Framed-photo depth + gradient scrim anchoring the waypoint chip */
+.process__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+.process__media-scrim {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: 42%;
+  background-image: linear-gradient(to top, rgba(6, 53, 122, 0.55), transparent);
+  pointer-events: none;
+}
+/* "You are here" stage counter riding the image */
+.process__waypoint {
+  position: absolute;
+  inset-block-end: var(--space-16);
+  inset-inline-start: var(--space-16);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.15em;
+  direction: ltr;
+  padding: var(--space-8) var(--space-16);
+  color: var(--white);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  background-color: rgba(6, 53, 122, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.process__waypoint b { font-size: var(--font-size-body-lg); font-style: normal; }
+.process__waypoint i { opacity: 0.6; font-style: normal; margin-inline: 0.1em; }
+.process__waypoint em { font-size: var(--font-size-small); font-style: normal; opacity: 0.8; }
 
 /* Enter animations (re-triggered by .is-enter on each step change) */
 .process__panel.is-enter .process__badge,
@@ -2739,7 +3339,14 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   justify-content: center;
   gap: var(--space-16) var(--space-24);
 }
-.how__banner-link { color: var(--white); font-weight: var(--font-weight-semibold); }
+.how__banner-link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;                 /* comfortable touch target */
+  padding-inline: var(--space-8);
+  color: var(--white);
+  font-weight: var(--font-weight-semibold);
+}
 .how__banner-link:hover { color: var(--brand-blue-sky); }
 
 
@@ -2753,7 +3360,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   inset-inline-start: -5%;
   inline-size: min(28vw, 320px);
   color: var(--color-accent-soft);
-  opacity: 0.5;
+  opacity: 0.32;
   pointer-events: none;
 }
 .how__decor .how__path { stroke-dasharray: 4 8; animation: how-dash 24s linear infinite; }
@@ -2783,19 +3390,22 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
     inset-block: 0;
     inset-inline-start: calc(var(--node) / 2);
     inset-inline-end: auto;
-    inline-size: var(--border-width-thick);
+    inline-size: 3px;
     block-size: 100%;
     transform: translateX(50%);
   }
   .process__progress {
     block-size: var(--progress, 0%);
-    inline-size: var(--border-width-thick);
+    inline-size: 3px;
+    background-image: linear-gradient(to bottom, var(--brand-navy), var(--brand-blue) 45%, var(--brand-blue-bright));
     transition: block-size var(--duration-slow) var(--ease-smooth);
   }
   .process__step-btn {
     flex-direction: row;
     align-items: center;
     gap: var(--space-16);
+    padding-block: var(--space-8);
+    min-block-size: 44px;
     text-align: start;
   }
   .process__step-btn:hover { transform: none; }
@@ -2814,6 +3424,8 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   .process__panel.is-enter .process__points li,
   .process__panel.is-enter .process__info { animation: none; }
   .process__media img { transition: none; }
+  .process__node,
+  .process__node::after { transition: none; }
   .how__decor .how__path { animation: none; }
 }
 
@@ -2891,24 +3503,52 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
    ========================================================================== */
 .vision__statement {
   display: grid;
-  grid-template-columns: 45fr 55fr;
+  grid-template-columns: 52fr 48fr;      /* the belief leads · composition balances */
   align-items: center;
   gap: clamp(var(--space-48), 6vw, var(--space-120));
-  margin-block-end: clamp(var(--space-64), 8vw, var(--space-120));
+  margin-block-end: clamp(var(--space-80), 9vw, var(--space-140));
+}
+/* The belief becomes a calm pull-quote — leading brand accent + quote mark */
+.vision__statement-content {
+  position: relative;
+  padding: clamp(var(--space-32), 4vw, var(--space-48));
+  padding-inline-start: clamp(var(--space-40), 4.5vw, var(--space-64));
+  background-color: var(--surface-primary);
+  border: var(--border-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+.vision__statement-content::before {
+  content: "";
+  position: absolute;
+  inset-block: clamp(var(--space-32), 4vw, var(--space-48));
+  inset-inline-start: 0;
+  inline-size: 3px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-primary);
+}
+.vision__quote {
+  display: block;
+  inline-size: calc(var(--space-32) + var(--space-8));
+  height: auto;
+  margin-block-end: var(--space-20);
+  color: var(--color-accent);
+  opacity: 0.5;
 }
 .vision__lead-title {
-  font-size: var(--font-size-h2);
+  font-size: var(--font-size-h2);        /* the emotional centrepiece — set in the card */
   color: var(--text-primary);
   line-height: var(--leading-snug);
+  text-wrap: balance;
   margin-block-end: var(--space-24);
 }
 .vision__lead-text {
-  max-width: var(--measure);
+  max-width: 34rem;
   font-size: var(--font-size-body-lg);
   color: var(--text-secondary);
 }
 
-/* --- Abstract brand composition (slow fade + gentle scale) --- */
+/* --- Abstract brand ORBIT — the journey circles a brand at its centre --- */
 .vision__composition[data-reveal] {
   opacity: 0;
   transform: scale(0.96);
@@ -2921,23 +3561,23 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 .vision__stage {
   position: relative;
   inline-size: 100%;
-  min-block-size: clamp(320px, 38vw, 460px);
+  min-block-size: clamp(320px, 40vw, 480px);
+  display: grid;
+  place-items: center;
 }
-
-/* Soft blue gradient blob */
+/* Soft blue gradient glow behind the orbit */
 .vision__blob {
   position: absolute;
-  inset: 8% 6%;
+  inset: 6%;
   border-radius: var(--radius-round);
   background:
-      radial-gradient(60% 60% at 62% 38%, rgba(44, 123, 229, 0.20), transparent 62%),
-      radial-gradient(50% 50% at 30% 75%, rgba(124, 183, 255, 0.22), transparent 60%);
-  filter: blur(6px);
-  animation: vs-float 16s var(--ease-in-out) infinite;
+      radial-gradient(60% 60% at 60% 40%, rgba(44, 123, 229, 0.16), transparent 62%),
+      radial-gradient(52% 52% at 34% 72%, rgba(124, 183, 255, 0.20), transparent 60%);
+  filter: blur(8px);
+  animation: vs-float 18s var(--ease-in-out) infinite;
 }
-
-/* Concentric rings + curved travel path */
-.vision__rings {
+/* Concentric rings + drawn journey route + orbital nodes + arriving plane */
+.vision__orbit {
   position: absolute;
   inset: 0;
   inline-size: 100%;
@@ -2945,105 +3585,88 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   color: var(--color-accent-soft);
   overflow: visible;
 }
-.vision__rings .vs-path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-}
-.vision__composition.is-inview .vision__rings .vs-path {
+.vision__orbit .vs-ring { fill: none; stroke: currentColor; }
+.vision__orbit .vs-path { fill: none; stroke: var(--color-accent); stroke-dasharray: 1; stroke-dashoffset: 1; }
+.vision__orbit .vs-node { fill: var(--color-accent-soft); stroke: none; opacity: 0.75; }
+.vision__orbit .vs-plane { fill: var(--color-primary); opacity: 0; }
+.vision__composition.is-inview .vision__orbit .vs-path {
   animation: vs-draw 2.4s var(--ease-smooth) 0.3s forwards, vs-dash 26s linear 2.7s infinite;
 }
-
-/* Glass-effect floating panels */
-.vision__glass {
-  position: absolute;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.55);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.7);
-  box-shadow: var(--shadow-lg), 0 0 0 var(--border-width-thin) rgba(var(--shadow-rgb), 0.04) inset;
+.vision__composition.is-inview .vision__orbit .vs-plane {
+  animation: vs-fade var(--duration-slow) var(--ease-entrance) 2.2s forwards;
 }
-.vision__glass::before {
-  /* subtle glow */
+
+/* The brand mark at the centre of the journey */
+.vision__core {
+  position: relative;
+  z-index: var(--z-raised);
+  display: inline-grid;
+  place-items: center;
+  inline-size: clamp(116px, 15vw, 168px);
+  block-size: clamp(116px, 15vw, 168px);
+  border-radius: var(--radius-round);
+  background-color: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+.vision__core::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: calc(var(--space-8) * -1);
   border-radius: inherit;
-  box-shadow: 0 0 40px rgba(44, 123, 229, 0.12);
-  pointer-events: none;
+  border: var(--border-width-thin) solid var(--color-border);
+  opacity: 0.7;
 }
-.vision__glass-line {
-  position: absolute;
-  inset-inline: var(--space-20);
-  block-size: var(--border-width-thin);
-  background: var(--color-border);
-}
-.vision__glass-dot {
-  position: absolute;
-  inline-size: var(--space-12);
-  block-size: var(--space-12);
-  border-radius: var(--radius-round);
-  background: var(--color-primary);
-  box-shadow: 0 0 0 4px var(--color-primary-subtle);
-}
-.vision__glass--a {
-  inset-block-start: 14%;
-  inset-inline-end: 8%;
-  inline-size: min(46%, 220px);
-  block-size: clamp(96px, 12vw, 128px);
-  animation: vs-float 14s var(--ease-in-out) infinite;
-}
-.vision__glass--a .vision__glass-dot { inset-block-start: var(--space-20); inset-inline-start: var(--space-20); }
-.vision__glass--a .vision__glass-line { inset-block-end: var(--space-24); }
-.vision__glass--a .vision__glass-line + .vision__glass-line { inset-block-end: var(--space-12); inset-inline-end: 40%; }
-.vision__glass--b {
-  inset-block-end: 12%;
-  inset-inline-start: 6%;
-  inline-size: min(38%, 170px);
-  block-size: clamp(84px, 10vw, 104px);
-  animation: vs-float 18s var(--ease-in-out) 1.5s infinite;
-}
-.vision__glass--b .vision__glass-dot { inset-block-start: var(--space-16); inset-inline-start: var(--space-16); background: var(--color-accent); }
-.vision__glass--b .vision__glass-line { inset-block-end: var(--space-20); }
-
-/* Floating accent dots */
-.vision__dot {
-  position: absolute;
-  inline-size: var(--space-8);
-  block-size: var(--space-8);
-  border-radius: var(--radius-round);
-  background: var(--color-accent);
-  opacity: 0.6;
-}
-.vision__dot--1 { inset-block-start: 22%; inset-inline-start: 18%; animation: vs-float 12s var(--ease-in-out) infinite; }
-.vision__dot--2 { inset-block-end: 26%; inset-inline-end: 24%; inline-size: var(--space-12); block-size: var(--space-12); background: var(--color-accent-soft); animation: vs-float 20s var(--ease-in-out) 2s infinite; }
+.vision__logo { inline-size: 58%; height: auto; }
 
 
 /* ==========================================================================
-   LAYER 03 · VISION & MISSION NARRATIVE  (whitespace only, no cards)
+   LAYER 03 · VISION & MISSION NARRATIVE
+   One integrated soft panel — two beliefs, an icon each, split by a hairline.
    ========================================================================== */
 .vision__narrative {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(var(--space-48), 7vw, var(--space-120));
-  max-width: var(--container-narrow);
+  gap: 0;
+  max-width: 64rem;
   margin-inline: auto;
+  background-color: var(--surface-section);
+  border: var(--border-card);
+  border-radius: var(--radius-2xl);
+  padding: clamp(var(--space-40), 5vw, var(--space-64));
 }
+.vision__block { padding-inline: clamp(var(--space-32), 4vw, var(--space-64)); }
+.vision__block:first-child { padding-inline-start: 0; }
+.vision__block:last-child {
+  padding-inline-end: 0;
+  border-inline-start: var(--border-divider);
+}
+.vision__block-icon {
+  display: grid;
+  place-items: center;
+  inline-size: calc(var(--space-48) + var(--space-8));
+  block-size: calc(var(--space-48) + var(--space-8));
+  margin-block-end: var(--space-24);
+  color: var(--color-primary);
+  background-color: var(--surface-primary);
+  border: var(--border-card);
+  border-radius: var(--radius-md);
+}
+.vision__block-icon svg { inline-size: 26px; block-size: 26px; }
 .vision__block-label {
   display: inline-block;
-  margin-block-end: var(--space-16);
+  margin-block-end: var(--space-20);
   color: var(--color-primary);
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-h4);        /* a large typographic label */
+  font-weight: var(--font-weight-bold);
   position: relative;
-  padding-block-end: var(--space-12);
+  padding-block-end: var(--space-16);
 }
 .vision__block-label::after {
   content: "";
   position: absolute;
   inset-block-end: 0;
   inset-inline-start: 0;
-  inline-size: var(--space-40);
+  inline-size: calc(var(--space-40) + var(--space-8));
   block-size: var(--border-width-thick);
   border-radius: var(--radius-pill);
   background: var(--color-accent);
@@ -3053,6 +3676,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   font-weight: var(--font-weight-regular);
   line-height: var(--leading-relaxed);
   color: var(--text-primary);
+  text-wrap: pretty;
 }
 
 
@@ -3089,6 +3713,9 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 .vision__impact.is-inview .vs-path {
   animation: vs-draw 2.4s var(--ease-smooth) forwards, vs-dash 24s linear 2.6s infinite;
 }
+/* Destination point gently arrives once the route has drawn */
+.vision__impact-line .vs-dot { opacity: 0; transition: opacity var(--duration-slow) var(--ease-entrance) 1.9s; }
+.vision__impact.is-inview .vs-dot { opacity: 1; }
 
 
 /* ==========================================================================
@@ -3119,18 +3746,27 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 @keyframes vs-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 @keyframes vs-draw  { to { stroke-dashoffset: 0; } }
 @keyframes vs-dash  { to { stroke-dashoffset: -240; } }
+@keyframes vs-fade  { to { opacity: 1; } }
 
 
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
 @media (max-width: 900px) {
-  .vision__statement { grid-template-columns: 1fr; gap: var(--space-64); }
-  .vision__composition { order: 2; }           /* composition below the text */
-  .vision__stage { min-block-size: clamp(280px, 60vw, 380px); }
+  .vision__statement { grid-template-columns: 1fr; gap: clamp(var(--space-40), 7vw, var(--space-64)); }
+  .vision__composition { order: -1; }          /* the journey leads, then the belief */
+  .vision__stage { min-block-size: clamp(300px, 66vw, 420px); }
 }
+/* Vision & Mission stack into one vertical narrative, split by a hairline */
 @media (max-width: 560px) {
-  .vision__narrative { grid-template-columns: 1fr; gap: var(--space-48); }
+  .vision__narrative { grid-template-columns: 1fr; padding: clamp(var(--space-24), 7vw, var(--space-40)); }
+  .vision__block { padding-inline: 0; }
+  .vision__block:last-child {
+    border-inline-start: 0;
+    margin-block-start: clamp(var(--space-32), 8vw, var(--space-48));
+    padding-block-start: clamp(var(--space-32), 8vw, var(--space-48));
+    border-block-start: var(--border-divider);
+  }
 }
 
 
@@ -3141,13 +3777,11 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   .vision__reveal > * { opacity: 1; transform: none; transition: none; }
   .vision__composition[data-reveal] { opacity: 1; transform: none; transition: none; }
   .vision__blob,
-  .vision__glass--a,
-  .vision__glass--b,
-  .vision__dot--1,
-  .vision__dot--2,
   .vision__transition .vs-accent { animation: none; }
-  .vision__composition.is-inview .vision__rings .vs-path,
+  .vision__composition.is-inview .vision__orbit .vs-path,
   .vision__impact.is-inview .vs-path { animation: none; stroke-dashoffset: 0; }
+  .vision__orbit .vs-plane { opacity: 1; animation: none; }
+  .vision__impact-line .vs-dot { opacity: 1; transition: none; }
   .vision__transition .vs-path { animation: none; }
 }
 
@@ -3166,14 +3800,34 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 /* Ultra-light aura so glass panels read on the white surface */
 .values__aura {
   position: absolute;
-  inset-block-start: 18%;
+  inset-block-start: 8%;
   inset-inline: 0;
-  block-size: 60%;
+  block-size: 64%;
   z-index: var(--z-base);
   background:
-      radial-gradient(40% 50% at 78% 30%, var(--color-primary-subtle), transparent 70%),
-      radial-gradient(38% 46% at 20% 70%, rgba(124, 183, 255, 0.10), transparent 70%);
+      radial-gradient(38% 44% at 80% 16%, var(--color-primary-subtle), transparent 70%),
+      radial-gradient(40% 50% at 78% 40%, var(--color-primary-subtle), transparent 70%),
+      radial-gradient(38% 46% at 20% 68%, rgba(124, 183, 255, 0.10), transparent 70%);
   pointer-events: none;
+}
+
+/* Brand decoration — rings, dashed route, destination pin, dot grids */
+.values__decor {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  inline-size: 100%;
+  block-size: auto;
+  z-index: var(--z-base);
+  color: var(--color-accent-soft);
+  opacity: 0.85;
+  pointer-events: none;
+}
+.values__decor .vs-path { stroke-dasharray: 4 8; animation: vs-dash 26s linear infinite; }
+.values__pin-pulse { transform-box: fill-box; transform-origin: center; animation: values-pin 4.5s var(--ease-in-out) infinite; }
+@keyframes values-pin {
+  0%, 100% { opacity: 0.18; transform: scale(1); }
+  50%      { opacity: 0.05; transform: scale(1.75); }
 }
 
 /* Sequential reveal for direct children of a revealed block */
@@ -3236,21 +3890,23 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
    ========================================================================== */
 .values__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1.3fr 1fr 1fr;
+  grid-auto-rows: 1fr;
   gap: var(--space-24);
+  align-items: stretch;
 }
 .values__grid[data-reveal] { opacity: 1; transform: none; transition: none; }
 
-/* Glass-inspired panel (reuses card language: radius, hairline, soft shadow) */
+/* Editorial value panel (refined card language: hairline, soft depth) */
 .value-panel {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-16);
   padding: var(--space-32);
-  background: rgba(255, 255, 255, 0.66);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   border: var(--border-card);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -3259,17 +3915,34 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   transition:
       opacity var(--duration-slow) var(--ease-entrance),
       transform var(--duration-normal) var(--ease-smooth),
+      border-color var(--duration-normal) var(--ease-smooth),
       box-shadow var(--duration-normal) var(--ease-smooth);
 }
 .values__grid.is-inview .value-panel { opacity: 1; transform: none; }
 .values__grid.is-inview .value-panel:nth-child(1) { transition-delay: 0.06s; }
-.values__grid.is-inview .value-panel:nth-child(2) { transition-delay: 0.12s; }
-.values__grid.is-inview .value-panel:nth-child(3) { transition-delay: 0.18s; }
-.values__grid.is-inview .value-panel:nth-child(4) { transition-delay: 0.24s; }
-.values__grid.is-inview .value-panel:nth-child(5) { transition-delay: 0.30s; }
-.values__grid.is-inview .value-panel:nth-child(6) { transition-delay: 0.36s; }
+.values__grid.is-inview .value-panel:nth-child(2) { transition-delay: 0.14s; }
+.values__grid.is-inview .value-panel:nth-child(3) { transition-delay: 0.22s; }
+.values__grid.is-inview .value-panel:nth-child(4) { transition-delay: 0.30s; }
+.values__grid.is-inview .value-panel:nth-child(5) { transition-delay: 0.38s; }
+.values__grid.is-inview .value-panel:nth-child(6) { transition-delay: 0.46s; }
 
-.value-panel:hover { box-shadow: var(--shadow-md); }
+.value-panel:hover {
+  border-color: var(--color-primary-border, rgba(10, 79, 183, 0.22));
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+/* Editorial ordinal — faint magazine-style marker, opposite the icon */
+.value-panel__num {
+  position: absolute;
+  inset-block-start: var(--space-24);
+  inset-inline-end: var(--space-24);
+  font-size: var(--font-size-body-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  color: var(--brand-blue-sky);
+  letter-spacing: 0.04em;
+}
 
 .value-panel__icon {
   display: inline-grid;
@@ -3285,7 +3958,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   block-size: 26px;
   transition: transform var(--duration-normal) var(--ease-smooth);
 }
-.value-panel:hover .value-panel__icon svg { transform: scale(1.08); }
+.value-panel:hover .value-panel__icon svg { transform: scale(1.07); }
 .value-panel__title { font-size: var(--font-size-h4); color: var(--text-primary); }
 .value-panel__text {
   font-size: var(--font-size-small);
@@ -3293,32 +3966,45 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   line-height: var(--leading-relaxed);
 }
 
-/* Featured — wider, weightier, gentle hover elevation */
+/* Featured — tall anchor (spans both rows), weightier, stronger blue */
 .value-panel--featured {
-  grid-column: span 2;
-  padding: clamp(var(--space-40), 4vw, var(--space-64));
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  padding: clamp(var(--space-40), 3.5vw, var(--space-56));
   justify-content: center;
+  gap: var(--space-20);
   background:
-      linear-gradient(135deg, rgba(44, 123, 229, 0.06), rgba(255, 255, 255, 0.66) 55%);
+      linear-gradient(150deg, rgba(44, 123, 229, 0.08), rgba(255, 255, 255, 0.72) 58%);
+  border-color: rgba(10, 79, 183, 0.16);
+}
+.value-panel--featured .value-panel__num {
+  font-size: var(--font-size-h3);
+  color: var(--color-primary);
+  opacity: 0.85;
 }
 .value-panel--featured .value-panel__icon {
   inline-size: calc(var(--space-48) + var(--space-16));   /* 64px */
   block-size: calc(var(--space-48) + var(--space-16));
   border-radius: var(--radius-lg);
+  color: var(--white);
+  background-image: linear-gradient(135deg, var(--brand-blue-bright), var(--brand-blue));
 }
 .value-panel--featured .value-panel__icon svg { inline-size: 30px; block-size: 30px; }
-.value-panel--featured .value-panel__title { font-size: var(--font-size-h3); }
-.value-panel--featured .value-panel__text { font-size: var(--font-size-body-lg); }
+.value-panel--featured .value-panel__title { font-size: var(--font-size-h2); }
+.value-panel--featured .value-panel__text { font-size: var(--font-size-body-lg); max-width: 34ch; }
 .value-panel--featured:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 
-/* Wide closing — full width, horizontal editorial layout */
+/* Wide closing — full width, horizontal editorial culmination */
 .value-panel--wide {
-  grid-column: span 3;
+  grid-column: 1 / -1;
   flex-direction: row;
   align-items: center;
-  gap: var(--space-24);
+  gap: var(--space-32);
   padding: clamp(var(--space-32), 4vw, var(--space-48));
+  background:
+      linear-gradient(100deg, rgba(44, 123, 229, 0.06), rgba(255, 255, 255, 0.72) 45%);
 }
+.value-panel--wide .value-panel__icon { flex: 0 0 auto; }
 .value-panel--wide .value-panel__body { display: flex; flex-direction: column; gap: var(--space-8); }
 .value-panel--wide .value-panel__title { font-size: var(--font-size-h3); }
 .value-panel--wide .value-panel__text { font-size: var(--font-size-body-lg); max-width: 60ch; }
@@ -3421,19 +4107,27 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
-/* Tablet — balanced two-column grid */
+/* Tablet — featured stays a prominent full-width anchor above a 2×2 */
 @media (max-width: 900px) {
-  .values__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .value-panel--featured { grid-column: 1 / -1; }
+  .values__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+  }
+  .value-panel--featured {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
   .value-panel--wide { grid-column: 1 / -1; }
   .values__trust { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-/* Mobile — single column */
+/* Mobile — elegant vertical sequence, featured + closing stay differentiated */
 @media (max-width: 560px) {
+  .values__decor { display: none; }   /* keep the soft aura; drop intricate decor on phones */
   .values__grid { grid-template-columns: 1fr; }
   .value-panel--featured,
-  .value-panel--wide { grid-column: 1 / -1; }
+  .value-panel--wide { grid-column: 1 / -1; grid-row: auto; }
+  .value-panel--featured .value-panel__title { font-size: var(--font-size-h3); }
   .value-panel--wide { flex-direction: column; align-items: flex-start; }
   .values__trust { grid-template-columns: 1fr; }
 }
@@ -3447,7 +4141,9 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   .value-panel,
   .values__trust-item { opacity: 1; transform: none; transition: none; }
   .values__transition .vs-path,
-  .values__transition .vs-accent { animation: none; }
+  .values__transition .vs-accent,
+  .values__decor .vs-path,
+  .values__pin-pulse { animation: none; }
 }
 
 
@@ -3464,7 +4160,6 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 .cta__inner {
   position: relative;
   z-index: var(--z-raised);
-  text-align: center;
 }
 
 /* Sequential reveal helper */
@@ -3483,7 +4178,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 
 /* ==========================================================================
-   LAYER 05 · EDITORIAL BACKGROUND COMPOSITION (behind everything)
+   AMBIENT BACKGROUND — soft radial aura only (airy, premium)
    ========================================================================== */
 .cta__bg {
   position: absolute;
@@ -3492,50 +4187,32 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   pointer-events: none;
   overflow: hidden;
 }
-/* Ultra-soft radial gradients + very slow breathing */
 .cta__bg::before {
   content: "";
   position: absolute;
   inset: -12%;
   background:
-      radial-gradient(38% 42% at 28% 24%, var(--color-primary-subtle), transparent 70%),
-      radial-gradient(42% 46% at 76% 72%, rgba(124, 183, 255, 0.14), transparent 72%);
-  animation: cta-breathe 14s var(--ease-in-out) infinite;
+      radial-gradient(34% 40% at 24% 26%, var(--color-primary-subtle), transparent 70%),
+      radial-gradient(40% 46% at 74% 34%, rgba(124, 183, 255, 0.14), transparent 72%);
+  animation: cta-breathe 16s var(--ease-in-out) infinite;
 }
-.cta__bg-svg {
-  position: absolute;
-  inset: 0;
-  inline-size: 100%;
-  block-size: 100%;
-  color: var(--color-accent-soft);
-}
-.cta__bg-svg .vs-path { stroke-dasharray: 4 8; animation: vs-dash 26s linear infinite; }
 
-/* Glass-inspired translucent circles */
-.cta__glass {
-  position: absolute;
-  border-radius: var(--radius-round);
-  background: rgba(255, 255, 255, 0.35);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.6);
-  box-shadow: var(--shadow-md);
-}
-.cta__glass--a { inline-size: clamp(120px, 16vw, 200px); block-size: clamp(120px, 16vw, 200px); inset-block-start: 12%; inset-inline-start: 8%; animation: vs-float 16s var(--ease-in-out) infinite; }
-.cta__glass--b { inline-size: clamp(80px, 10vw, 130px); block-size: clamp(80px, 10vw, 130px); inset-block-end: 14%; inset-inline-end: 10%; animation: vs-float 20s var(--ease-in-out) 2s infinite; }
 
-/* Optional premium detail — soft glowing destination point */
-.cta__point {
-  position: absolute;
-  inset-block-start: 22%;
-  inset-inline-end: 26%;
-  inline-size: var(--space-12);
-  block-size: var(--space-12);
-  border-radius: var(--radius-round);
-  background: var(--color-accent);
-  box-shadow: 0 0 0 6px var(--color-primary-subtle), 0 0 24px 4px rgba(44, 123, 229, 0.35);
-  animation: cta-glow 4.5s var(--ease-in-out) infinite;
+/* ==========================================================================
+   EDITORIAL LAYOUT — content (start) + journey visual (end)
+   ========================================================================== */
+.cta__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  column-gap: clamp(var(--space-40), 5vw, var(--space-80));
+  row-gap: clamp(var(--space-32), 4vw, var(--space-56));
+  align-items: center;
+  text-align: start;
 }
+.cta__intro-block { grid-column: 2; grid-row: 1; }
+.cta__statement   { grid-column: 2; grid-row: 2; }
+.cta__actions     { grid-column: 2; grid-row: 3; }
+.cta__visual      { grid-column: 1; grid-row: 1 / span 3; align-self: center; justify-self: center; }
 
 
 /* ==========================================================================
@@ -3559,39 +4236,47 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   background-color: var(--color-accent);
 }
 .cta__title {
-  font-size: var(--font-size-h2);
+  font-size: var(--font-size-h1);
   color: var(--text-primary);
-  margin-inline: auto;
+  line-height: var(--leading-tight);
   margin-block-end: var(--space-20);
-  max-width: 46rem;
+  max-width: 22ch;
   text-wrap: balance;
 }
 .cta__intro {
-  max-width: 44rem;
-  margin-inline: auto;
+  max-width: 42ch;
   font-size: var(--font-size-body-lg);
   color: var(--text-secondary);
 }
 
 
 /* ==========================================================================
-   LAYER 02 · BRAND CLOSING STATEMENT (no card, large type)
+   LAYER 02 · BRAND CLOSING STATEMENT (pull-quote — the emotional core)
    ========================================================================== */
-.cta__statement {
-  margin-block-start: clamp(var(--space-64), 8vw, var(--space-120));
-  max-width: 56rem;
-  margin-inline: auto;
+.cta__quote {
+  position: relative;
+  margin: 0 0 var(--space-20);
+  padding-inline-start: clamp(var(--space-20), 2vw, var(--space-32));
+  border-inline-start: 3px solid var(--color-accent);
+}
+.cta__quote-mark {
+  position: absolute;
+  inset-block-start: -0.35em;
+  inset-inline-start: calc(clamp(var(--space-20), 2vw, var(--space-32)) + var(--space-8));
+  font-size: var(--font-size-h1);
+  line-height: 1;
+  color: var(--color-accent);
+  opacity: 0.5;
+  pointer-events: none;
 }
 .cta__statement-title {
-  font-size: var(--font-size-h1);
+  font-size: var(--font-size-h2);
   color: var(--text-primary);
   line-height: var(--leading-tight);
-  margin-block-end: var(--space-24);
   text-wrap: balance;
 }
 .cta__statement-text {
-  max-width: 46rem;
-  margin-inline: auto;
+  max-width: 46ch;
   font-size: var(--font-size-body-lg);
   color: var(--text-secondary);
 }
@@ -3600,18 +4285,15 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 /* ==========================================================================
    LAYER 03 · PREMIUM ACTION AREA
    ========================================================================== */
-.cta__actions {
-  margin-block-start: clamp(var(--space-48), 6vw, var(--space-80));
-}
-.cta__actions[data-reveal] { transition-delay: 0.1s; }
 .cta__buttons {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: var(--space-16);
-  margin-block-end: var(--space-20);
+  margin-block-end: var(--space-16);
 }
+.cta__buttons .btn--primary { box-shadow: var(--shadow-md); }
 .cta__note {
   font-size: var(--font-size-small);
   color: var(--text-muted);
@@ -3619,13 +4301,62 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 
 /* ==========================================================================
-   LAYER 04 · CONFIDENCE STRIP (4 → 2×2 → stack)
+   LAYER 05 · JOURNEY VISUAL (route arrives at Al Mada)
+   ========================================================================== */
+.cta__visual {
+  position: relative;
+  inline-size: 100%;
+  max-inline-size: 480px;
+  color: var(--color-accent-soft);
+}
+.cta__journey { inline-size: 100%; block-size: auto; display: block; }
+
+/* route draws in on reveal (pathLength normalised to 1) */
+.cta__route {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1200ms var(--ease-entrance) 0.15s;
+}
+.cta__visual.is-inview .cta__route { stroke-dashoffset: 0; }
+
+/* destination pin — single subtle entrance, no perpetual pulse */
+.cta__pin { transform-box: fill-box; transform-origin: center; opacity: 0; }
+.cta__visual.is-inview .cta__pin { animation: cta-pin-in 640ms var(--ease-entrance) 1s both; }
+
+/* glass destination badge with the Al Mada mark */
+.cta__badge {
+  position: absolute;
+  left: 52%;          /* aligns to the SVG viewBox ring centre (physical) */
+  top: 40%;
+  inline-size: 34%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-round);
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: var(--border-width-thin) solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 22px 48px -20px rgba(10, 79, 183, 0.38), 0 4px 14px -8px rgba(6, 53, 122, 0.20);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.92);
+  transition:
+      opacity var(--duration-slow) var(--ease-entrance) 0.25s,
+      transform var(--duration-slow) var(--ease-entrance) 0.25s;
+}
+.cta__visual.is-inview .cta__badge { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.cta__logo { inline-size: 58%; block-size: auto; }
+
+
+/* ==========================================================================
+   LAYER 04 · CONFIDENCE STRIP (horizontal, divided → 2×2 → stack)
    ========================================================================== */
 .cta__confidence {
-  margin-block-start: clamp(var(--space-64), 7vw, var(--space-96));
+  margin-block-start: clamp(var(--space-56), 7vw, var(--space-96));
+  padding-block-start: clamp(var(--space-32), 4vw, var(--space-48));
+  border-block-start: var(--border-width-thin) solid var(--color-border);
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-24);
 }
 .cta__confidence[data-reveal] { opacity: 1; transform: none; transition: none; }
 .cta__conf-item {
@@ -3633,12 +4364,14 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   align-items: center;
   justify-content: center;
   gap: var(--space-12);
+  padding-inline: clamp(var(--space-16), 2vw, var(--space-32));
   opacity: 0;
   transform: translateY(16px);
   transition:
       opacity var(--duration-slow) var(--ease-entrance),
       transform var(--duration-slow) var(--ease-entrance);
 }
+.cta__conf-item + .cta__conf-item { border-inline-start: var(--border-width-thin) solid var(--color-border); }
 .cta__confidence.is-inview .cta__conf-item { opacity: 1; transform: none; }
 .cta__confidence.is-inview .cta__conf-item:nth-child(1) { transition-delay: 0.08s; }
 .cta__confidence.is-inview .cta__conf-item:nth-child(2) { transition-delay: 0.16s; }
@@ -3668,10 +4401,10 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 .cta__transition {
   position: relative;
   z-index: var(--z-raised);
-  margin-block-start: clamp(var(--space-64), 8vw, var(--space-140));
+  margin-block-start: clamp(var(--space-56), 7vw, var(--space-120));
   display: grid;
   place-items: center;
-  min-block-size: clamp(100px, 14vw, 180px);
+  min-block-size: clamp(90px, 12vw, 160px);
 }
 .cta__transition svg { inline-size: min(60%, 380px); height: auto; color: var(--color-accent-soft); }
 .cta__transition .vs-path { stroke-dasharray: 4 8; animation: vs-dash 22s linear infinite; }
@@ -3683,8 +4416,14 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
    ========================================================================== */
 @keyframes cta-breathe {
   0%, 100% { transform: scale(1); opacity: 0.9; }
-  50%      { transform: scale(1.06); opacity: 1; }
+  50%      { transform: scale(1.05); opacity: 1; }
 }
+@keyframes cta-pin-in {
+  0%   { opacity: 0; transform: translateY(-8px) scale(0.8); }
+  60%  { opacity: 1; transform: translateY(0) scale(1.08); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+/* Used by the contact location-card pin */
 @keyframes cta-glow {
   0%, 100% { transform: scale(1); opacity: 0.85; }
   50%      { transform: scale(1.25); opacity: 1; }
@@ -3694,14 +4433,40 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
-@media (max-width: 768px) {
-  .cta__confidence { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-24) var(--space-16); }
+/* Tablet — stack: content, then the journey visual is placed after intro */
+@media (max-width: 900px) {
+  .cta__layout {
+    grid-template-columns: 1fr;
+    row-gap: clamp(var(--space-32), 5vw, var(--space-48));
+    justify-items: center;
+    text-align: center;
+  }
+  .cta__intro-block,
+  .cta__statement,
+  .cta__actions { grid-column: 1; }
+  .cta__intro-block { grid-row: 1; }
+  .cta__visual     { grid-row: 2; grid-column: 1; max-inline-size: 380px; }
+  .cta__statement  { grid-row: 3; }
+  .cta__actions    { grid-row: 4; }
+  .cta__title, .cta__intro, .cta__statement-text { margin-inline: auto; }
+  .cta__quote { display: inline-block; text-align: start; }
+  .cta__buttons { justify-content: center; }
 }
+
+/* Confidence strip — 2×2 with a divider seam */
+@media (max-width: 768px) {
+  .cta__confidence { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-32); }
+  .cta__conf-item:nth-child(3) { border-inline-start: 0; }
+  .cta__conf-item { padding-block: var(--space-4); }
+}
+
+/* Phones — full-width stacked buttons, compact vertical confidence */
 @media (max-width: 480px) {
+  .cta__visual { max-inline-size: 300px; }
   .cta__buttons { flex-direction: column; align-items: stretch; }
   .cta__buttons .btn { width: 100%; }
-  .cta__confidence { grid-template-columns: 1fr; }
-  .cta__conf-item { justify-content: flex-start; }
+  .cta__confidence { grid-template-columns: 1fr; gap: var(--space-20); }
+  .cta__conf-item { justify-content: flex-start; border-inline-start: 0 !important; }
 }
 
 
@@ -3711,11 +4476,10 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 @media (prefers-reduced-motion: reduce) {
   .cta__reveal > *,
   .cta__confidence .cta__conf-item { opacity: 1; transform: none; transition: none; }
+  .cta__route { stroke-dashoffset: 0; transition: none; }
+  .cta__pin { opacity: 1; animation: none; }
+  .cta__badge { opacity: 1; transform: translate(-50%, -50%); transition: none; }
   .cta__bg::before,
-  .cta__glass--a,
-  .cta__glass--b,
-  .cta__point,
-  .cta__bg-svg .vs-path,
   .cta__transition .vs-path,
   .cta__transition .vs-accent { animation: none; }
 }
@@ -3731,6 +4495,20 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
 .contact { position: relative; overflow: clip; }
 .contact__inner { position: relative; z-index: var(--z-raised); }
+
+/* Brand decoration — rings, dashed route, destination pin */
+.contact__decor {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  inline-size: 100%;
+  block-size: auto;
+  z-index: var(--z-base);
+  color: var(--color-accent-soft);
+  opacity: 0.8;
+  pointer-events: none;
+}
+.contact__decor .vs-path { stroke-dasharray: 4 8; animation: vs-dash 26s linear infinite; }
 
 /* Sequential reveal helper */
 .contact__reveal[data-reveal] { opacity: 1; transform: none; transition: none; }
@@ -3773,24 +4551,35 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
    ========================================================================== */
 .contact__main {
   display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: clamp(var(--space-40), 5vw, var(--space-80));
+  grid-template-columns: 1.12fr 0.88fr;   /* form leads (start), info trails (end) */
+  gap: clamp(var(--space-40), 5vw, var(--space-72));
   align-items: start;
 }
+.contact__form-wrap { grid-column: 1; grid-row: 1; }   /* start = right in RTL */
+.contact__info      { grid-column: 2; grid-row: 1; }   /* end = left in RTL */
 
-/* --- Layer 02 · Contact information panels (2×2) --- */
+/* --- Layer 02 · Contact information — editorial vertical list --- */
 .contact__panels {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-24);
+  gap: var(--space-16);
 }
 .contact__panels[data-reveal] { opacity: 1; transform: none; transition: none; }
 .info-panel {
-  display: flex; flex-direction: column; gap: var(--space-12);
-  padding: var(--space-32); height: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);
+  margin: 0;
+  padding: var(--space-24) var(--space-24);
+  background: var(--surface-soft);
+  border: var(--border-card);
+  border-radius: var(--radius-lg);
   opacity: 0; transform: translateY(18px);
   transition: opacity var(--duration-slow) var(--ease-entrance),
               transform var(--duration-normal) var(--ease-smooth),
+              border-color var(--duration-normal) var(--ease-smooth),
               box-shadow var(--duration-normal) var(--ease-smooth);
 }
 .contact__panels.is-inview .info-panel { opacity: 1; transform: none; }
@@ -3798,22 +4587,52 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 .contact__panels.is-inview .info-panel:nth-child(2) { transition-delay: 0.12s; }
 .contact__panels.is-inview .info-panel:nth-child(3) { transition-delay: 0.18s; }
 .contact__panels.is-inview .info-panel:nth-child(4) { transition-delay: 0.24s; }
-.info-panel:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.info-panel:hover {
+  border-color: rgba(10, 79, 183, 0.22);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.info-panel__text { flex: 1 1 auto; display: flex; flex-direction: column; gap: var(--space-4); min-inline-size: 0; }
+.info-panel__label {
+  display: inline-flex; align-items: baseline; gap: var(--space-8);
+  font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold);
+  color: var(--text-muted); letter-spacing: 0.02em;
+}
+.info-panel__num { font-size: var(--font-size-caption); font-weight: var(--font-weight-bold); color: var(--brand-blue-sky); }
+.info-panel__value { font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); color: var(--text-primary); word-break: break-word; }
+.info-panel__value a { display: inline-block; padding-block: var(--space-4); color: inherit; transition: color var(--duration-fast) var(--ease-standard); }
+.info-panel__value a:hover { color: var(--color-primary); }
+.info-panel__desc { font-size: var(--font-size-small); color: var(--text-secondary); }
 .info-panel__icon {
+  flex: 0 0 auto;
   display: inline-grid; place-items: center;
   inline-size: calc(var(--space-48) + var(--space-8)); block-size: calc(var(--space-48) + var(--space-8));
   color: var(--color-primary); background-color: var(--color-primary-subtle); border-radius: var(--radius-md);
+  transition: transform var(--duration-normal) var(--ease-smooth);
 }
 .info-panel__icon svg { inline-size: 24px; block-size: 24px; }
-.info-panel__label { font-size: var(--font-size-caption); font-weight: var(--font-weight-semibold); color: var(--text-muted); }
-.info-panel__value { font-size: var(--font-size-body); font-weight: var(--font-weight-semibold); color: var(--text-primary); word-break: break-word; }
-.info-panel__value a { color: inherit; }
-.info-panel__value a:hover { color: var(--color-primary); }
-.info-panel__desc { font-size: var(--font-size-small); color: var(--text-secondary); }
+.info-panel:hover .info-panel__icon { transform: scale(1.06); }
 
 /* --- Layer 03 · Editorial contact form (floating labels) --- */
 .contact__form-wrap { padding: clamp(var(--space-32), 4vw, var(--space-48)); }
 .contact__form { display: grid; gap: var(--space-24); }
+
+/* Form header — icon + reassurance lead (existing copy) */
+.contact__form-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  padding-block-end: var(--space-24);
+  border-block-end: var(--border-width-thin) solid var(--color-border);
+}
+.contact__form-icon {
+  flex: 0 0 auto;
+  display: inline-grid; place-items: center;
+  inline-size: calc(var(--space-48) + var(--space-8)); block-size: calc(var(--space-48) + var(--space-8));
+  color: var(--color-primary); background-color: var(--color-primary-subtle); border-radius: var(--radius-md);
+}
+.contact__form-icon svg { inline-size: 24px; block-size: 24px; }
+.contact__form-lead { font-size: var(--font-size-body); color: var(--text-secondary); }
 .contact__form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-24); }
 
 .field { position: relative; }
@@ -3852,7 +4671,16 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 }
 .field select + label { inset-block-start: 50%; transform: translateY(-50%); }
 
-.contact__form-note { font-size: var(--font-size-small); color: var(--text-muted); }
+/* Custom chevron for the service select (native arrow removed by appearance:none) */
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230A4FB7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left var(--space-16) center;
+  background-size: 16px 16px;
+  padding-inline-end: var(--space-40);
+  cursor: pointer;
+}
+
 .contact__form-success {
   display: none;
   align-items: center; gap: var(--space-12);
@@ -3965,7 +4793,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 .footer__social { display: flex; gap: var(--space-12); list-style: none; margin: 0; padding: 0; }
 .footer__social a {
   display: inline-grid; place-items: center;
-  inline-size: var(--space-40); block-size: var(--space-40);
+  inline-size: calc(var(--space-40) + var(--space-4)); block-size: calc(var(--space-40) + var(--space-4)); /* 44px touch target */
   color: var(--text-on-inverse);
   border: var(--border-width-thin) solid rgba(255, 255, 255, 0.20);
   border-radius: var(--radius-md);
@@ -3977,23 +4805,28 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 .footer__social svg { inline-size: 18px; block-size: 18px; }
 
 .footer__heading { font-size: var(--font-size-small); font-weight: var(--font-weight-semibold); color: var(--white); margin-block-end: var(--space-16); }
-.footer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-12); }
+.footer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-8); }
 .footer__list li { margin: 0; }
 .footer__link {
   position: relative; color: var(--text-on-inverse); font-size: var(--font-size-small);
 }
+/* Larger tap area for the footer nav lists (clears WCAG AA 24px) */
+.footer__list .footer__link { display: inline-block; padding-block: var(--space-4); }
+.footer__list .footer__link::after { inset-block-end: var(--space-4); }
 .footer__link::after {
   content: ""; position: absolute; inset-block-end: -2px; inset-inline-start: 0;
   inline-size: 0; block-size: var(--border-width-thin); background: var(--brand-blue-sky);
   transition: inline-size var(--duration-normal) var(--ease-smooth);
 }
-.footer__link:hover { color: var(--white); }
-.footer__link:hover::after { inline-size: 100%; }
+.footer__link:hover,
+.footer__link.is-active { color: var(--white); }
+.footer__link:hover::after,
+.footer__link.is-active::after { inline-size: 100%; }
 
 .footer__contact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-12); }
 .footer__contact-list li { display: flex; align-items: center; gap: var(--space-12); color: var(--text-on-inverse); font-size: var(--font-size-small); margin: 0; }
 .footer__contact-list svg { inline-size: 18px; block-size: 18px; color: var(--brand-blue-sky); flex: 0 0 auto; }
-.footer__contact-list a { color: inherit; }
+.footer__contact-list a { display: inline-block; padding-block: var(--space-4); color: inherit; }
 .footer__contact-list a:hover { color: var(--white); }
 
 .site-footer__bottom-inner { color: var(--text-on-inverse); font-size: var(--font-size-small); }
@@ -4004,13 +4837,16 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
    RESPONSIVE
    ========================================================================== */
 @media (max-width: 900px) {
+  /* stack single column — info first, then form (natural mobile journey) */
   .contact__main { grid-template-columns: 1fr; }
+  .contact__form-wrap,
+  .contact__info { grid-column: 1; grid-row: auto; }
   .contact__hub { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .footer__grid { grid-template-columns: 1fr 1fr; }
   .footer__brand { grid-column: 1 / -1; }
 }
 @media (max-width: 560px) {
-  .contact__panels { grid-template-columns: 1fr; }
+  .contact__decor { display: none; }   /* keep it airy on phones */
   .contact__form-row { grid-template-columns: 1fr; }
   .contact__hub { grid-template-columns: 1fr; }
   .contact__location { grid-template-columns: 1fr; }
@@ -4026,6 +4862,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   .contact__reveal > *,
   .contact__panels .info-panel,
   .contact__hub .hub-item { opacity: 1; transform: none; transition: none; }
+  .contact__decor .vs-path,
   .contact__map .vs-path,
   .contact__map-pin,
   .footer__divider .vs-path { animation: none; }
@@ -4047,14 +4884,15 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
          GLOBAL HEADER  (fixed · transparent → solid on scroll · responsive)
          RTL: logo at start (right) · nav center · CTA at end (left)
          ================================================================== -->
-    <header class="site-header" data-header>
+    <header class="site-header site-header--on-dark" data-header>
       <div class="site-header__inner container container--wide">
 
         <!-- Logo (approved asset — original proportions, never recolored) -->
-        <a class="site-header__logo" href="#top" aria-label="وكالة المدى للسياحة والسفر — الصفحة الرئيسية">
+        <a class="site-header__logo" href="#top" aria-label="وكالة المـدى للسفر والسياحة — الصفحة الرئيسية">
           <img class="site-logo"
                src="https://i.ibb.co/WNpF4ZFd/logo-icon-01.png"
-               alt="وكالة المدى للسياحة والسفر">
+               alt="وكالة المـدى للسفر والسياحة"
+               width="140" height="140" decoding="async">
         </a>
 
         <!-- Primary navigation -->
@@ -4062,9 +4900,11 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
           <ul class="site-nav__list">
             <li><a class="site-nav__link is-active" href="#home"        data-nav-link aria-current="true">الرئيسية</a></li>
             <li><a class="site-nav__link" href="#about"       data-nav-link>من نحن</a></li>
+            <li><a class="site-nav__link" href="#why-almada"  data-nav-link>لماذا وكالة المـدى؟</a></li>
             <li><a class="site-nav__link" href="#services"    data-nav-link>خدماتنا</a></li>
-            <li><a class="site-nav__link" href="#why-almada"  data-nav-link>لماذا وكالة المدى؟</a></li>
+            <li><a class="site-nav__link" href="#how-we-work" data-nav-link>كيف نعمل</a></li>
             <li><a class="site-nav__link" href="#vision"      data-nav-link>رؤيتنا ورسالتنا</a></li>
+            <li><a class="site-nav__link" href="#core-values" data-nav-link>قيمنا</a></li>
             <li><a class="site-nav__link" href="#contact"     data-nav-link>تواصل معنا</a></li>
           </ul>
         </nav>
@@ -4091,12 +4931,14 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
     <!-- Mobile navigation drawer -->
     <div class="mobile-nav" id="mobile-nav" data-mobile-nav data-state="closed" aria-label="قائمة الجوال" hidden>
       <ul class="mobile-nav__list">
-        <li><a class="mobile-nav__link is-active" href="#home"       data-nav-link>الرئيسية</a></li>
-        <li><a class="mobile-nav__link" href="#about"      data-nav-link>من نحن</a></li>
-        <li><a class="mobile-nav__link" href="#services"   data-nav-link>خدماتنا</a></li>
-        <li><a class="mobile-nav__link" href="#why-almada" data-nav-link>لماذا وكالة المدى؟</a></li>
-        <li><a class="mobile-nav__link" href="#vision"     data-nav-link>رؤيتنا ورسالتنا</a></li>
-        <li><a class="mobile-nav__link" href="#contact"    data-nav-link>تواصل معنا</a></li>
+        <li><a class="mobile-nav__link is-active" href="#home"        data-nav-link>الرئيسية</a></li>
+        <li><a class="mobile-nav__link" href="#about"       data-nav-link>من نحن</a></li>
+        <li><a class="mobile-nav__link" href="#why-almada"  data-nav-link>لماذا وكالة المـدى؟</a></li>
+        <li><a class="mobile-nav__link" href="#services"    data-nav-link>خدماتنا</a></li>
+        <li><a class="mobile-nav__link" href="#how-we-work" data-nav-link>كيف نعمل</a></li>
+        <li><a class="mobile-nav__link" href="#vision"      data-nav-link>رؤيتنا ورسالتنا</a></li>
+        <li><a class="mobile-nav__link" href="#core-values" data-nav-link>قيمنا</a></li>
+        <li><a class="mobile-nav__link" href="#contact"     data-nav-link>تواصل معنا</a></li>
       </ul>
       <a class="btn btn--primary btn--block mobile-nav__cta" href="#contact">تواصل معنا</a>
     </div>
@@ -4117,11 +4959,25 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
           <symbol id="ic-partner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5.5c0 4 3 6.6 7 8.5 4-1.9 7-4.5 7-8.5V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
         </svg>
 
+        <!-- Full-bleed backdrop: the existing photograph, art-directed -->
+        <div class="hero__backdrop">
+          <figure class="hero__media">
+            <img
+              class="hero__img"
+              src="https://i.ibb.co/jvTw7vk0/hero.webp"
+              alt="وكالة المـدى للسفر والسياحة"
+              width="1200" height="1500"
+              style="--img-pos:50% 32%"
+              loading="eager" fetchpriority="high" decoding="async">
+          </figure>
+          <span class="hero__scrim" aria-hidden="true"></span>
+        </div>
+
         <div class="hero__inner container container--wide">
 
-          <!-- Content (leads on the right in RTL) -->
+          <!-- Content overlaid on the imagery (leads on the right in RTL) -->
           <div class="hero__content" data-reveal>
-            <p class="hero__eyebrow">وكالة المدى للسفر والسياحة</p>
+            <p class="hero__eyebrow">وكالة المـدى للسفر والسياحة</p>
             <h1 class="hero__title" id="hero-title">
               رحلتك تبدأ <span class="hero__title-accent">بثقة</span>
             </h1>
@@ -4140,23 +4996,19 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
             </ul>
           </div>
 
-          <!-- Visual: dominant editorial image + floating trust chip -->
-          <div class="hero__visual" data-reveal>
-            <figure class="hero__media">
-              <img
-                src="https://i.ibb.co/q3NrcZDS/hero.webp"
-                alt="وكالة المدى للسفر والسياحة"
-                width="1200" height="1500"
-                style="--img-pos:center"
-                loading="eager" fetchpriority="high" decoding="async">
-            </figure>
-            <div class="hero__chip" aria-hidden="true">
-              <span class="hero__chip-icon"><svg><use href="#ic-partner"/></svg></span>
-              <span class="hero__chip-text">شريك سفر موثوق</span>
-            </div>
-          </div>
-
         </div>
+
+        <!-- Floating glass trust chip -->
+        <div class="hero__chip" aria-hidden="true">
+          <span class="hero__chip-icon"><svg><use href="#ic-partner"/></svg></span>
+          <span class="hero__chip-text">شريك سفر موثوق</span>
+        </div>
+
+        <!-- Minimal scroll / discovery indicator -->
+        <a class="hero__scroll" href="#about" aria-label="اكتشف المزيد">
+          <span class="hero__scroll-text">اكتشف المزيد</span>
+          <span class="hero__scroll-line" aria-hidden="true"></span>
+        </a>
       </section>
 
       <!-- ================================================================
@@ -4173,6 +5025,16 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
           <symbol id="ic-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/>
           </symbol>
+          <!-- Feature icons (outline, 2px — same family) -->
+          <symbol id="ic-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z"/>
+          </symbol>
+          <symbol id="ic-headset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 13v-1a7 7 0 0 1 14 0v1"/><rect x="3" y="13" width="4" height="7" rx="1.5"/><rect x="17" y="13" width="4" height="7" rx="1.5"/><path d="M19.5 20a3 3 0 0 1-3 3H13"/>
+          </symbol>
+          <symbol id="ic-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="6.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="6.5" r="2.5"/><path d="M8.6 15.4 15.4 8.6"/>
+          </symbol>
         </svg>
 
         <div class="about__inner container container--wide">
@@ -4182,18 +5044,18 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
             <p class="about__eyebrow">من نحن</p>
             <h2 class="about__title" id="about-title">شريكك الموثوق في كل رحلة</h2>
             <p class="about__story">
-              في وكالة المدى للسفر والسياحة، نؤمن بأن كل رحلة تبدأ بخدمة احترافية وتجربة موثوقة.
+              في وكالة المـدى للسفر والسياحة، نؤمن بأن كل رحلة تبدأ بخدمة احترافية وتجربة موثوقة.
               نقدم حلول سفر متكاملة تشمل الحجوزات، التأشيرات، والموافقات الأمنية، مع التزام كامل
               بالجودة والدقة ورضا العملاء.
             </p>
           </div>
 
-          <!-- Key highlights — refined vertical list -->
-          <ul class="about__highlights" data-reveal>
-            <li class="about__hl" data-about-hl><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="about__hl-text">خدمات سفر متكاملة</span></li>
-            <li class="about__hl" data-about-hl><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="about__hl-text">إجراءات موثوقة وسريعة</span></li>
-            <li class="about__hl" data-about-hl><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="about__hl-text">فريق متخصص لخدمة العملاء</span></li>
-            <li class="about__hl" data-about-hl><span class="about__check"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="about__hl-text">تجربة احترافية من البداية حتى الوصول</span></li>
+          <!-- Feature strip — existing highlight labels as gold icon columns -->
+          <ul class="about__features" data-reveal>
+            <li class="about__feature"><span class="about__feature-icon"><svg aria-hidden="true"><use href="#ic-globe"/></svg></span><span class="about__feature-text">خدمات سفر متكاملة</span></li>
+            <li class="about__feature"><span class="about__feature-icon"><svg aria-hidden="true"><use href="#ic-partner"/></svg></span><span class="about__feature-text">إجراءات موثوقة وسريعة</span></li>
+            <li class="about__feature"><span class="about__feature-icon"><svg aria-hidden="true"><use href="#ic-headset"/></svg></span><span class="about__feature-text">فريق متخصص لخدمة العملاء</span></li>
+            <li class="about__feature"><span class="about__feature-icon"><svg aria-hidden="true"><use href="#ic-route"/></svg></span><span class="about__feature-text">تجربة احترافية من البداية حتى الوصول</span></li>
           </ul>
 
           <!-- Profile download CTA -->
@@ -4206,23 +5068,29 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
             </a>
           </div>
 
-          <!-- Interactive visual (dominant) -->
+          <!-- Framed visual (dominant image + gold flight-path + dashed arc) -->
           <div class="about__visual" data-reveal data-about-visual>
-            <svg class="about__decor" viewBox="0 0 460 520" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="120" cy="140" r="118" stroke="currentColor" stroke-width="1.5" opacity="0.40"/>
-              <circle cx="120" cy="140" r="74" stroke="currentColor" stroke-width="1" opacity="0.28"/>
-              <path class="about__path" d="M20 470 C 150 360, 300 360, 440 150" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-              <circle cx="440" cy="150" r="4" fill="var(--color-accent)"/>
+            <!-- Dashed arc wrapping the outer bottom corner (behind the photo) -->
+            <svg class="about__arc" viewBox="0 0 340 340" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="170" cy="170" r="150" stroke="currentColor" stroke-width="2.2"/>
             </svg>
 
             <figure class="about__media">
               <img
                 src="https://i.ibb.co/V0XkRd5y/about.webp"
-                alt="وكالة المدى للسفر والسياحة"
+                alt="وكالة المـدى للسفر والسياحة"
                 width="1100" height="1375"
                 style="--img-pos:center top"
                 loading="lazy" decoding="async">
             </figure>
+
+            <!-- Gold flight path + airplane arcing out toward the content -->
+            <svg class="about__flight" viewBox="0 0 250 200" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path class="about__path" d="M22 178 C 74 120, 116 150, 170 74" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+              <g transform="translate(178 62) rotate(45) scale(1.35) translate(-12 -12)">
+                <path class="about__plane" d="M12 2 14 10 22 14 22 16 14 13.5 13.5 19 16 21 16 22 12 20.5 8 22 8 21 10.5 19 10 13.5 2 16 2 14 10 10Z"/>
+              </g>
+            </svg>
 
             <div class="about__badge">
               <span class="about__badge-icon"><svg aria-hidden="true"><use href="#ic-partner"/></svg></span>
@@ -4236,7 +5104,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
       <!-- ================================================================
            WHY AL MADA — value proposition (Stage 07)
            ================================================================ -->
-      <section class="section why" id="why-almada" data-section aria-labelledby="why-title">
+      <section class="section section--tinted why" id="why-almada" data-section aria-labelledby="why-title">
 
         <!-- Outline icon sprite (2px, rounded — matches the icon family) -->
         <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -4258,9 +5126,6 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
             <path d="M3 12h18"/>
             <path d="M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>
           </symbol>
-          <symbol id="ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 12H5M11 6l-6 6 6 6"/>
-          </symbol>
         </svg>
 
         <svg class="why__decor" viewBox="0 0 360 320" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -4271,7 +5136,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
         <div class="why__inner container container--wide">
 
           <header class="why__header" data-reveal>
-            <p class="why__eyebrow">لماذا وكالة المدى؟</p>
+            <p class="why__eyebrow">لماذا وكالة المـدى؟</p>
             <h2 class="why__title" id="why-title">كل رحلة تبدأ بثقة... وتنتهي بتجربة تستحق التكرار.</h2>
             <p class="why__intro">
               نعمل وفق معايير احترافية تركز على جودة الخدمة، وسرعة الإنجاز، والشفافية في جميع
@@ -4279,34 +5144,52 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
             </p>
           </header>
 
-          <div class="why__grid" data-reveal>
+          <div class="why__values" data-reveal>
 
-            <article class="card feature-card">
-              <span class="feature-card__icon"><svg aria-hidden="true"><use href="#ic-speed"/></svg></span>
-              <h3 class="feature-card__title">سرعة في الإنجاز</h3>
-              <p class="feature-card__desc">إجراءات منظمة وسريعة تضمن تنفيذ طلباتك بكفاءة وضمن الوقت المناسب.</p>
-              <span class="feature-card__arrow" aria-hidden="true"><svg><use href="#ic-arrow"/></svg></span>
+            <!-- 01 · Primary anchor (deep navy) — trust as the visual anchor -->
+            <article class="why__card why__card--primary">
+              <div class="why__card-top">
+                <span class="why__icon"><svg aria-hidden="true"><use href="#ic-shield"/></svg></span>
+                <span class="why__num" aria-hidden="true">01</span>
+              </div>
+              <h3 class="why__card-title">موثوقية وشفافية</h3>
+              <p class="why__card-desc">نلتزم بالدقة والوضوح في جميع مراحل الخدمة لبناء علاقة طويلة الأمد مع عملائنا.</p>
+              <svg class="why__card-flight" viewBox="0 0 320 84" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <path class="why__path" d="M8 70 C 96 18, 214 18, 300 46" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <g transform="translate(300 46) rotate(30) scale(0.85) translate(-12 -12)">
+                  <path d="M12 2 14 10 22 14 22 16 14 13.5 13.5 19 16 21 16 22 12 20.5 8 22 8 21 10.5 19 10 13.5 2 16 2 14 10 10Z" fill="currentColor"/>
+                </g>
+              </svg>
             </article>
 
-            <article class="card feature-card">
-              <span class="feature-card__icon"><svg aria-hidden="true"><use href="#ic-shield"/></svg></span>
-              <h3 class="feature-card__title">موثوقية وشفافية</h3>
-              <p class="feature-card__desc">نلتزم بالدقة والوضوح في جميع مراحل الخدمة لبناء علاقة طويلة الأمد مع عملائنا.</p>
-              <span class="feature-card__arrow" aria-hidden="true"><svg><use href="#ic-arrow"/></svg></span>
+            <!-- 02 · حلول سفر متكاملة -->
+            <article class="why__card why__card--support">
+              <div class="why__card-top">
+                <span class="why__icon"><svg aria-hidden="true"><use href="#ic-globe"/></svg></span>
+                <span class="why__num" aria-hidden="true">02</span>
+              </div>
+              <h3 class="why__card-title">حلول سفر متكاملة</h3>
+              <p class="why__card-desc">من الحجز وحتى إصدار التأشيرات والخدمات المساندة، نوفر كل ما تحتاجه في مكان واحد.</p>
             </article>
 
-            <article class="card feature-card">
-              <span class="feature-card__icon"><svg aria-hidden="true"><use href="#ic-support"/></svg></span>
-              <h3 class="feature-card__title">خدمة تضعك أولًا</h3>
-              <p class="feature-card__desc">فريق متخصص يرافقك في كل خطوة ويقدم الدعم حتى اكتمال رحلتك.</p>
-              <span class="feature-card__arrow" aria-hidden="true"><svg><use href="#ic-arrow"/></svg></span>
+            <!-- 03 · سرعة في الإنجاز -->
+            <article class="why__card why__card--support">
+              <div class="why__card-top">
+                <span class="why__icon"><svg aria-hidden="true"><use href="#ic-speed"/></svg></span>
+                <span class="why__num" aria-hidden="true">03</span>
+              </div>
+              <h3 class="why__card-title">سرعة في الإنجاز</h3>
+              <p class="why__card-desc">إجراءات منظمة وسريعة تضمن تنفيذ طلباتك بكفاءة وضمن الوقت المناسب.</p>
             </article>
 
-            <article class="card feature-card">
-              <span class="feature-card__icon"><svg aria-hidden="true"><use href="#ic-globe"/></svg></span>
-              <h3 class="feature-card__title">حلول سفر متكاملة</h3>
-              <p class="feature-card__desc">من الحجز وحتى إصدار التأشيرات والخدمات المساندة، نوفر كل ما تحتاجه في مكان واحد.</p>
-              <span class="feature-card__arrow" aria-hidden="true"><svg><use href="#ic-arrow"/></svg></span>
+            <!-- 04 · خدمة تضعك أولًا -->
+            <article class="why__card why__card--support">
+              <div class="why__card-top">
+                <span class="why__icon"><svg aria-hidden="true"><use href="#ic-support"/></svg></span>
+                <span class="why__num" aria-hidden="true">04</span>
+              </div>
+              <h3 class="why__card-title">خدمة تضعك أولًا</h3>
+              <p class="why__card-desc">فريق متخصص يرافقك في كل خطوة ويقدم الدعم حتى اكتمال رحلتك.</p>
             </article>
 
           </div>
@@ -4351,34 +5234,42 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
           <!-- LAYER 02 · Interactive service navigation (tablist) -->
           <div class="services__nav" role="tablist" aria-label="اختيار الخدمة" data-reveal>
             <button class="service-tab" role="tab" id="tab-flights" aria-controls="panel-flights" aria-selected="true" tabindex="0">
+              <span class="service-tab__num" aria-hidden="true">01</span>
               <span class="service-tab__icon"><svg aria-hidden="true"><use href="#ic-plane"/></svg></span>
               <span class="service-tab__body"><span class="service-tab__name">حجوزات الطيران</span><span class="service-tab__desc">حجوزات مرنة على أفضل شركات الطيران.</span></span>
             </button>
             <button class="service-tab" role="tab" id="tab-cruises" aria-controls="panel-cruises" aria-selected="false" tabindex="-1">
+              <span class="service-tab__num" aria-hidden="true">02</span>
               <span class="service-tab__icon"><svg aria-hidden="true"><use href="#ic-ship"/></svg></span>
               <span class="service-tab__body"><span class="service-tab__name">حجوزات البواخر</span><span class="service-tab__desc">رحلات بحرية وبواخر بإجراءات ميسّرة.</span></span>
             </button>
             <button class="service-tab" role="tab" id="tab-security" aria-controls="panel-security" aria-selected="false" tabindex="-1">
+              <span class="service-tab__num" aria-hidden="true">03</span>
               <span class="service-tab__icon"><svg aria-hidden="true"><use href="#ic-security"/></svg></span>
               <span class="service-tab__body"><span class="service-tab__name">الموافقات الأمنية</span><span class="service-tab__desc">متابعة وإنجاز الموافقات باحترافية.</span></span>
             </button>
             <button class="service-tab" role="tab" id="tab-work-visa" aria-controls="panel-work-visa" aria-selected="false" tabindex="-1">
+              <span class="service-tab__num" aria-hidden="true">04</span>
               <span class="service-tab__icon"><svg aria-hidden="true"><use href="#ic-briefcase"/></svg></span>
               <span class="service-tab__body"><span class="service-tab__name">تأشيرات العمل</span><span class="service-tab__desc">إجراءات وفق المتطلبات الرسمية.</span></span>
             </button>
             <button class="service-tab" role="tab" id="tab-visit-visa" aria-controls="panel-visit-visa" aria-selected="false" tabindex="-1">
+              <span class="service-tab__num" aria-hidden="true">05</span>
               <span class="service-tab__icon"><svg aria-hidden="true"><use href="#ic-passport"/></svg></span>
               <span class="service-tab__body"><span class="service-tab__name">تأشيرات الزيارة</span><span class="service-tab__desc">للأفراد والعائلات بإجراءات سريعة.</span></span>
             </button>
             <button class="service-tab" role="tab" id="tab-hajj" aria-controls="panel-hajj" aria-selected="false" tabindex="-1">
+              <span class="service-tab__num" aria-hidden="true">06</span>
               <span class="service-tab__icon"><svg aria-hidden="true"><use href="#ic-hajj"/></svg></span>
               <span class="service-tab__body"><span class="service-tab__name">العمرة والحج</span><span class="service-tab__desc">برامج متكاملة بكل راحة واطمئنان.</span></span>
             </button>
             <button class="service-tab" role="tab" id="tab-insurance" aria-controls="panel-insurance" aria-selected="false" tabindex="-1">
+              <span class="service-tab__num" aria-hidden="true">07</span>
               <span class="service-tab__icon"><svg aria-hidden="true"><use href="#ic-insurance"/></svg></span>
               <span class="service-tab__body"><span class="service-tab__name">التأمين على السفر</span><span class="service-tab__desc">تغطية معتمدة توفّر راحة البال.</span></span>
             </button>
             <button class="service-tab" role="tab" id="tab-business" aria-controls="panel-business" aria-selected="false" tabindex="-1">
+              <span class="service-tab__num" aria-hidden="true">08</span>
               <span class="service-tab__icon"><svg aria-hidden="true"><use href="#ic-business"/></svg></span>
               <span class="service-tab__body"><span class="service-tab__name">خدمات الأعمال</span><span class="service-tab__desc">حلول احترافية للشركات ورواد الأعمال.</span></span>
             </button>
@@ -4402,7 +5293,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               </div>
               <div class="showcase__visual">
                 <figure class="showcase__media">
-                  <img src="https://i.ibb.co/spnb6VzC/serv1.webp" alt="خدمة حجوزات الطيران من وكالة المدى" width="1200" height="900" style="--img-pos:center" loading="lazy" decoding="async">
+                  <img src="https://i.ibb.co/spnb6VzC/serv1.webp" alt="خدمة حجوزات الطيران من وكالة المـدى" width="1200" height="900" style="--img-pos:center" loading="lazy" decoding="async">
                 </figure>
               </div>
             </div>
@@ -4542,7 +5433,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               </div>
               <div class="showcase__visual">
                 <figure class="showcase__media">
-                  <img src="https://i.ibb.co/21YPc1qk/serv8.webp" alt="خدمات الأعمال والشركات من وكالة المدى" width="1200" height="900" style="--img-pos:center top" loading="lazy" decoding="async">
+                  <img src="https://i.ibb.co/21YPc1qk/serv8.webp" alt="خدمات الأعمال والشركات من وكالة المـدى" width="1200" height="900" style="--img-pos:center top" loading="lazy" decoding="async">
                 </figure>
               </div>
             </div>
@@ -4551,17 +5442,17 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
           <!-- LAYER 04 · Trust strip -->
           <div class="services__trust" data-reveal>
-            <div class="card trust-card"><span class="trust-card__icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="trust-card__label">سرعة الإنجاز</span></div>
-            <div class="card trust-card"><span class="trust-card__icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="trust-card__label">إجراءات موثوقة</span></div>
-            <div class="card trust-card"><span class="trust-card__icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="trust-card__label">فريق متخصص</span></div>
-            <div class="card trust-card"><span class="trust-card__icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="trust-card__label">دعم مستمر</span></div>
+            <div class="trust-card"><span class="trust-card__icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="trust-card__label">سرعة الإنجاز</span></div>
+            <div class="trust-card"><span class="trust-card__icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="trust-card__label">إجراءات موثوقة</span></div>
+            <div class="trust-card"><span class="trust-card__icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="trust-card__label">فريق متخصص</span></div>
+            <div class="trust-card"><span class="trust-card__icon"><svg aria-hidden="true"><use href="#ic-check"/></svg></span><span class="trust-card__label">دعم مستمر</span></div>
           </div>
 
           <!-- LAYER 05 · Final CTA -->
           <div class="services__cta" data-reveal>
             <h3 class="services__cta-title">هل تحتاج إلى استشارة؟</h3>
-            <p class="services__cta-text">فريق وكالة المدى جاهز لمساعدتك في اختيار الخدمة الأنسب لاحتياجاتك.</p>
-            <a class="btn btn--primary btn--lg" href="#contact">تواصل معنا</a>
+            <p class="services__cta-text">فريق وكالة المـدى جاهز لمساعدتك في اختيار الخدمة الأنسب لاحتياجاتك.</p>
+            <a class="btn btn--light btn--lg" href="#contact">تواصل معنا</a>
           </div>
 
         </div>
@@ -4617,6 +5508,10 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
             <div class="process__visual">
               <figure class="process__media">
                 <img data-img src="" alt="" width="1200" height="900" loading="lazy" decoding="async">
+                <span class="process__media-scrim" aria-hidden="true"></span>
+                <span class="process__waypoint" aria-hidden="true">
+                  <b data-num>01</b><i>/</i><em>05</em>
+                </span>
               </figure>
             </div>
           </div>
@@ -4642,6 +5537,16 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
            ================================================================ -->
       <section class="section section--soft vision" id="vision" data-section aria-labelledby="vision-title">
 
+        <!-- Outline icon sprite (2px, rounded — matches the icon family) -->
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+          <symbol id="ic-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+          </symbol>
+          <symbol id="ic-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>
+          </symbol>
+        </svg>
+
         <div class="vision__inner container container--wide">
 
           <!-- LAYER 01 · Editorial header -->
@@ -4657,36 +5562,34 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
           <!-- LAYER 02 · Editorial brand statement (content + composition) -->
           <div class="vision__statement">
             <div class="vision__statement-content vision__reveal" data-reveal>
+              <svg class="vision__quote" viewBox="0 0 40 32" aria-hidden="true"><path d="M0 32V18C0 8 6 2 16 0l2 5C11 7 8 11 8 16h6v16H0Zm22 0V18C22 8 28 2 38 0l2 5C33 7 30 11 30 16h6v16H22Z"/></svg>
               <h3 class="vision__lead-title">نصنع تجارب سفر...<br>تبدأ بالثقة وتنتهي بالاطمئنان.</h3>
               <p class="vision__lead-text">
-                في وكالة المدى، نؤمن أن كل رحلة تحمل مسؤولية، وأن نجاحها يبدأ بخدمة احترافية،
+                في وكالة المـدى، نؤمن أن كل رحلة تحمل مسؤولية، وأن نجاحها يبدأ بخدمة احترافية،
                 وإجراءات واضحة، واهتمام حقيقي بكل عميل.
               </p>
             </div>
 
-            <!-- Abstract brand composition (CSS/SVG only) -->
+            <!-- Abstract brand orbit — the journey circles a brand at its centre (CSS/SVG) -->
             <div class="vision__composition" data-reveal aria-hidden="true">
               <div class="vision__stage">
                 <span class="vision__blob"></span>
-                <svg class="vision__rings" viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="250" cy="200" r="150" stroke="currentColor" stroke-width="1" opacity="0.45"/>
-                  <circle cx="250" cy="200" r="104" stroke="currentColor" stroke-width="1" opacity="0.30"/>
-                  <circle cx="250" cy="200" r="58" stroke="currentColor" stroke-width="1" opacity="0.20"/>
-                  <path class="vs-path" pathLength="1" d="M40 380 C 180 250, 340 250, 430 90"
+                <svg class="vision__orbit" viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="vs-ring" cx="240" cy="240" r="206" stroke-width="1" opacity="0.30"/>
+                  <circle class="vs-ring" cx="240" cy="240" r="150" stroke-width="1" opacity="0.45"/>
+                  <circle class="vs-ring" cx="240" cy="240" r="98"  stroke-width="1" opacity="0.30"/>
+                  <path class="vs-path" pathLength="1" d="M64 408 C 150 332, 148 214, 250 154 C 338 102, 380 126, 430 70"
                         stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round"/>
-                  <circle cx="430" cy="90" r="4" fill="var(--color-accent)"/>
+                  <circle class="vs-node" cx="240" cy="34"  r="5"/>
+                  <circle class="vs-node" cx="80"  cy="300" r="4"/>
+                  <circle class="vs-node" cx="404" cy="332" r="4"/>
+                  <g class="vs-plane" transform="translate(430 70) rotate(-40) scale(0.95) translate(-12 -12)">
+                    <path d="M12 2 14 10 22 14 22 16 14 13.5 13.5 19 16 21 16 22 12 20.5 8 22 8 21 10.5 19 10 13.5 2 16 2 14 10 10Z"/>
+                  </g>
                 </svg>
-                <div class="vision__glass vision__glass--a">
-                  <span class="vision__glass-dot"></span>
-                  <span class="vision__glass-line"></span>
-                  <span class="vision__glass-line"></span>
-                </div>
-                <div class="vision__glass vision__glass--b">
-                  <span class="vision__glass-dot"></span>
-                  <span class="vision__glass-line"></span>
-                </div>
-                <span class="vision__dot vision__dot--1"></span>
-                <span class="vision__dot vision__dot--2"></span>
+                <span class="vision__core">
+                  <img class="vision__logo" src="https://i.ibb.co/WNpF4ZFd/logo-icon-01.png" alt="" width="140" height="140" loading="lazy" decoding="async">
+                </span>
               </div>
             </div>
           </div>
@@ -4694,6 +5597,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
           <!-- LAYER 03 · Vision & Mission narrative (whitespace only) -->
           <div class="vision__narrative vision__reveal" data-reveal>
             <div class="vision__block">
+              <span class="vision__block-icon"><svg aria-hidden="true"><use href="#ic-eye"/></svg></span>
               <span class="vision__block-label">الرؤية</span>
               <p class="vision__block-text">
                 أن نكون الخيار الأول في خدمات السفر والسياحة، من خلال تقديم تجربة متكاملة
@@ -4701,6 +5605,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               </p>
             </div>
             <div class="vision__block">
+              <span class="vision__block-icon"><svg aria-hidden="true"><use href="#ic-target"/></svg></span>
               <span class="vision__block-label">الرسالة</span>
               <p class="vision__block-text">
                 تقديم حلول سفر احترافية تجمع بين سرعة الإنجاز، ووضوح الإجراءات، وجودة الخدمة،
@@ -4720,6 +5625,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
               <svg viewBox="0 0 460 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path class="vs-path" pathLength="1" d="M10 50 C 140 6, 320 6, 450 50"
                       stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round"/>
+                <circle class="vs-dot" cx="450" cy="50" r="4" fill="var(--color-accent)"/>
               </svg>
             </div>
           </div>
@@ -4754,6 +5660,51 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
         <span class="values__aura" aria-hidden="true"></span>
 
+        <!-- Brand decoration: concentric rings · travel route · destination pin · dot grids -->
+        <svg class="values__decor" viewBox="0 0 1440 460" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMin meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="valDots" x="0" y="0" width="26" height="26" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.6" fill="currentColor"/>
+            </pattern>
+          </defs>
+
+          <!-- concentric rings — start side -->
+          <g opacity="0.55" fill="none">
+            <circle cx="150" cy="150" r="150" stroke="currentColor" stroke-width="1"/>
+            <circle cx="150" cy="150" r="98" stroke="currentColor" stroke-width="1"/>
+            <circle cx="150" cy="150" r="46" stroke="currentColor" stroke-width="1"/>
+            <circle cx="150" cy="150" r="5" fill="var(--color-accent)"/>
+          </g>
+
+          <!-- concentric rings — end side -->
+          <g opacity="0.5" fill="none">
+            <circle cx="1300" cy="122" r="132" stroke="currentColor" stroke-width="1"/>
+            <circle cx="1300" cy="122" r="84" stroke="currentColor" stroke-width="1"/>
+            <circle cx="1300" cy="122" r="40" stroke="currentColor" stroke-width="1"/>
+          </g>
+
+          <!-- dashed travel route -->
+          <path class="vs-path" d="M120 150 C 430 60, 720 250, 1000 158 S 1235 120, 1300 122" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+
+          <!-- route waypoints -->
+          <g fill="var(--surface-primary)" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.75">
+            <circle cx="120" cy="150" r="5"/>
+            <circle cx="612" cy="171" r="4.5"/>
+          </g>
+
+          <!-- destination pin at route end -->
+          <g class="values__pin" transform="translate(1300 122)">
+            <circle class="values__pin-pulse" cx="0" cy="-6" r="16" fill="var(--color-accent)" opacity="0.18"/>
+            <path d="M0 -34 C 16.5 -34, 26 -20.5, 26 -8 C 26 7.5, 8.5 21, 0 40 C -8.5 21, -26 7.5, -26 -8 C -26 -20.5, -16.5 -34, 0 -34 Z" fill="var(--color-accent)"/>
+            <circle cx="0" cy="-8" r="9" fill="var(--white)"/>
+            <circle cx="0" cy="-8" r="4" fill="var(--brand-navy)"/>
+          </g>
+
+          <!-- dot grids -->
+          <rect x="1176" y="300" width="150" height="120" fill="url(#valDots)" opacity="0.6"/>
+          <rect x="44" y="330" width="120" height="96" fill="url(#valDots)" opacity="0.4"/>
+        </svg>
+
         <div class="values__inner container container--wide">
 
           <!-- LAYER 01 · Editorial header -->
@@ -4770,36 +5721,42 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
           <div class="values__grid" data-reveal>
 
             <article class="value-panel value-panel--featured">
+              <span class="value-panel__num" aria-hidden="true">01</span>
               <span class="value-panel__icon"><svg aria-hidden="true"><use href="#ic-award"/></svg></span>
               <h3 class="value-panel__title">الاحترافية</h3>
               <p class="value-panel__text">نقدم خدماتنا وفق أعلى معايير الجودة والدقة في جميع مراحل العمل.</p>
             </article>
 
             <article class="value-panel">
+              <span class="value-panel__num" aria-hidden="true">02</span>
               <span class="value-panel__icon"><svg aria-hidden="true"><use href="#ic-security"/></svg></span>
               <h3 class="value-panel__title">الموثوقية</h3>
               <p class="value-panel__text">نبني علاقات طويلة الأمد تقوم على الثقة والالتزام.</p>
             </article>
 
             <article class="value-panel">
+              <span class="value-panel__num" aria-hidden="true">03</span>
               <span class="value-panel__icon"><svg aria-hidden="true"><use href="#ic-clarity"/></svg></span>
               <h3 class="value-panel__title">الشفافية</h3>
               <p class="value-panel__text">نوضح جميع الإجراءات والمتطلبات بوضوح كامل.</p>
             </article>
 
             <article class="value-panel">
+              <span class="value-panel__num" aria-hidden="true">04</span>
               <span class="value-panel__icon"><svg aria-hidden="true"><use href="#ic-clock"/></svg></span>
               <h3 class="value-panel__title">الالتزام</h3>
               <p class="value-panel__text">نحترم الوقت ونلتزم بتنفيذ ما نعد به.</p>
             </article>
 
             <article class="value-panel">
+              <span class="value-panel__num" aria-hidden="true">05</span>
               <span class="value-panel__icon"><svg aria-hidden="true"><use href="#ic-star"/></svg></span>
               <h3 class="value-panel__title">الجودة</h3>
               <p class="value-panel__text">نحرص على تقديم تجربة متكاملة تليق بتوقعات عملائنا.</p>
             </article>
 
             <article class="value-panel value-panel--wide">
+              <span class="value-panel__num" aria-hidden="true">06</span>
               <span class="value-panel__icon"><svg aria-hidden="true"><use href="#ic-userheart"/></svg></span>
               <div class="value-panel__body">
                 <h3 class="value-panel__title">التركيز على العميل</h3>
@@ -4843,49 +5800,94 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
       <!-- ================================================================
            FINAL CALL TO ACTION (Stage 12)
            ================================================================ -->
-      <section class="section cta" id="cta" data-section aria-labelledby="cta-title">
+      <section class="section cta" id="cta" aria-labelledby="cta-title">
 
-        <!-- LAYER 05 · Editorial background composition -->
-        <div class="cta__bg" aria-hidden="true">
-          <svg class="cta__bg-svg" viewBox="0 0 1200 600" fill="none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="880" cy="180" r="150" stroke="currentColor" stroke-width="1" opacity="0.35"/>
-            <circle cx="880" cy="180" r="96" stroke="currentColor" stroke-width="1" opacity="0.25"/>
-            <circle cx="300" cy="420" r="120" stroke="currentColor" stroke-width="1" opacity="0.25"/>
-            <path class="vs-path" d="M60 520 C 380 360, 720 360, 1140 120" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
-          </svg>
-          <span class="cta__glass cta__glass--a"></span>
-          <span class="cta__glass cta__glass--b"></span>
-          <span class="cta__point"></span>
-        </div>
+        <!-- Ambient background — soft radial aura only -->
+        <div class="cta__bg" aria-hidden="true"></div>
 
         <div class="cta__inner container container--wide">
 
-          <!-- LAYER 01 · Editorial introduction -->
-          <div class="cta__intro-block cta__reveal" data-reveal>
-            <p class="cta__eyebrow">ابدأ رحلتك</p>
-            <h2 class="cta__title" id="cta-title">كل رحلة مميزة...<br>تبدأ بخطوة واحدة.</h2>
-            <p class="cta__intro">
-              سواء كنت تخطط لرحلة عمل، أو ترغب في استخراج تأشيرة، أو تبحث عن شريك موثوق لإدارة
-              جميع إجراءات سفرك، فإن فريق وكالة المدى جاهز لمساعدتك في كل خطوة.
-            </p>
-          </div>
+          <!-- Asymmetric editorial layout: content (start) + journey visual (end) -->
+          <div class="cta__layout">
 
-          <!-- LAYER 02 · Brand closing statement -->
-          <div class="cta__statement cta__reveal" data-reveal>
-            <h2 class="cta__statement-title">نحن لا نحجز رحلة فقط...<br>بل نصنع تجربة تبدأ بالثقة.</h2>
-            <p class="cta__statement-text">
-              نرافقك من أول استشارة وحتى اكتمال رحلتك، بخدمات احترافية، وإجراءات واضحة،
-              واهتمام حقيقي يجعل تجربة السفر أكثر راحة واطمئنانًا.
-            </p>
-          </div>
-
-          <!-- LAYER 03 · Premium action area -->
-          <div class="cta__actions" data-reveal>
-            <div class="cta__buttons">
-              <a class="btn btn--primary btn--lg" href="#contact">ابدأ الآن</a>
-              <a class="btn btn--outline btn--lg" href="#contact">تواصل معنا</a>
+            <!-- LAYER 01 · Editorial introduction -->
+            <div class="cta__intro-block cta__reveal" data-reveal>
+              <p class="cta__eyebrow">ابدأ رحلتك</p>
+              <h2 class="cta__title" id="cta-title">كل رحلة مميزة...<br>تبدأ بخطوة واحدة.</h2>
+              <p class="cta__intro">
+                سواء كنت تخطط لرحلة عمل، أو ترغب في استخراج تأشيرة، أو تبحث عن شريك موثوق لإدارة
+                جميع إجراءات سفرك، فإن فريق وكالة المـدى جاهز لمساعدتك في كل خطوة.
+              </p>
             </div>
-            <p class="cta__note">استجابة سريعة • إجراءات واضحة • خدمة احترافية</p>
+
+            <!-- LAYER 05 · Abstract journey visual — the route arrives at Al Mada -->
+            <div class="cta__visual" data-reveal aria-hidden="true">
+              <svg class="cta__journey" viewBox="0 0 480 520" fill="none" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <radialGradient id="ctaGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0" stop-color="#2C7BE5" stop-opacity="0.16"/>
+                    <stop offset="60%" stop-color="#2C7BE5" stop-opacity="0.05"/>
+                    <stop offset="100%" stop-color="#2C7BE5" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+
+                <!-- soft destination glow grounds the composition -->
+                <circle cx="250" cy="208" r="188" fill="url(#ctaGlow)"/>
+
+                <!-- destination — concentric rings (inner strongest, fading out) -->
+                <g fill="none" stroke="currentColor">
+                  <circle cx="250" cy="208" r="176" stroke-width="1" opacity="0.20"/>
+                  <circle cx="250" cy="208" r="126" stroke-width="1" opacity="0.34"/>
+                  <circle cx="250" cy="208" r="84" stroke-width="1" opacity="0.5"/>
+                </g>
+
+                <!-- travel route — drawn in on reveal -->
+                <path class="cta__route" pathLength="1" d="M84 494 C 160 452, 112 380, 210 356 C 262 343, 246 326, 248 300" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"/>
+
+                <!-- route waypoints -->
+                <g fill="var(--surface-primary)" stroke="var(--color-accent)" stroke-width="1.5">
+                  <circle cx="84" cy="494" r="5"/>
+                  <circle cx="150" cy="428" r="4.5"/>
+                  <circle cx="212" cy="356" r="4.5"/>
+                </g>
+
+                <!-- destination pin -->
+                <g transform="translate(250 292)">
+                  <g class="cta__pin">
+                    <path d="M0 -30 C 15 -30, 23.5 -18.5, 23.5 -7 C 23.5 6.5, 8 19.5, 0 36 C -8 19.5, -23.5 6.5, -23.5 -7 C -23.5 -18.5, -15 -30, 0 -30 Z" fill="var(--color-accent)"/>
+                    <circle cx="0" cy="-7" r="8" fill="var(--white)"/>
+                    <circle cx="0" cy="-7" r="3.5" fill="var(--brand-navy)"/>
+                  </g>
+                </g>
+              </svg>
+
+              <!-- glass destination badge carrying the Al Mada mark -->
+              <span class="cta__badge">
+                <img class="cta__logo" src="https://i.ibb.co/WNpF4ZFd/logo-icon-01.png" alt="" width="140" height="140" loading="lazy" decoding="async">
+              </span>
+            </div>
+
+            <!-- LAYER 02 · Brand closing statement (pull-quote) -->
+            <div class="cta__statement cta__reveal" data-reveal>
+              <blockquote class="cta__quote">
+                <span class="cta__quote-mark" aria-hidden="true">”</span>
+                <h2 class="cta__statement-title">نحن لا نحجز رحلة فقط...<br>بل نصنع تجربة تبدأ بالثقة.</h2>
+              </blockquote>
+              <p class="cta__statement-text">
+                نرافقك من أول استشارة وحتى اكتمال رحلتك، بخدمات احترافية، وإجراءات واضحة،
+                واهتمام حقيقي يجعل تجربة السفر أكثر راحة واطمئنانًا.
+              </p>
+            </div>
+
+            <!-- LAYER 03 · Premium action area -->
+            <div class="cta__actions cta__reveal" data-reveal>
+              <div class="cta__buttons">
+                <a class="btn btn--primary btn--lg" href="#contact">ابدأ الآن</a>
+                <a class="btn btn--outline btn--lg" href="#contact">تواصل معنا</a>
+              </div>
+              <p class="cta__note">استجابة سريعة • إجراءات واضحة • خدمة احترافية</p>
+            </div>
+
           </div>
 
           <!-- LAYER 04 · Confidence strip -->
@@ -4901,9 +5903,9 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
         <!-- LAYER 06 · Transition to contact -->
         <div class="cta__transition container container--wide" aria-hidden="true">
           <svg viewBox="0 0 380 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path class="vs-path" d="M10 40 C 110 8, 270 8, 370 40" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+            <path class="vs-path" d="M10 40 C 110 8, 270 8, 370 40" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
             <g class="vs-accent">
-              <circle cx="190" cy="24" r="9" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+              <circle cx="190" cy="24" r="9" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
               <circle cx="190" cy="24" r="3" fill="var(--color-accent)"/>
             </g>
           </svg>
@@ -4929,6 +5931,31 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
           <symbol id="ic-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 10v7"/><circle cx="8" cy="7" r="0.6"/><path d="M12 17v-4a2 2 0 0 1 4 0v4"/><path d="M12 17v-7"/></symbol>
         </svg>
 
+        <!-- Brand decoration: concentric rings · travel route · destination pin -->
+        <svg class="contact__decor" viewBox="0 0 1440 400" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMin meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="ctDots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.6" fill="currentColor"/>
+            </pattern>
+          </defs>
+          <g opacity="0.5" fill="none">
+            <circle cx="170" cy="150" r="150" stroke="currentColor" stroke-width="1"/>
+            <circle cx="170" cy="150" r="100" stroke="currentColor" stroke-width="1"/>
+            <circle cx="170" cy="150" r="52" stroke="currentColor" stroke-width="1"/>
+          </g>
+          <path class="vs-path" d="M170 150 C 420 250, 760 60, 1010 150 S 1230 150, 1300 132" fill="none" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+          <g fill="var(--surface-primary)" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.7">
+            <circle cx="612" cy="150" r="4.5"/>
+            <circle cx="1010" cy="150" r="4.5"/>
+          </g>
+          <g class="contact__decor-pin" transform="translate(170 150)">
+            <path d="M0 -30 C 15 -30, 23.5 -18.5, 23.5 -7 C 23.5 6.5, 8 19.5, 0 36 C -8 19.5, -23.5 6.5, -23.5 -7 C -23.5 -18.5, -15 -30, 0 -30 Z" fill="var(--color-accent)"/>
+            <circle cx="0" cy="-7" r="8" fill="var(--white)"/>
+            <circle cx="0" cy="-7" r="3.5" fill="var(--brand-navy)"/>
+          </g>
+          <rect x="1300" y="30" width="112" height="86" fill="url(#ctDots)" opacity="0.5"/>
+        </svg>
+
         <div class="contact__inner container container--wide">
 
           <!-- LAYER 01 · Editorial header -->
@@ -4937,7 +5964,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
             <h2 class="contact__title" id="contact-title">نحن هنا...<br>لنبدأ رحلتك بثقة.</h2>
             <p class="contact__intro">
               سواء كنت ترغب في حجز رحلة، استخراج تأشيرة، أو الاستفسار عن أي من خدماتنا، فإن فريق
-              وكالة المدى جاهز للإجابة على جميع استفساراتك ومساعدتك في كل خطوة.
+              وكالة المـدى جاهز للإجابة على جميع استفساراتك ومساعدتك في كل خطوة.
             </p>
           </header>
 
@@ -4945,36 +5972,48 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
           <div class="contact__main">
 
             <div class="contact__info">
-              <div class="contact__panels" data-reveal>
-                <article class="card info-panel">
+              <ul class="contact__panels" data-reveal>
+                <li class="info-panel">
+                  <div class="info-panel__text">
+                    <span class="info-panel__label"><span class="info-panel__num" aria-hidden="true">01</span>الهاتف</span>
+                    <span class="info-panel__value"><a href="tel:+966580790186" dir="ltr">+966 0580790186</a></span>
+                    <span class="info-panel__desc">نستقبل مكالماتك طوال أيام الأسبوع.</span>
+                  </div>
                   <span class="info-panel__icon"><svg aria-hidden="true"><use href="#ic-phone"/></svg></span>
-                  <span class="info-panel__label">الهاتف</span>
-                  <span class="info-panel__value"><a href="tel:+966580790186" dir="ltr">+966 0580790186</a></span>
-                  <span class="info-panel__desc">نستقبل مكالماتك طوال أيام الأسبوع.</span>
-                </article>
-                <article class="card info-panel">
+                </li>
+                <li class="info-panel">
+                  <div class="info-panel__text">
+                    <span class="info-panel__label"><span class="info-panel__num" aria-hidden="true">02</span>البريد الإلكتروني</span>
+                    <span class="info-panel__value"><a href="mailto:farisalasadabi@gmail.com">farisalasadabi@gmail.com</a></span>
+                    <span class="info-panel__desc">نرد على رسائلك في أقرب وقت.</span>
+                  </div>
                   <span class="info-panel__icon"><svg aria-hidden="true"><use href="#ic-mail"/></svg></span>
-                  <span class="info-panel__label">البريد الإلكتروني</span>
-                  <span class="info-panel__value"><a href="mailto:farisalasadabi@gmail.com">farisalasadabi@gmail.com</a></span>
-                  <span class="info-panel__desc">نرد على رسائلك في أقرب وقت.</span>
-                </article>
-                <article class="card info-panel">
+                </li>
+                <li class="info-panel">
+                  <div class="info-panel__text">
+                    <span class="info-panel__label"><span class="info-panel__num" aria-hidden="true">03</span>العنوان</span>
+                    <span class="info-panel__value">الرياض، حي الروضة – مقابل مستشفى سليمان الحبيب، طريق خريص.</span>
+                    <span class="info-panel__desc">زيارتك بموعد مسبق مرحّب بها.</span>
+                  </div>
                   <span class="info-panel__icon"><svg aria-hidden="true"><use href="#ic-pin"/></svg></span>
-                  <span class="info-panel__label">العنوان</span>
-                  <span class="info-panel__value">الرياض، حي الروضة – مقابل مستشفى سليمان الحبيب، طريق خريص.</span>
-                  <span class="info-panel__desc">زيارتك بموعد مسبق مرحّب بها.</span>
-                </article>
-                <article class="card info-panel">
+                </li>
+                <li class="info-panel">
+                  <div class="info-panel__text">
+                    <span class="info-panel__label"><span class="info-panel__num" aria-hidden="true">04</span>ساعات العمل</span>
+                    <span class="info-panel__value">طوال أيام الأسبوع</span>
+                    <span class="info-panel__desc">نحن في خدمتك على مدار الأسبوع.</span>
+                  </div>
                   <span class="info-panel__icon"><svg aria-hidden="true"><use href="#ic-clock"/></svg></span>
-                  <span class="info-panel__label">ساعات العمل</span>
-                  <span class="info-panel__value">طوال أيام الأسبوع</span>
-                  <span class="info-panel__desc">نحن في خدمتك على مدار الأسبوع.</span>
-                </article>
-              </div>
+                </li>
+              </ul>
             </div>
 
             <div class="contact__form-wrap card" data-reveal>
               <form class="contact__form" data-contact-form novalidate>
+                <div class="contact__form-head">
+                  <span class="contact__form-icon"><svg aria-hidden="true"><use href="#ic-support"/></svg></span>
+                  <p class="contact__form-lead">سنقوم بالتواصل معك في أقرب وقت ممكن.</p>
+                </div>
                 <div class="contact__form-row">
                   <div class="field">
                     <input type="text" id="cf-name" name="name" placeholder=" " autocomplete="name" required>
@@ -5005,7 +6044,6 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
                   <label for="cf-message">الرسالة</label>
                 </div>
                 <button type="submit" class="btn btn--primary btn--lg btn--block">إرسال الطلب</button>
-                <p class="contact__form-note">سنقوم بالتواصل معك في أقرب وقت ممكن.</p>
                 <p class="contact__form-success" data-form-success>
                   <svg aria-hidden="true" width="20" height="20"><use href="#ic-check"/></svg>
                   تم استلام طلبك، وسيتواصل معك فريقنا قريبًا.
@@ -5038,7 +6076,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
           <!-- LAYER 05 · Location card -->
           <div class="card contact__location" data-reveal>
             <div class="contact__location-body">
-              <h3 class="contact__location-title">وكالة المدى للسياحة والسفر</h3>
+              <h3 class="contact__location-title">وكالة المـدى للسفر والسياحة</h3>
               <p class="contact__location-address">الرياض، حي الروضة – مقابل مستشفى سليمان الحبيب، طريق خريص.</p>
               <p class="contact__location-desc">نسعد باستقبالك في مكتبنا لمساعدتك في تخطيط رحلتك القادمة بكل احترافية.</p>
               <a class="btn btn--primary" href="https://www.google.com/maps/search/?api=1&query=مستشفى+سليمان+الحبيب+طريق+خريص+الرياض" target="_blank" rel="noopener">عرض الموقع على الخريطة</a>
@@ -5075,8 +6113,8 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
             <!-- Brand -->
             <div class="footer__brand">
-              <a class="footer__logo-badge" href="#top" aria-label="وكالة المدى للسياحة والسفر — الصفحة الرئيسية">
-                <img src="https://i.ibb.co/WNpF4ZFd/logo-icon-01.png" alt="وكالة المدى للسياحة والسفر">
+              <a class="footer__logo-badge" href="#top" aria-label="وكالة المـدى للسفر والسياحة — الصفحة الرئيسية">
+                <img src="https://i.ibb.co/WNpF4ZFd/logo-icon-01.png" alt="وكالة المـدى للسفر والسياحة" width="140" height="140" loading="lazy" decoding="async">
               </a>
               <p class="footer__statement">رحلتك تبدأ من هنا...<br>ونحن معك في كل خطوة.</p>
               <ul class="footer__social">
@@ -5092,11 +6130,14 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
             <nav class="footer__col" aria-label="روابط سريعة">
               <h3 class="footer__heading">روابط سريعة</h3>
               <ul class="footer__list">
-                <li><a class="footer__link" href="#home">الرئيسية</a></li>
-                <li><a class="footer__link" href="#about">من نحن</a></li>
-                <li><a class="footer__link" href="#why-almada">لماذا وكالة المدى؟</a></li>
-                <li><a class="footer__link" href="#vision">رؤيتنا ورسالتنا</a></li>
-                <li><a class="footer__link" href="#core-values">قيمنا</a></li>
+                <li><a class="footer__link" href="#home"        data-nav-link>الرئيسية</a></li>
+                <li><a class="footer__link" href="#about"       data-nav-link>من نحن</a></li>
+                <li><a class="footer__link" href="#why-almada"  data-nav-link>لماذا وكالة المـدى؟</a></li>
+                <li><a class="footer__link" href="#services"    data-nav-link>خدماتنا</a></li>
+                <li><a class="footer__link" href="#how-we-work" data-nav-link>كيف نعمل</a></li>
+                <li><a class="footer__link" href="#vision"      data-nav-link>رؤيتنا ورسالتنا</a></li>
+                <li><a class="footer__link" href="#core-values" data-nav-link>قيمنا</a></li>
+                <li><a class="footer__link" href="#contact"     data-nav-link>تواصل معنا</a></li>
               </ul>
             </nav>
 
@@ -5128,7 +6169,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
       <div class="site-footer__bottom">
         <div class="container container--wide site-footer__bottom-inner">
-          <div>© 2026 وكالة المدى للسياحة والسفر. جميع الحقوق محفوظة.</div>
+          <div>© 2026 وكالة المـدى للسفر والسياحة. جميع الحقوق محفوظة.</div>
           <div class="footer__legal">
             <a class="footer__link" href="#">سياسة الخصوصية</a>
             <a class="footer__link" href="#">الشروط والأحكام</a>
@@ -5211,7 +6252,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
       panel.hidden = false;
       panel.setAttribute("data-state", "opening");
       trigger.setAttribute("aria-expanded", "true");
-      trigger.setAttribute("aria-label", "Close menu");
+      trigger.setAttribute("aria-label", "إغلاق القائمة");
       root.classList.add("has-mobile-nav-open");
       // next frame → transition in
       window.requestAnimationFrame(function () {
@@ -5228,7 +6269,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
       panel.classList.remove("is-open");
       panel.setAttribute("data-state", "closing");
       trigger.setAttribute("aria-expanded", "false");
-      trigger.setAttribute("aria-label", "Open menu");
+      trigger.setAttribute("aria-label", "فتح القائمة");
       root.classList.remove("has-mobile-nav-open");
       var delay = prefersReducedMotion ? 0 : 300;
       closeTimer = window.setTimeout(function () {
@@ -5335,6 +6376,43 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
   }
 
   /* ----------------------------------------------------------------------
+     5 · HERO — cinematic load-in + restrained scroll parallax
+     Adds `.is-ready` (triggers the image/chip/scroll reveals) and, on fine
+     pointers only, drifts the photo and content a few px while the hero is in
+     view. All motion is skipped under prefers-reduced-motion.
+     ---------------------------------------------------------------------- */
+  function initHero() {
+    var hero = doc.querySelector(".hero");
+    if (!hero) return;
+
+    // Reveal on first frame (works whether or not the image has decoded yet).
+    window.requestAnimationFrame(function () { hero.classList.add("is-ready"); });
+
+    if (prefersReducedMotion) return;
+
+    var media = hero.querySelector(".hero__media");
+    var content = hero.querySelector(".hero__content");
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+      var vh = window.innerHeight || 1;
+      var y = window.scrollY || window.pageYOffset || 0;
+      if (y > vh) return; // only animate while the hero is on screen
+      var p = y / vh;                       // 0 → 1 across the first viewport
+      if (media)   media.style.setProperty("--hero-bg", (y * 0.14).toFixed(1) + "px");
+      if (content) {
+        content.style.setProperty("--hero-fg", (y * -0.06).toFixed(1) + "px");
+        content.style.setProperty("--hero-fade", Math.max(0, 1 - p * 1.15).toFixed(3));
+      }
+    }
+    function onScroll() {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  /* ----------------------------------------------------------------------
      INIT
      ---------------------------------------------------------------------- */
   function init() {
@@ -5342,6 +6420,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
     initMobileNav();
     initReveal();
     initScrollSpy();
+    initHero();
   }
 
   if (doc.readyState === "loading") {
@@ -5447,7 +6526,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
       desc: "نبدأ رحلتك بجلسة استشارية نستمع فيها إلى احتياجاتك وأهدافك من السفر. يقدّم فريقنا إرشادًا واضحًا حول الخيارات المتاحة والمتطلبات الرسمية، ويجيب عن جميع استفساراتك بشفافية. هدفنا في هذه المرحلة أن نفهم تمامًا ما تحتاجه، لنبني عليه خطة خدمة دقيقة تناسب وضعك وميزانيتك، وتنطلق بك نحو تجربة سفر واضحة منذ الخطوة الأولى.",
       points: ["فهم احتياجاتك", "إرشاد واضح", "خيارات مناسبة"],
       img: "https://i.ibb.co/qY9S31CN/hww1.webp",
-      alt: "جلسة استشارة سفر مع فريق وكالة المدى"
+      alt: "جلسة استشارة سفر مع فريق وكالة المـدى"
     },
     {
       id: "choose", num: "02", title: "اختيار الخدمة", icon: "ic-choose",
@@ -5526,7 +6605,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
 
     function render(i) {
       var s = STEPS[i];
-      panel.querySelector("[data-num]").textContent = s.num;
+      Array.prototype.forEach.call(panel.querySelectorAll("[data-num]"), function (n) { n.textContent = s.num; });
       panel.querySelector("[data-title]").textContent = s.title;
       panel.querySelector("[data-desc]").textContent = s.desc;
       panel.querySelector("[data-points]").innerHTML = s.points.map(function (p) {
@@ -5546,6 +6625,7 @@ a[role="button"], button, [type="button"], [type="submit"], summary {
         var sel = j === i;
         b.setAttribute("aria-selected", String(sel));
         b.setAttribute("tabindex", sel ? "0" : "-1");
+        b.classList.toggle("is-reached", j < i);
       });
       timeline.style.setProperty("--progress", last === 0 ? "0%" : (i / last) * 100 + "%");
       render(i);
